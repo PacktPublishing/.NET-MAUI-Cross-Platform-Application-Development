@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using Microsoft.Maui.Essentials;
+using Microsoft.Maui.Controls;
 
 namespace PassXYZ.Vault.ViewModels
 {

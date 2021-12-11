@@ -3,8 +3,8 @@ using PassXYZ.Vault.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace PassXYZ.Vault.Views
 {

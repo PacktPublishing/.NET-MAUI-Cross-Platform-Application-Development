@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace PassXYZ.Vault.Views
 {
