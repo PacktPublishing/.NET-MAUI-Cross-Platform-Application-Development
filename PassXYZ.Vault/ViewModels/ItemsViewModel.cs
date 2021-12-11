@@ -1,10 +1,7 @@
 ﻿using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
 
 namespace PassXYZ.Vault.ViewModels
 {
@@ -28,7 +25,7 @@ namespace PassXYZ.Vault.ViewModels
             AddItemCommand = new Command(OnAddItem);
         }
 
-        async Task ExecuteLoadItemsCommand()
+        public async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
@@ -39,6 +36,7 @@ namespace PassXYZ.Vault.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
+                    Debug.WriteLine($"ItemsViewModel: {item.Text}, {item.Description}");
                 }
             }
             catch (Exception ex)
@@ -51,10 +49,11 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public void OnAppearing()
+        async public void OnAppearing()
         {
             IsBusy = true;
             SelectedItem = null;
+            await ExecuteLoadItemsCommand();
         }
 
         public Item SelectedItem
@@ -72,7 +71,7 @@ namespace PassXYZ.Vault.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        public async void OnItemSelected(Item item)
         {
             if (item == null)
                 return;
