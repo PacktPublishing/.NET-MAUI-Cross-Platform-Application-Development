@@ -52,13 +52,19 @@
                 HorizontalOptions="Center" />
 
                 <Button 
-                    Text="{x:Static app:FontAwesomeSolid.Plus}"
+                    Text="Click me!"
                     FontAttributes="Bold"
-                    FontFamily="FontAwesomeSolid"
                     Grid.Row="3"
                     SemanticProperties.Hint="Counts the number of times you click"
                     Clicked="OnCounterClicked"
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="FontAwesomeSolid"
+                         Glyph="{x:Static app:FontAwesomeSolid.PlusCircle}"
+                         Color="{DynamicResource SecondaryColor}"
+                         Size="16" />
+                    </Button.ImageSource>
+                </Button>
 
                 <Image Grid.Row="4"
                 Source="dotnet_bot.png"
