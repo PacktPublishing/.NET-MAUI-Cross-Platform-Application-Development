@@ -12,16 +12,16 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="48" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Image Grid.Column="0" VerticalOptions="Center">
                     <Image.Source >
-                        <FontImageSource FontFamily="FontAwesomeBrands"
-                         Glyph="{x:Static app:FontAwesomeBrands.Microsoft}"
-                         Color="{DynamicResource PrimaryColor}"
-                         Size="32" />
+                        <FontImageSource FontFamily="FontAwesomeSolid"
+                         Glyph="{x:Static app:FontAwesomeSolid.PassXYZ}"
+                         Color="#3498db"
+                         Size="48" />
                     </Image.Source>
                 </Image>
 
