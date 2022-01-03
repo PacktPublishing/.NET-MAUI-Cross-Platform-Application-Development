@@ -40,36 +40,68 @@
      <!-- SHELL -->
     <Style x:Key="BaseStyle"
            TargetType="Element">
-                <Setter Property="Shell.FlyoutBackground"
-                        Value="{StaticResource Background_Mid}"/>
-                <Setter Property="Shell.BackgroundColor"
-                    Value="{StaticResource Background_Mid}" />
-                <Setter Property="Shell.ForegroundColor"
-                    Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-                <Setter Property="Shell.TitleColor"
-                    Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-                <Setter Property="Shell.DisabledColor"
-                    Value="#B4000000" />
-                <Setter Property="Shell.UnselectedColor"
-                    Value="#CC0000" />
-                <Setter Property="Shell.NavBarHasShadow"
-                    Value="False"/>
-        
-            </Style>
+                <Setter Property="Shell.FlyoutBackground" Value="{StaticResource Background_Mid}"/>
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+                <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4000000" />
+                <Setter Property="Shell.UnselectedColor" Value="#CC0000" />
+        <Setter Property="Shell.NavBarHasShadow" Value="False"/>
+    </Style>
 
     <Style BasedOn="{StaticResource BaseStyle}"
            ApplyToDerivedTypes="True"
            TargetType="FlyoutItem" />
 
     <Style TargetType="TabBar">
-        <Setter Property="Shell.TabBarBackgroundColor"
-            Value="{StaticResource Background_Mid}" />
-        <Setter Property="Shell.TabBarTitleColor"
-            Value="{StaticResource Accent}" />
-        <Setter Property="Shell.TabBarUnselectedColor"
-            Value="{StaticResource TabOff}" />
-        <Setter Property="Shell.TabBarForegroundColor"
-            Value="{StaticResource Accent}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Background_Mid}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Accent}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabOff}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Accent}" />
+    </Style>
+
+    <!--
+        Default Styles for all Flyout Items
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+    -->
+    <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White"></Setter>
+    </Style>
+    <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                            <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <!--
+        Custom Style you can apply to any Flyout Item
+    -->
+    <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
@@ -85,86 +117,56 @@
 
     <Style TargetType="Label">
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize"
-                Value="17"/>
-        <Setter Property="TextColor"
-                Value="{StaticResource White}"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="TextColor" Value="{StaticResource White}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="LargeTitle">
-        <Setter Property="FontSize"
-                Value="24"/>
+    <Style TargetType="Label" Class="LargeTitle">
+        <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
     </Style>
-    <Style TargetType="Label"
-            Class="SectionTitle">
-        <Setter Property="FontSize"
-                Value="27"/>
+    <Style TargetType="Label" Class="SectionTitle">
+        <Setter Property="FontSize" Value="27"/>
         <Setter Property="TextColor" Value="{StaticResource Accent_Blue100}"/>
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Title1">
-        <Setter Property="FontSize"
-                Value="26"/>
+    <Style TargetType="Label" Class="Title1">
+        <Setter Property="FontSize" Value="26"/>
         <Setter Property="FontFamily" Value="OpenSansSemiBold"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Headline">
-        <Setter Property="FontSize"
-                Value="17"/>
+    <Style TargetType="Label" Class="Headline">
+        <Setter Property="FontSize" Value="17"/>
         <Setter Property="FontFamily" Value="OpenSansSemiBold"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Subhead">
-        <Setter Property="FontSize"
-                Value="14"/>
-        <Setter Property="TextColor"
-                Value="{StaticResource White}"/>
+    <Style TargetType="Label" Class="Subhead">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource White}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="SubContent">
-        <Setter Property="FontSize"
-                Value="14"/>
-        <Setter Property="TextColor"
-                Value="{StaticResource TabOff}"/>
+    <Style TargetType="Label" Class="SubContent">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="TextColor" Value="{StaticResource TabOff}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Footnote">
-        <Setter Property="FontSize"
-                Value="13"/>
+    <Style TargetType="Label" Class="Footnote">
+        <Setter Property="FontSize" Value="13"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Small">
-        <Setter Property="FontSize"
-                Value="10"/>
+    <Style TargetType="Label" Class="Small">
+        <Setter Property="FontSize" Value="10"/>
     </Style>
 
     <!-- Text Color Styles -->
-    <Style TargetType="Label"
-            Class="Secondary">
-        <Setter Property="TextColor"
-                Value="{StaticResource Secondary}"/>
+    <Style TargetType="Label" Class="Secondary">
+        <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Primary">
-        <Setter Property="TextColor"
-                Value="{StaticResource Primary}"/>
+    <Style TargetType="Label" Class="Primary">
+        <Setter Property="TextColor" Value="{StaticResource Primary}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Error">
-        <Setter Property="TextColor"
-                Value="{StaticResource Error}"/>
+    <Style TargetType="Label" Class="Error">
+        <Setter Property="TextColor" Value="{StaticResource Error}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Warning">
-        <Setter Property="TextColor"
-                Value="{StaticResource Warning}"/>
+    <Style TargetType="Label" Class="Warning">
+        <Setter Property="TextColor" Value="{StaticResource Warning}"/>
     </Style>
-    <Style TargetType="Label"
-            Class="Disabled">
-        <Setter Property="TextColor"
-                Value="{StaticResource Neutral}"/>
+    <Style TargetType="Label" Class="Disabled">
+        <Setter Property="TextColor" Value="{StaticResource Neutral}"/>
     </Style>
 
     <FontImageSource
@@ -187,6 +189,7 @@
         Glyph="{x:Static app:IconFont.DotCircle}"
         Color="{StaticResource Primary}"
         Size="16"/>
+    
     <FontImageSource
         x:Key="CircleIconAltDisabled"
         FontFamily="FontAwesome"
@@ -326,13 +329,9 @@
             <Grid HeightRequest="144"
                   WidthRequest="144"
                   Padding="20">
-                <Image Source="{Binding .}"
-                                   VerticalOptions="Start"
-                                     HorizontalOptions="End"/>
+                <Image Source="{Binding .}" VerticalOptions="Start" HorizontalOptions="End"/>
 
-                <StackLayout HorizontalOptions="Start"
-                                     Spacing="0"
-                                     VerticalOptions="End">
+                <StackLayout HorizontalOptions="Start" Spacing="0" VerticalOptions="End">
                     <Label Text="2%" class="LargeTitle"/>
                     <Label Text="From" class="Subhead"/>
                     <Label Text="Pond Elementary" class="SubContent"/>

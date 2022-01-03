@@ -5,7 +5,7 @@
              x:Class="PassXYZ.Vault.App"
              windows:Application.ImageDirectory="Assets">
     <Application.Resources>
-        <ResourceDictionary Source="Resources/Styles/XamTheme.xaml"/>
+        <ResourceDictionary Source="Resources/Styles/DefaultTheme.xaml"/>
     </Application.Resources>
 
     <Application.MainPage>
