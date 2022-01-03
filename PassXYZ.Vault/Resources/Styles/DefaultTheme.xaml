@@ -6,7 +6,9 @@
                     xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls">
 
     <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="PrimaryColor">#512BD4</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>
+    <Color x:Key="SecondaryColor">#DFD8F7</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="Neutral">#969696</Color>
     <Color x:Key="NeutralLighter">#E5E5E1</Color>
@@ -14,6 +16,7 @@
     <Color x:Key="White">#FFFFFF</Color>
     <Color x:Key="Black">#000000</Color>
     <Color x:Key="Accent">#F7B548</Color>
+    <Color x:Key="AccentColor">#72ACF1</Color>
     <Color x:Key="Error">#C00</Color>
     <Color x:Key="Warning">#FFCC00</Color>
     <Color x:Key="Text_Light">#000000</Color>
@@ -30,6 +33,13 @@
     <Color x:Key="Accent_Blue200">#72ACF1</Color>
     <Color x:Key="TabOff">#91A7B7</Color>
 
+    <Color x:Key="PageBackgroundColor">White</Color>
+    <Color x:Key="NavigationBarColor">#2196F3</Color>
+
+    <Color x:Key="PrimaryTextColor">Black</Color>
+    <Color x:Key="SecondaryTextColor">#4a4a4a</Color>
+    <Color x:Key="TertiaryTextColor">#7d7d7d</Color>
+
     <FontImageSource
                 x:Key="SearchIcon"
                 FontFamily="FontAwesome"
@@ -37,72 +47,6 @@
                 Color="{StaticResource Background_Mid}"
                 Size="16"/>
 
-     <!-- SHELL -->
-    <Style x:Key="BaseStyle"
-           TargetType="Element">
-                <Setter Property="Shell.FlyoutBackground" Value="{StaticResource Background_Mid}"/>
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-                <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
-                <Setter Property="Shell.DisabledColor" Value="#B4000000" />
-                <Setter Property="Shell.UnselectedColor" Value="#CC0000" />
-        <Setter Property="Shell.NavBarHasShadow" Value="False"/>
-    </Style>
-
-    <Style BasedOn="{StaticResource BaseStyle}"
-           ApplyToDerivedTypes="True"
-           TargetType="FlyoutItem" />
-
-    <Style TargetType="TabBar">
-        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Background_Mid}" />
-        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Accent}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource TabOff}" />
-        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Accent}" />
-    </Style>
-
-    <!--
-        Default Styles for all Flyout Items
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
-    -->
-    <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="White"></Setter>
-    </Style>
-    <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource White}" />
-                            <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Selected">
-                        <VisualState.Setters>
-                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <!--
-        Custom Style you can apply to any Flyout Item
-    -->
-    <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal">
-                        <VisualState.Setters>
-                            <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
