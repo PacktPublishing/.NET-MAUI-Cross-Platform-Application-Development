@@ -5,76 +5,56 @@
              BackgroundColor="{DynamicResource SecondaryColor}">
 
     <ScrollView>
-        <StackLayout Orientation="Vertical">
-            <Grid HorizontalOptions="CenterAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,*"
+            Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
 
-                <Image Grid.Column="0" VerticalOptions="Center">
-                    <Image.Source >
-                        <FontImageSource FontFamily="FontAwesomeSolid"
-                         Glyph="{x:Static app:FontAwesomeSolid.PassXYZ}"
-                         Color="#3498db"
-                         Size="48" />
-                    </Image.Source>
-                </Image>
-
-                <Label Text=" Welcome to .NET Multi-platform App UI"  Grid.Column="1"
-                        SemanticProperties.HeadingLevel="Level1"
-                        SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                        VerticalOptions="Center"
-                        FontSize="18" />
-
-            </Grid>
-
-            <Grid RowSpacing="25" RowDefinitions="Auto,Auto,Auto,Auto,*"
-              Padding="{OnPlatform iOS='30,60,30,30', Default='30'}">
-
-                <Label  Grid.Row="0"
-                Text="Press the button to increase the count."
-                FontSize="18"
-                FontFamily="FontAwesomeRegular"
+            <Label 
+                Text="Hello, World!"
+                Grid.Row="0"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
                 HorizontalOptions="Center" />
 
-
-                <Label 
-                Text="Current count: 0"
-                Grid.Row="2"
+            <Label 
+                Text="Welcome to .NET Multi-platform App UI"
+                Grid.Row="1"
+                SemanticProperties.HeadingLevel="Level1"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
+                HorizontalOptions="Center" />
+
+            <Label 
+            Text="Current count: 0"
+            Grid.Row="2"
+            FontSize="18"
+            FontAttributes="Bold"
+            x:Name="CounterLabel"
+            HorizontalOptions="Center" />
+
+            <Button 
+                Text="Click me"
                 FontAttributes="Bold"
-                x:Name="CounterLabel"
-                HorizontalOptions="Center" />
+                Grid.Row="3"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Center">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="FontAwesomeSolid"
+                        Glyph="{x:Static app:FontAwesomeSolid.PlusCircle}"
+                        Color="{DynamicResource SecondaryColor}"
+                        Size="16" />
+                </Button.ImageSource>
+            </Button>
 
-                <Button 
-                    Text="Click me!"
-                    FontAttributes="Bold"
-                    Grid.Row="3"
-                    SemanticProperties.Hint="Counts the number of times you click"
-                    Clicked="OnCounterClicked"
-                    HorizontalOptions="Center">
-                    <Button.ImageSource>
-                        <FontImageSource FontFamily="FontAwesomeSolid"
-                         Glyph="{x:Static app:FontAwesomeSolid.PlusCircle}"
-                         Color="{DynamicResource SecondaryColor}"
-                         Size="16" />
-                    </Button.ImageSource>
-                </Button>
+            <Image Grid.Row="4"
+            Source="dotnet_bot.png"
+            SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            WidthRequest="250"
+            HeightRequest="310"
+            HorizontalOptions="Center" />
 
-                <Image Grid.Row="4"
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                WidthRequest="250"
-                HeightRequest="310"
-                HorizontalOptions="Center" />
-
-            </Grid>
-        </StackLayout>
+        </Grid>
         
     </ScrollView>
 </ContentPage>
