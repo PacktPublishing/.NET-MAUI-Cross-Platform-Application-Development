@@ -1,23 +1,21 @@
 ﻿using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
-using Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;
-using Application = Microsoft.Maui.Controls.Application;
 
-namespace PassXYZ.Vault
+namespace PassXYZ.Vault;
+
+public partial class App : Application
 {
-	public partial class App : Application
+	public App()
 	{
-		public App()
-		{
-			InitializeComponent();
-			Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-			Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+		InitializeComponent();
+		Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
-			DependencyService.Register<MockDataStore>();
-		}
-		private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)
-		{
-			await Shell.Current.GoToAsync("//LoginPage");
-		}
+		DependencyService.Register<MockDataStore>();
+	}
+	private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)
+	{
+		await Shell.Current.GoToAsync("//LoginPage");
 	}
 }
+
