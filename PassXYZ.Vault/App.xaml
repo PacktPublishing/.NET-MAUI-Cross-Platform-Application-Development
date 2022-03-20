@@ -1,62 +1,26 @@
-﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:local="clr-namespace:PassXYZ.Vault.Views"
-             x:Class="PassXYZ.Vault.App"
-             windows:Application.ImageDirectory="Assets">
+             xmlns:local="clr-namespace:PassXYZ.Vault"
+             x:Class="PassXYZ.Vault.App">
     <Application.Resources>
-        <ResourceDictionary Source="Resources/Styles/XamTheme.xaml"/>
+        <ResourceDictionary>
+
+            <Color x:Key="PrimaryColor">#512bdf</Color>
+            <Color x:Key="SecondaryColor">White</Color>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource SecondaryColor}" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+                <Setter Property="Padding" Value="14,10" />
+            </Style>
+
+        </ResourceDictionary>
     </Application.Resources>
-
-    <Application.MainPage>
-        <Shell 
-            Title="PassXYZ.Vault">
-
-            <!-- 
-        When the Flyout is visible this defines the content to display in the flyout.
-        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
-        https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
-    -->
-            <FlyoutItem Title="About" Icon="tab_favorites.png">
-                <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-            </FlyoutItem>
-            <FlyoutItem Title="Browse" Icon="tab_home.png">
-                <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
-            </FlyoutItem>
-            <FlyoutItem Title="Logout" Icon="tab_settings.png">
-                <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-            </FlyoutItem>
-
-            <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-            <!--MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
-            </MenuItem-->
-
-            <!-- TabBar lets you define content that won't show up in a flyout menu. When this content is active
-        the flyout menu won't be available. This is useful for creating areas of the application where 
-        you don't want users to be able to navigate away from. If you would like to navigate to this 
-        content you can do so by calling 
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
-            <TabBar>
-                <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-            </TabBar>
-
-            <!-- Optional Templates 
-            // These may be provided inline as below or as separate classes.
-            <Shell.ItemTemplate>
-                <DataTemplate>
-                    <Grid
-                        RowDefinitions="68" HeightRequest="68">
-                        <Image Source="{Binding FlyoutIcon}"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               />
-                    </Grid>
-                </DataTemplate>
-
-            </Shell.ItemTemplate>
-            -->
-            
-        </Shell>
-    </Application.MainPage>
 </Application>
