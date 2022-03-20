@@ -14,6 +14,7 @@ namespace PassXYZ.Vault
 			Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
 			DependencyService.Register<MockDataStore>();
+			MainPage = new AppShell();
 		}
 		private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)
 		{
