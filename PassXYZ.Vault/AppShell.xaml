@@ -86,7 +86,7 @@
     <FlyoutItem Title="About" Icon="tab_favorites.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
-    <FlyoutItem x:Name="RootItem" Title="RootPage" Icon="tab_home.png">
+    <FlyoutItem x:Name="RootItem" Title="Browse" Icon="tab_home.png">
         <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     <!--
