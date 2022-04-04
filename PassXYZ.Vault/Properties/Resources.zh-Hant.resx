@@ -355,7 +355,7 @@
     <value>了解更多</value>
   </data>
   <data name="about_passxyz_copyright" xml:space="preserve">
-    <value>Copyright 2021, 葉樹杲 All rights reserved.</value>
+    <value>Copyright 2022, 葉樹杲 All rights reserved.</value>
   </data>
   <data name="about_passxyz_license" xml:space="preserve">
     <value>PassXYZ.Vault使用GNU通用公共許可證v3.0。如果您使用該軟件，表示您同意Apache版權協議中的條款。您可以在下列網站獲得Apache 2.0版權協議。</value>
@@ -524,7 +524,7 @@
     <value>鳴謝</value>
   </data>
   <data name="about_keepass" xml:space="preserve">
-    <value>PassXYZ.Vault是基於KPCLib開發的。KPCLib是對KeePassLib在Xamarin上的擴展，使之可以運行在Xamarin環境中。KeePassLib是開源項目KeePass的壹部分。KeePass由Dominik Reichl開發。KeePass的官方網站是：</value>
+    <value>PassXYZ.Vault是基於KPCLib開發的。KPCLib是對KeePassLib在Xamarin上的擴展，使之可以運行在.NET MAUI或Xamarin環境中。KeePassLib是開源項目KeePass的壹部分。KeePass由Dominik Reichl開發。KeePass的官方網站是：</value>
   </data>
   <data name="about_kpclib" xml:space="preserve">
     <value>關於KPCLib的信息和源代碼可以在下面網站獲得：</value>

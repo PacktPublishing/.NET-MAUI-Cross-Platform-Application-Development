@@ -79,7 +79,7 @@ namespace PassXYZ.Vault.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PassXYZ.Vault is built on top of KPCLib which is a library changed based on KeePassLib. KPCLib enhanced KeePassLib so that it can be built as a PCL or .netstandard Library to run on Xamarin. KeePassLib is part of KeePass project developed by Dominik Reichl. The official website of KeePass is:.
+        ///   Looks up a localized string similar to PassXYZ.Vault is built on top of KPCLib which is a library changed based on KeePassLib. KPCLib enhanced KeePassLib so that it can be built as a PCL or .netstandard Library to run on .NET MAUI or Xamarin. KeePassLib is part of KeePass project developed by Dominik Reichl. The official website of KeePass is:.
         /// </summary>
         internal static string about_keepass {
             get {
@@ -106,7 +106,7 @@ namespace PassXYZ.Vault.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright 2021, Roger Ye. All rights reserved..
+        ///   Looks up a localized string similar to Copyright 2022, Roger Ye. All rights reserved..
         /// </summary>
         internal static string about_passxyz_copyright {
             get {

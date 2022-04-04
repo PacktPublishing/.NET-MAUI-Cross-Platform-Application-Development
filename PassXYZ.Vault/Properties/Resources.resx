@@ -384,7 +384,7 @@
     <value>Learn more</value>
   </data>
   <data name="about_passxyz_copyright" xml:space="preserve">
-    <value>Copyright 2021, Roger Ye. All rights reserved.</value>
+    <value>Copyright 2022, Roger Ye. All rights reserved.</value>
   </data>
   <data name="about_passxyz_license" xml:space="preserve">
     <value>PassXYZ.Vault is licensed under the GNU General Public License v3.0 . You may not use this file except in compliance with the License. You may obtain a copy of the License at</value>
@@ -566,7 +566,7 @@ PassXYZ built-in template files can be downloaded at the below links:
     <value>Acknowledgement</value>
   </data>
   <data name="about_keepass" xml:space="preserve">
-    <value>PassXYZ.Vault is built on top of KPCLib which is a library changed based on KeePassLib. KPCLib enhanced KeePassLib so that it can be built as a PCL or .netstandard Library to run on Xamarin. KeePassLib is part of KeePass project developed by Dominik Reichl. The official website of KeePass is:</value>
+    <value>PassXYZ.Vault is built on top of KPCLib which is a library changed based on KeePassLib. KPCLib enhanced KeePassLib so that it can be built as a PCL or .netstandard Library to run on .NET MAUI or Xamarin. KeePassLib is part of KeePass project developed by Dominik Reichl. The official website of KeePass is:</value>
   </data>
   <data name="about_kpclib" xml:space="preserve">
     <value>The information and source code of KPCLib can be found at:</value>
