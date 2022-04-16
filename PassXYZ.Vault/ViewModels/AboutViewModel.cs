@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Microsoft.Maui.Essentials;
 using Microsoft.Maui.Controls;
 
 using PassXYZ.Vault.Properties;
