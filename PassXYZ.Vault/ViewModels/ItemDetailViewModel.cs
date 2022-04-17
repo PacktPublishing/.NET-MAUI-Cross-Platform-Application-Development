@@ -1,4 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+
+using KPCLib;
+using KeePassLib;
+using PassXYZLib;
 
 namespace PassXYZ.Vault.ViewModels;
 
@@ -9,6 +15,7 @@ public class ItemDetailViewModel : BaseViewModel
     private string text;
     private string description;
     public string Id { get; set; }
+    public ObservableCollection<Field> Fields { get; set; }
 
     public string Text
     {
@@ -35,6 +42,11 @@ public class ItemDetailViewModel : BaseViewModel
         }
     }
 
+    public ItemDetailViewModel()
+    {
+        Fields = new ObservableCollection<Field>();
+    }
+
     public async void LoadItemId(string itemId)
     {
         try
@@ -43,6 +55,18 @@ public class ItemDetailViewModel : BaseViewModel
             Id = item.Id;
             Text = item.Name;
             Description = item.Description;
+
+            if (!item.IsGroup) 
+            {
+                PwEntry dataEntry = (PwEntry)item;
+                Fields.Clear();
+                List<Field> fields = dataEntry.GetFields(GetImage: FieldIcons.GetImage);
+                foreach (Field field in fields)
+                {
+                    Fields.Add(field);
+                }
+                Debug.WriteLine($"ItemDetailViewModel: Name={dataEntry.Name}, IsBusy={IsBusy}.");
+            }
         }
         catch (Exception)
         {

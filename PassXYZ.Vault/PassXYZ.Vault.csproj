@@ -65,9 +65,5 @@
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\" />
-	</ItemGroup>
 	
 </Project>

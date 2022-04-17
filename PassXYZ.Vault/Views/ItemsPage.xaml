@@ -40,7 +40,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="passxyz_logo.png" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                                <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
                             </Grid>
                             <Label Text="{Binding Name}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 

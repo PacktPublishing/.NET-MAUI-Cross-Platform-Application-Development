@@ -1,16 +1,24 @@
-﻿using PassXYZ.Vault.ViewModels;
-using System.ComponentModel;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+﻿using System.Diagnostics;
+using KPCLib;
+using PassXYZ.Vault.ViewModels;
 
-namespace PassXYZ.Vault.Views
+namespace PassXYZ.Vault.Views;
+
+public partial class ItemDetailPage : ContentPage
 {
-    public partial class ItemDetailPage : ContentPage
+    public ItemDetailPage()
     {
-        public ItemDetailPage()
+        InitializeComponent();
+        BindingContext = new ItemDetailViewModel();
+    }
+
+    void OnFieldSelected(object sender, SelectedItemChangedEventArgs args)
+    {
+        var field = args.SelectedItem as Field;
+        if (field == null)
         {
-            InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            Debug.WriteLine("OnFieldSelected: Field is null.");
+            return;
         }
     }
 }
