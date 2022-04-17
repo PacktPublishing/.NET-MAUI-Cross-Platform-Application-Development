@@ -1,57 +1,52 @@
-﻿using PassXYZ.Vault.Models;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
+﻿using System.Diagnostics;
 
-namespace PassXYZ.Vault.ViewModels
+namespace PassXYZ.Vault.ViewModels;
+
+[QueryProperty(nameof(ItemId), nameof(ItemId))]
+public class ItemDetailViewModel : BaseViewModel
 {
-    [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    private string itemId;
+    private string text;
+    private string description;
+    public string Id { get; set; }
+
+    public string Text
     {
-        private string itemId;
-        private string text;
-        private string description;
-        public string Id { get; set; }
+        get => text;
+        set => SetProperty(ref text, value);
+    }
 
-        public string Text
+    public string Description
+    {
+        get => description;
+        set => SetProperty(ref description, value);
+    }
+
+    public string ItemId
+    {
+        get
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            return itemId;
         }
-
-        public string Description
+        set
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            itemId = value;
+            LoadItemId(value);
         }
+    }
 
-        public string ItemId
+    public async void LoadItemId(string itemId)
+    {
+        try
         {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
+            var item = await DataStore.GetItemAsync(itemId);
+            Id = item.Id;
+            Text = item.Name;
+            Description = item.Description;
         }
-
-        public async void LoadItemId(string itemId)
+        catch (Exception)
         {
-            try
-            {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
+            Debug.WriteLine("Failed to Load Item");
         }
     }
 }

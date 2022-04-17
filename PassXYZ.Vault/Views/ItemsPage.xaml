@@ -4,7 +4,7 @@
              x:Class="PassXYZ.Vault.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"  
-             xmlns:model="clr-namespace:PassXYZ.Vault.Models"  
+             xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemsViewModel"
              x:Name="BrowseItemsPage">
 
@@ -42,7 +42,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0" Source="passxyz_logo.png" HorizontalOptions="Fill" VerticalOptions="Fill" />
                             </Grid>
-                            <Label Text="{Binding Text}"  Grid.Column="1"
+                            <Label Text="{Binding Name}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemTextStyle}"
