@@ -5,7 +5,6 @@
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemDetailViewModel"
-             xmlns:passxyzlib="clr-namespace:PassXYZLib"
              Title="{Binding Title}">
 
     <StackLayout>
