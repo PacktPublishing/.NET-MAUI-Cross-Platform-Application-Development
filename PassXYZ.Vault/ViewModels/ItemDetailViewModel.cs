@@ -12,16 +12,9 @@ namespace PassXYZ.Vault.ViewModels;
 public class ItemDetailViewModel : BaseViewModel
 {
     private string itemId;
-    private string text;
     private string description;
     public string Id { get; set; }
     public ObservableCollection<Field> Fields { get; set; }
-
-    public string Text
-    {
-        get => text;
-        set => SetProperty(ref text, value);
-    }
 
     public string Description
     {
@@ -53,7 +46,7 @@ public class ItemDetailViewModel : BaseViewModel
         {
             var item = await DataStore.GetItemAsync(itemId);
             Id = item.Id;
-            Text = item.Name;
+            Title = item.Name;
             Description = item.Description;
 
             if (!item.IsGroup) 
