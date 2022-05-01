@@ -13,6 +13,7 @@ public partial class ItemsPage : ContentPage
         InitializeComponent();
 
         BindingContext = _viewModel = new ItemsViewModel();
+        Debug.WriteLine("ItemsPage created");
     }
 
     protected override void OnAppearing()
@@ -26,7 +27,7 @@ public partial class ItemsPage : ContentPage
         var item = args.SelectedItem as Item;
         if (item == null)
         {
-            Debug.WriteLine("OnItemSelected: item is null.");
+            Debug.WriteLine("ItemsPage: OnItemSelected - item is null.");
             return;
         }
         _viewModel.OnItemSelected(item);

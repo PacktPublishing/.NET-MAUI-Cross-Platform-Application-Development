@@ -2,6 +2,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:PassXYZ.Vault.Views"
        xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
+       xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
        xmlns:app="clr-namespace:PassXYZ.Vault"
        Title="PassXYZ.Vault"
        x:Class="PassXYZ.Vault.AppShell">
@@ -57,10 +58,15 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <Tab Title="{x:Static resources:Resources.action_id_login}" Icon="tab_login.png">
+            <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        </Tab>
+        <Tab Title="{x:Static resources:Resources.menu_id_users}" Icon="tab_users.png">
+            <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
+        </Tab>
     </TabBar>
 
-    <FlyoutItem Title="About" Icon="tab_favorites.png" >
+    <FlyoutItem Title="{x:Static resources:Resources.About}" Icon="tab_info.png" >
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
     <FlyoutItem x:Name="RootItem" Title="Browse" Icon="tab_home.png">

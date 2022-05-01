@@ -6,12 +6,13 @@ using System.Runtime.CompilerServices;
 using Microsoft.Maui.Controls;
 
 using KPCLib;
+using PassXYZLib;
 
 namespace PassXYZ.Vault.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+    public IDataStore<Item, User> DataStore => DependencyService.Get<IDataStore<Item, User>>();
 
     bool isBusy = false;
     public bool IsBusy

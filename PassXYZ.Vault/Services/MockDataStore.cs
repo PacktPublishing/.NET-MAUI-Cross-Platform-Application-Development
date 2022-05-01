@@ -1,9 +1,21 @@
-﻿using KPCLib;
+﻿using System.Diagnostics;
+using System.Collections.ObjectModel;
+
+using SkiaSharp;
+
+using KeePassLib;
+using KPCLib;
+using KeePassLib.Collections;
+using KeePassLib.Keys;
+using KeePassLib.Security;
+using KeePassLib.Serialization;
 using PassXYZLib;
+
+using PassXYZ.Vault.Properties;
 
 namespace PassXYZ.Vault.Services;
 
-public class MockDataStore : IDataStore<Item>
+public static class PwDatabaseEx
 {
     static string[] jsonData = {
         "pxtem://{'IsPxEntry':true,'Strings':{'000UserName':{'Value':'PassXYZ Tester','IsProtected':false},'001Password':{'Value':'','IsProtected':true},'002Email':{'Value':'','IsProtected':false},'003URL':{'Value':'https://www.facebook.com/','IsProtected':false},'004QQ':{'Value':'','IsProtected':false},'005WeChat':{'Value':'','IsProtected':false},'Notes':{'Value':'Social Media','IsProtected':false},'Title':{'Value':'Facebook','IsProtected':false}}}",
@@ -13,51 +25,499 @@ public class MockDataStore : IDataStore<Item>
         "pxtem://{'IsPxEntry':true,'Strings':{'000UserName':{'Value':'PassXYZ Tester','IsProtected':false},'002Email':{'Value':'tester@amazon.com','IsProtected':false},'003URL':{'Value':'https://www.amazon.com/','IsProtected':false},'004QQ':{'Value':'123456789','IsProtected':false},'005WeChat':{'Value':'passxyz','IsProtected':false},'Notes':{'Value':'Shopping','IsProtected':false},'Title':{'Value':'Amazon','IsProtected':false}}}"
     };
 
-    readonly List<Item> items;
+    public static void CreateTestDb(PwDatabase pwDb)
+    {
+        pwDb.RootGroup = new PwGroup(true, true)
+        {
+            Name = "Root Group",
+            Notes = "This is the Root Group.",
+        };
+
+        PwGroup group1 = new PwGroup(true, true)
+        {
+            Name = "Group 1",
+            Notes = "This is Group1",
+        };
+
+        // Add some entries to group1
+        #region group1
+        PwEntry e1g1 = new()
+        {
+            Name = "Entry 1 in group 1",
+            Notes = "I am Entry1 in group 1."
+        };
+
+        group1.AddEntry(e1g1, true);
+        PwEntry e2g1 = new()
+        {
+            Name = "Entry 2 in group 1",
+            Notes = "I am Entry2 in group 1."
+        };
+
+        group1.AddEntry(e2g1, true);
+
+        PwGroup group11 = new PwGroup(true, true)
+        {
+            Name = "Sub Group 1 of group 1",
+            Notes = "This is a sub-group of Group1",
+        };
+        group1.AddGroup(group11, true);
+
+        pwDb.RootGroup.AddGroup(group1, true);
+        #endregion
+
+        #region group2
+        PwGroup group2 = new PwGroup(true, true)
+        {
+            Name = "Group 2",
+            Notes = "This is Group2",
+        };
+        PwGroup group21 = new PwGroup(true, true)
+        {
+            Name = "Sub Group 1 of group 2",
+            Notes = "This is a sub-group of Group2",
+        };
+        group2.AddGroup(group21, true);
+
+        pwDb.RootGroup.AddGroup(group2, true);
+        #endregion
+
+
+        pwDb.RootGroup.AddEntry(new PxEntry(jsonData[0]), true);
+        pwDb.RootGroup.AddEntry(new PxEntry(jsonData[1]), true);
+        pwDb.RootGroup.AddEntry(new PxEntry(jsonData[2]), true);
+        pwDb.RootGroup.AddEntry(new PxEntry(jsonData[3]), true);
+        pwDb.RootGroup.AddEntry(new PxEntry(jsonData[4]), true);
+    }
+}
+
+public class MockDataStore : IDataStore<Item, User>
+{
+    public ObservableCollection<User>? Users { get; private set; }
+    private static readonly object _sync = new object();
+    private static bool _isBusyToLoadUsers = false;
+    public static bool IsBusyToLoadUsers
+    {
+        get => _isBusyToLoadUsers;
+        set
+        {
+            lock (_sync)
+            {
+                _isBusyToLoadUsers = value;
+            }
+        }
+    }
 
     public MockDataStore()
     {
-        items = new List<Item>()
+        db = PasswordDb.Instance;
+        PwDatabaseEx.CreateTestDb(db);
+        db.LastSelectedGroup = db.RootGroup.Uuid;
+        currentGroup = db.RootGroup;
+        Users = new ObservableCollection<User>();
+        SynchronizeUsersAsync();
+        Debug.WriteLine("MockDataStore: db created.");
+    }
+
+    private readonly PasswordDb db = default!;
+    private User _user;
+    private bool _isBusy = false;
+
+    public bool IsOpen => db != null && db.IsOpen;
+
+    public Item RootGroup
+    {
+        get => db.RootGroup;
+    }
+
+    public string CurrentPath => db.CurrentPath;
+
+    public List<Item> Items => currentGroup!.GetItems();
+
+    private PwGroup? currentGroup = null;
+    public Item CurrentGroup
+    {
+        get
         {
-            new PxEntry(jsonData[0]),
-            new PxEntry(jsonData[1]),
-            new PxEntry(jsonData[2]),
-            new PxEntry(jsonData[3]),
-            new PxEntry(jsonData[4])
-        };
+            if (db.RootGroup != null)
+            {
+                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
+                {
+                    db.LastSelectedGroup = db.RootGroup.Uuid;
+                    currentGroup = db.RootGroup;
+                }
+
+                if (currentGroup == null)
+                {
+                    if (!db.LastSelectedGroup.Equals(PwUuid.Zero)) { currentGroup = db.RootGroup.FindGroup(db.LastSelectedGroup, true); }
+                }
+            }
+            return currentGroup;
+        }
+
+        set
+        {
+            if (value == null) { Debug.Assert(false); throw new ArgumentNullException("value"); }
+            if (value is PwGroup group)
+            {
+                db.LastSelectedGroup = group.Uuid;
+                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
+                {
+                    db.LastSelectedGroup = db.RootGroup.Uuid;
+                    currentGroup = db.RootGroup;
+                }
+                else
+                    currentGroup = group;
+            }
+        }
     }
 
-    public async Task<bool> AddItemAsync(Item item)
+    public User CurrentUser
     {
-        items.Add(item);
-
-        return await Task.FromResult(true);
+        get => _user;
     }
 
-    public async Task<bool> UpdateItemAsync(Item item)
+    public List<string> GetUsersList()
     {
-        var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-        items.Remove(oldItem);
-        items.Add(item);
+        List<string> userList = new List<string>();
 
-        return await Task.FromResult(true);
+        if(Users != null)
+        {
+            foreach (User user in Users)
+            {
+                userList.Add(user.Username);
+            }
+        }
+        return userList;
+    }
+
+    public async Task<bool> SynchronizeUsersAsync()
+    {
+        IEnumerable<PxUser> pxUsers = null;
+
+#if PASSXYZ_CLOUD_SERVICE
+            if (PxCloudConfig.IsConfigured && PxCloudConfig.IsEnabled)
+            {
+                if (PassXYZ.Vault.App.IsSshOperationTimeout)
+                {
+                    // If the last connection is timeout, we load local users first.
+                    pxUsers = await PxUser.LoadLocalUsersAsync();
+                }
+                else 
+                {
+                    ICloudServices<PxUser> sftp = PxCloudConfig.GetCloudServices();
+                    pxUsers = await sftp.SynchronizeUsersAsync();
+                }
+            }
+            else
+#endif // PASSXYZ_CLOUD_SERVICE
+        {
+            pxUsers = await PxUser.LoadLocalUsersAsync(IsBusyToLoadUsers);
+        }
+
+        if (pxUsers != null && Users != null)
+        {
+            IsBusyToLoadUsers = true;
+            Users.Clear();
+            foreach (PxUser pxUser in pxUsers)
+            {
+                Users.Add(pxUser);
+            }
+            IsBusyToLoadUsers = false;
+            if (Users.Count > 0)
+            {
+                // We need to check whether the current user at App level exist
+                if (!Users.Contains(App.CurrentUser) && !string.IsNullOrEmpty(App.CurrentUser.Username))
+                {
+                    Debug.WriteLine($"LoginViewModel: Username={App.CurrentUser.Username} doesn't existed.");
+                    App.CurrentUser.Username = string.Empty;
+                }
+            }
+
+            return true;
+        }
+        else
+        {
+            Debug.WriteLine("LoginViewModel: SynchronizeUsersAsync failed");
+            return false;
+        }
+    }
+
+    public void SetCurrentToParent()
+    {
+        if (!CurrentGroup.GetUuid().Equals(RootGroup.GetUuid()))
+        {
+            CurrentGroup = db.CurrentGroup.ParentGroup;
+        }
+    }
+
+    public async Task SaveAsync()
+    {
+        Debug.WriteLine($"DataStore: SaveAsync _isBusy={_isBusy}");
+        _ = await GetItemsAsync();
+    }
+
+    public async Task AddItemAsync(Item item)
+    {
+        Items.Add(item);
+        if (item.IsGroup)
+        {
+            db.CurrentGroup.AddGroup(item as PwGroup, true);
+        }
+        else
+        {
+            db.CurrentGroup.AddEntry(item as PwEntry, true);
+        }
+        await SaveAsync();
+        Debug.WriteLine($"DataStore: AddItemAsync({item.Name}), saved");
+    }
+
+    public async Task UpdateItemAsync(Item item)
+    {
+        item.LastModificationTime = DateTime.UtcNow;
+        await SaveAsync();
+        Debug.WriteLine($"DataStore: UpdateItemAsync({item.Name}), saved");
     }
 
     public async Task<bool> DeleteItemAsync(string id)
     {
-        var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-        items.Remove(oldItem);
+        Item? oldItem = Items.Where((Item arg) => arg.Id == id).FirstOrDefault();
+
+        if (oldItem != null) 
+        {
+            _ = Items.Remove(oldItem);
+        }
 
         return await Task.FromResult(true);
     }
 
-    public async Task<Item> GetItemAsync(string id)
+    public async Task<Item> GetItemFromCurrentGroupAsync(string id)
     {
-        return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+        return await Task.FromResult(Items.FirstOrDefault(s => s.Id == id));
+    }
+
+    public Item GetItemFromCurrentGroup(string id)
+    {
+        return Items.FirstOrDefault(s => s.Id == id);
+    }
+
+    public Item FindGroup(string id)
+    {
+        return db.RootGroup.FindGroup(id, true);
+    }
+
+    public async Task<Item?> FindEntryByIdAsync(string id)
+    {
+        return await Task.Run(() => { return db.FindEntryById(id); });
+    }
+
+    public Item? FindEntryById(string id)
+    {
+        return db.FindEntryById(id);
+    }
+
+    public async Task<Item?> GetItemAsync(string id)
+    {
+        return await Task.FromResult(Items.FirstOrDefault(s => s.Id == id));
     }
 
     public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
     {
-        return await Task.FromResult(items);
+        if (currentGroup == null) 
+        {
+            Debug.WriteLine($"MockDataStore: CurrentGroup is null!");
+            return Enumerable.Empty<Item>(); 
+        }
+        return await Task.FromResult(Items);
+    }
+
+    /// <summary>
+    /// Search entries with a keyword
+    /// </summary>
+    /// <param name="strSearch">keyword to be searched</param>
+    /// <param name="itemGroup">If it is not null, this group is searched</param>
+    /// <returns>a list of entries</returns>
+    public async Task<IEnumerable<Item>> SearchEntriesAsync(string strSearch, Item itemGroup = null)
+    {
+        return await Task.Run(() => { return db.SearchEntries(strSearch, itemGroup); });
+    }
+
+    public async Task<IEnumerable<Item>> GetOtpEntryListAsync()
+    {
+        return await Task.Run(() => { return db.GetOtpEntryList(); });
+    }
+
+    public async Task<bool> LoginAsync(User user)
+    {
+        if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
+        _user = user;
+
+        return await Task.Run(() =>
+        {
+            if (string.IsNullOrEmpty(user.Password)) { return false; }
+
+            db.Open(user);
+            if (db.IsOpen)
+            {
+                db.CurrentGroup = db.RootGroup;
+            }
+            return db.IsOpen;
+        });
+    }
+
+    public async Task SignUpAsync(PassXYZLib.User user)
+    {
+        if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
+
+        var logger = new KPCLibLogger();
+        await Task.Run(() => {
+            db.New(user);
+            // Create a PassXYZ Usage note entry
+            PwEntry pe = new PwEntry(true, true);
+            pe.Strings.Set(PxDefs.TitleField, new ProtectedString(false, Properties.Resources.entry_id_passxyz_usage));
+            pe.Strings.Set(PxDefs.NotesField, new ProtectedString(false, Properties.Resources.about_passxyz_usage));
+            //pe.CustomData.Set(Item.TemplateType, ItemSubType.Notes.ToString());
+            //pe.CustomData.Set(Item.PxIconName, "ic_entry_passxyz.png");
+            pe.SetType(ItemSubType.Notes);
+            db.RootGroup.AddEntry(pe, true);
+
+            try
+            {
+                logger.StartLogging("Saving database ...", true);
+                db.DescriptionChanged = DateTime.UtcNow;
+                db.Save(logger);
+                logger.EndLogging();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Failed to save database." + e.Message);
+            }
+        });
+
+    }
+
+    public void Logout()
+    {
+        if (db.IsOpen) { db.Close(); }
+        Debug.WriteLine("DataStore.Logout(done)");
+    }
+
+    public string GetStoreName()
+    {
+        return db.Name;
+    }
+
+    public DateTime GetStoreModifiedTime()
+    {
+        return db.DescriptionChanged;
+    }
+
+    public async Task<bool> ChangeMasterPassword(string newPassword)
+    {
+        bool result = db.ChangeMasterPassword(newPassword, _user);
+        if (result)
+        {
+            db.MasterKeyChanged = DateTime.UtcNow;
+            // Save the database to take effect
+            await SaveAsync();
+        }
+        return result;
+    }
+
+    public string GetMasterPassword()
+    {
+        var userKey = db.MasterKey.GetUserKey(typeof(KcpPassword)) as KcpPassword;
+        return userKey.Password.ReadString();
+    }
+
+    public string GetDeviceLockData()
+    {
+        return db.GetDeviceLockData(_user);
+    }
+
+    /// <summary>
+    /// Get the list of custom icons.
+    /// </summary>
+    /// <returns>list of custom icons</returns>
+    public ObservableCollection<PxIcon> GetCustomIcons(string? searchText = null)
+    {
+        ObservableCollection<PxIcon> icons = new();
+        foreach (PwCustomIcon pwci in db.CustomIcons)
+        {
+            if ((searchText == null) || pwci.Name.Contains(searchText))
+            {
+                PxIcon icon = new PxIcon
+                {
+                    IconType = PxIconType.PxEmbeddedIcon,
+                    Uuid = pwci.Uuid,
+                    Name = pwci.Name,
+                };
+                icon.ImgSource = GetBuiltInImage(icon);
+                icons.Add(icon);
+            }
+        }
+
+        return icons;
+    }
+
+    /// <summary>
+    /// Delete a custom icon by uuid.
+    /// </summary>
+    /// <param name="icon">the custom icon</param>
+    /// <returns>success or failure</returns>
+    public async Task<bool> DeleteCustomIconAsync(PxIcon icon)
+    {
+        List<PwUuid> vUuidsToDelete = new List<PwUuid>();
+
+        if (icon.Uuid == null) { return false; }
+        vUuidsToDelete.Add(icon.Uuid);
+        bool result = db.DeleteCustomIcons(vUuidsToDelete);
+        if (result)
+        {
+            // Save the database to take effect
+            await SaveAsync();
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Get the image source from the custom icon in the database
+    /// </summary>
+    /// <param name="uuid">UUID of custom icon</param>
+    /// <returns>ImageSource or null</returns>
+    public ImageSource GetBuiltInImage(PxIcon icon)
+    {
+        PwCustomIcon customIcon = db.GetPwCustomIcon(icon.Uuid);
+        if (customIcon != null)
+        {
+            byte[] pb = customIcon.ImageDataPng;
+            SKBitmap bitmap = PxItem.LoadImage(pb);
+            return PxItem.GetImageSource(bitmap);
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Recreate a key file from a PxKeyData
+    /// </summary>
+    /// <param name="data">PxKeyData source</param>
+    /// <param name="username">username inside PxKeyData source</param>
+    /// <returns>true - created key file, false - failed to create key file.</returns>
+    public bool CreateKeyFile(string data, string username)
+    {
+        return db.CreateKeyFile(data, username);
+    }
+
+    public async Task<bool> MergeAsync(string path)
+    {
+        return await Task.Run(() =>
+        {
+            bool result = false;
+            if (db.IsOpen)
+            {
+                result = db.Merge(path, PwMergeMethod.KeepExisting);
+            }
+            return result;
+        });
     }
 }
