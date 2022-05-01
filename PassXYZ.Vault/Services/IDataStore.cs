@@ -41,4 +41,6 @@ public interface IDataStore<T, U>
     Task<bool> MergeAsync(string path);
     ObservableCollection<U>? Users { get;}
     List<string> GetUsersList();
+    Task<bool> SynchronizeUsersAsync();
+    bool IsBusyToLoadUsers { get; }
 }

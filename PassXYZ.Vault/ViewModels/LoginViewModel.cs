@@ -32,13 +32,13 @@ public class LoginViewModel : BaseViewModel
 
     public LoginViewModel()
     {
-        LoginCommand = new Command(OnLoginClicked);
+        LoginCommand = new Command(OnLoginClicked, ValidateLogin);
         SignUpCommand = new Command(OnSignUpClicked, ValidateSignUp);
         CancelCommand = new Command(OnCancelClicked);
-        this.PropertyChanged +=
+        CurrentUser.PropertyChanged +=
             (_, __) => LoginCommand.ChangeCanExecute();
 
-        this.PropertyChanged +=
+        CurrentUser.PropertyChanged +=
             (_, __) => SignUpCommand.ChangeCanExecute();
         Debug.WriteLine($"data_path={PxDataFile.DataFilePath}");
 
@@ -53,8 +53,10 @@ public class LoginViewModel : BaseViewModel
     {
         Debug.WriteLine($"LoginViewModel: ValidateLogin username={CurrentUser.Username}, password={CurrentUser.Password}");
         return !string.IsNullOrWhiteSpace(CurrentUser.Username)
-            && !string.IsNullOrWhiteSpace(CurrentUser.Password)
-            && LoginUser.IsPrivacyNoticeAccepted;
+#if PASSXYZ_PRIVACYNOTICE_REQUIRED
+            && LoginUser.IsPrivacyNoticeAccepted
+#endif
+            && !string.IsNullOrWhiteSpace(CurrentUser.Password);
     }
 
     private bool ValidateSignUp()
@@ -62,8 +64,10 @@ public class LoginViewModel : BaseViewModel
         return !string.IsNullOrWhiteSpace(CurrentUser.Username)
             && !string.IsNullOrWhiteSpace(CurrentUser.Password)
             && !string.IsNullOrWhiteSpace(CurrentUser.Password2)
-            && CurrentUser.Password.Equals(CurrentUser.Password2)
-            && LoginUser.IsPrivacyNoticeAccepted;
+#if PASSXYZ_PRIVACYNOTICE_REQUIRED
+            && LoginUser.IsPrivacyNoticeAccepted
+#endif
+            && CurrentUser.Password.Equals(CurrentUser.Password2);
     }
 
     public void OnAppearing()
@@ -127,6 +131,7 @@ public class LoginViewModel : BaseViewModel
             await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, Properties.Resources.SignUpErrorMessage1, Properties.Resources.alert_id_ok);
             return;
         }
+
         try
         {
             await DataStore.SignUpAsync(CurrentUser);

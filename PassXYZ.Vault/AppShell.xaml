@@ -62,7 +62,7 @@
             <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
         </Tab>
         <Tab Title="{x:Static resources:Resources.menu_id_users}" Icon="tab_users.png">
-            <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
+            <ShellContent Route="SignUpPage" ContentTemplate="{DataTemplate local:SignUpPage}" />
         </Tab>
     </TabBar>
 

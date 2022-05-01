@@ -93,13 +93,13 @@ public static class PwDatabaseEx
 
 public class MockDataStore : IDataStore<Item, User>
 {
-    public ObservableCollection<User>? Users { get; private set; }
+    public ObservableCollection<User> Users { get; private set; }
     private static readonly object _sync = new object();
     private static bool _isBusyToLoadUsers = false;
-    public static bool IsBusyToLoadUsers
+    public bool IsBusyToLoadUsers
     {
         get => _isBusyToLoadUsers;
-        set
+        private set
         {
             lock (_sync)
             {
