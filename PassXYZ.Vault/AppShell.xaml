@@ -73,7 +73,7 @@
         <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
 
-    <MenuItem Text="Logout" Clicked="OnMenuItemClicked">
+    <MenuItem Text="Logout" IconImageSource="tab_login.png" Clicked="OnMenuItemClicked">
     </MenuItem>
 
 

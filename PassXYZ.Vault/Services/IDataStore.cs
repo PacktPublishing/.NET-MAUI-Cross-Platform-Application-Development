@@ -7,9 +7,35 @@ namespace PassXYZ.Vault.Services;
 
 public interface IDataStore<T, U>
 {
+    // USER - Properties
+    U CurrentUser { get; }
+    bool IsBusyToLoadUsers { get; }
+    ObservableCollection<U>? Users { get; }
+
+    // USER - Methods
+    List<string> GetUsersList();
+    Task<bool> SynchronizeUsersAsync();
+    Task<bool> LoginAsync(U user);
+    void Logout();
+    Task SignUpAsync(U user);
+
+    // ITEM - Properties
+    T CurrentGroup { get; set; }
+    string CurrentPath { get; }
+    T RootGroup { get; }
+    bool IsOpen { get; }
+
+    // ITEM - Methods to update data
     Task AddItemAsync(T item);
     Task UpdateItemAsync(T item);
     Task<bool> DeleteItemAsync(string id);
+    void SetCurrentToParent();
+    Task SaveAsync();
+    Task<bool> ChangeMasterPassword(string newPassword);
+    bool CreateKeyFile(string data, string username);
+    Task<bool> MergeAsync(string path);
+
+    // ITEM - Methods to read data
     Task<T> GetItemFromCurrentGroupAsync(string id);
     T GetItemFromCurrentGroup(string id);
     T FindGroup(string id);
@@ -19,28 +45,13 @@ public interface IDataStore<T, U>
     Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
     Task<IEnumerable<T>> SearchEntriesAsync(string strSearch, T itemGroup);
     Task<IEnumerable<T>> GetOtpEntryListAsync();
-    T CurrentGroup { get; set; }
-    string CurrentPath { get; }
-    void SetCurrentToParent();
-    Task SaveAsync();
-    T RootGroup { get; }
-    bool IsOpen { get; }
-    Task<bool> LoginAsync(U user);
-    void Logout();
     string GetStoreName();
     DateTime GetStoreModifiedTime();
-    U CurrentUser { get; }
-    Task SignUpAsync(U user);
-    Task<bool> ChangeMasterPassword(string newPassword);
     string GetMasterPassword();
     string GetDeviceLockData();
+
+    // Methods to handle icons
     ObservableCollection<PxIcon> GetCustomIcons(string? searchText = null);
     Task<bool> DeleteCustomIconAsync(PxIcon icon);
     ImageSource GetBuiltInImage(PxIcon icon);
-    bool CreateKeyFile(string data, string username);
-    Task<bool> MergeAsync(string path);
-    ObservableCollection<U>? Users { get;}
-    List<string> GetUsersList();
-    Task<bool> SynchronizeUsersAsync();
-    bool IsBusyToLoadUsers { get; }
 }

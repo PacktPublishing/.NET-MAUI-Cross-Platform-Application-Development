@@ -352,6 +352,8 @@ public class MockDataStore : IDataStore<Item, User>
         if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
         _user = user;
 
+        return true;
+#if MockDataStore
         return await Task.Run(() =>
         {
             if (string.IsNullOrEmpty(user.Password)) { return false; }
@@ -363,6 +365,7 @@ public class MockDataStore : IDataStore<Item, User>
             }
             return db.IsOpen;
         });
+#endif
     }
 
     public async Task SignUpAsync(PassXYZLib.User user)
