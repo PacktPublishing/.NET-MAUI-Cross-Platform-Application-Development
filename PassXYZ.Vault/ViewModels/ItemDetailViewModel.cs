@@ -40,6 +40,11 @@ public class ItemDetailViewModel : BaseViewModel
         Fields = new ObservableCollection<Field>();
     }
 
+    ~ItemDetailViewModel()
+    {
+        Debug.WriteLine($"~ItemDetailViewModel: Title={Title}.");
+    }
+
     public async void LoadItemId(string itemId)
     {
         try

@@ -6,10 +6,17 @@ namespace PassXYZ.Vault.Views;
 
 public partial class ItemDetailPage : ContentPage
 {
+    ItemDetailViewModel _viewModel;
     public ItemDetailPage()
     {
         InitializeComponent();
-        BindingContext = new ItemDetailViewModel();
+        BindingContext = _viewModel = new ItemDetailViewModel();
+        Debug.WriteLine($"ItemDetailPage {_viewModel.Title} created");
+    }
+
+    ~ItemDetailPage() 
+    {
+        Debug.WriteLine($"~ItemDetailPage {_viewModel.Title} destroyed");
     }
 
     void OnFieldSelected(object sender, SelectedItemChangedEventArgs args)
@@ -17,7 +24,7 @@ public partial class ItemDetailPage : ContentPage
         var field = args.SelectedItem as Field;
         if (field == null)
         {
-            Debug.WriteLine("OnFieldSelected: Field is null.");
+            Debug.WriteLine("ItemDetailPage: Field is null in OnFieldSelected.");
             return;
         }
     }

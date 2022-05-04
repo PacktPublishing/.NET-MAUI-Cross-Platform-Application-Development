@@ -29,7 +29,8 @@ public partial class App : Application
     public App()
 	{
 		InitializeComponent();
-		Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+        Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
+        Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
 		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
 		DependencyService.Register<MockDataStore>();
