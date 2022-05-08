@@ -25,61 +25,79 @@ public static class PwDatabaseEx
         "pxtem://{'IsPxEntry':true,'Strings':{'000UserName':{'Value':'PassXYZ Tester','IsProtected':false},'002Email':{'Value':'tester@amazon.com','IsProtected':false},'003URL':{'Value':'https://www.amazon.com/','IsProtected':false},'004QQ':{'Value':'123456789','IsProtected':false},'005WeChat':{'Value':'passxyz','IsProtected':false},'Notes':{'Value':'Shopping','IsProtected':false},'Title':{'Value':'Amazon','IsProtected':false}}}"
     };
 
+    static string[] jsonBanks = {
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'Chase','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.chase.com','IsProtected':false}}}",
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'Bank of America ','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.bankofamerica.com','IsProtected':false}}}"
+    };
+
+    static string[] jsonBrokers = {
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'Fidelity','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.fidelity.com','IsProtected':false}}}",
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'Ameritrade','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.tdameritrade.com/','IsProtected':false}}}",
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'E*TRADE','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://us.etrade.com/','IsProtected':false}}}"
+    };
+
+    static string[] jsonInsurance = {
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'AIG','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.aig.com/','IsProtected':false}}}",
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'AIA','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.aia.com/','IsProtected':false}}}",
+        "pxtem://{'IsPxEntry':false,'Strings':{'Title':{'Value':'Prudential','IsProtected':false},'UserName':{'Value':'test1','IsProtected':false},'Password':{'Value':'12345','IsProtected':true},'Mobile':{'Value':'1234567890','IsProtected':false},'Notes':{'Value':'Bank','IsProtected':false},'PIN':{'Value':'1234','IsProtected':true},'URL':{'Value':'https://www.prudential.com/','IsProtected':false}}}"
+    };
+
     public static void CreateTestDb(PwDatabase pwDb)
     {
         pwDb.RootGroup = new PwGroup(true, true)
         {
-            Name = "Root Group",
-            Notes = "This is the Root Group.",
+            Name = "Password Data",
+            Notes = "Store your password data in this database.",
         };
 
-        PwGroup group1 = new PwGroup(true, true)
+        PwGroup gMoney = new PwGroup(true, true)
         {
-            Name = "Group 1",
-            Notes = "This is Group1",
+            Name = "Money",
+            Notes = "financial institutions",
         };
 
-        // Add some entries to group1
-        #region group1
-        PwEntry e1g1 = new()
+        // Add some entries to gMoney
+        #region Deposits
+
+        PwGroup gDeposits = new PwGroup(true, true)
         {
-            Name = "Entry 1 in group 1",
-            Notes = "I am Entry1 in group 1."
+            Name = "Deposits",
+            Notes = "My bank accounts",
         };
+        gDeposits.AddEntry(new PxEntry(jsonBanks[0]), true);
+        gDeposits.AddEntry(new PxEntry(jsonBanks[1]), true);
+        gMoney.AddGroup(gDeposits, true);
 
-        group1.AddEntry(e1g1, true);
-        PwEntry e2g1 = new()
-        {
-            Name = "Entry 2 in group 1",
-            Notes = "I am Entry2 in group 1."
-        };
-
-        group1.AddEntry(e2g1, true);
-
-        PwGroup group11 = new PwGroup(true, true)
-        {
-            Name = "Sub Group 1 of group 1",
-            Notes = "This is a sub-group of Group1",
-        };
-        group1.AddGroup(group11, true);
-
-        pwDb.RootGroup.AddGroup(group1, true);
+        pwDb.RootGroup.AddGroup(gMoney, true);
         #endregion
 
-        #region group2
-        PwGroup group2 = new PwGroup(true, true)
+        #region Investment
+        PwGroup gInvestment = new PwGroup(true, true)
         {
-            Name = "Group 2",
-            Notes = "This is Group2",
+            Name = "Investment",
+            Notes = "My investment"
         };
-        PwGroup group21 = new PwGroup(true, true)
+        PwGroup gStocks = new PwGroup(true, true)
         {
-            Name = "Sub Group 1 of group 2",
-            Notes = "This is a sub-group of Group2",
+            Name = "Stocks",
+            Notes = "My Stocks"
         };
-        group2.AddGroup(group21, true);
+        gStocks.AddEntry(new PxEntry(jsonBrokers[0]), true);
+        gStocks.AddEntry(new PxEntry(jsonBrokers[1]), true);
+        gStocks.AddEntry(new PxEntry(jsonBrokers[2]), true);
+        gInvestment.AddGroup(gStocks, true);
 
-        pwDb.RootGroup.AddGroup(group2, true);
+        PwGroup gInsurance = new PwGroup(true, true)
+        {
+            Name = "Insurance policies",
+            Notes = "My insurance policies"
+        };
+        gInsurance.AddEntry(new PxEntry(jsonInsurance[0]), true);
+        gInsurance.AddEntry(new PxEntry(jsonInsurance[1]), true);
+        gInsurance.AddEntry(new PxEntry(jsonInsurance[2]), true);
+        gInvestment.AddGroup(gInsurance, true);
+
+        pwDb.RootGroup.AddGroup(gInvestment, true);
         #endregion
 
 
