@@ -110,6 +110,7 @@ public class LoginViewModel : BaseViewModel
                     await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
                 }
             }
+            IsBusy = false;
         }
         catch (Exception ex)
         {

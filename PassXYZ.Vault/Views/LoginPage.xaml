@@ -22,7 +22,7 @@
             <Label FontSize="Small"
                    HorizontalOptions="Center" 
                    Text="{x:Static resources:Resources.LoginPageWelcomeMessage}" />
-            <Frame>
+            <Frame Margin="10">
                 <Grid x:DataType="viewmodels:LoginViewModel" RowSpacing="20" ColumnSpacing="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -75,10 +75,11 @@
                                    HorizontalOptions="Fill" 
                                    Grid.Row="1" Grid.Column="1" />
                     <!-- Row 3 (ActivityIndicator ) -->
-                    <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" Grid.Column="1"  />
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" Grid.Column="1" IsVisible="{Binding IsBusy}" />
                     <!-- Row 4 (Login Button) -->
-                    <Button Text="{x:Static resources:Resources.LoginPageTitle}" HorizontalOptions="CenterAndExpand"
-                                Command="{Binding LoginCommand}" Grid.Row="3" Grid.Column="1" />
+                    <Button Text="{x:Static resources:Resources.LoginPageTitle}" 
+                            HorizontalOptions="CenterAndExpand"
+                            Command="{Binding LoginCommand}" Grid.Row="3" Grid.Column="1" />
                 </Grid>
             </Frame>
             <Label x:Name="messageLabel" />

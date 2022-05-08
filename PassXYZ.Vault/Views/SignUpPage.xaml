@@ -61,7 +61,7 @@
                                 Command="{Binding SignUpCommand}" />
                     </Grid>
 
-                    <StackLayout Orientation="Horizontal">
+                    <StackLayout Orientation="Horizontal" Padding="30">
                         <Label x:Name="KeyFileStatus"
                                    Text="{x:Static resources:Resources.settings_security_UsingDeviceLock}" 
                                    FontAttributes="Bold"

@@ -70,13 +70,12 @@ public class ItemsViewModel : BaseViewModel
                 Debug.WriteLine($"ItemsViewModel: loading from {DataStore.CurrentGroup.Name}");
                 foreach (var item in items)
                 {
-                    ImageSource imgSource = (ImageSource)item.ImgSource;
-                    if (item.ImgSource == null)
-                    {
-                        item.SetIcon();
-                    }
                     Items.Add(item);
                 }
+            }
+            else 
+            {
+                throw new ArgumentNullException("RootGroup is null");
             }
         }
         catch (Exception ex)
