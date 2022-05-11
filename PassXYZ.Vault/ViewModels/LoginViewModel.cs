@@ -135,7 +135,7 @@ public class LoginViewModel : BaseViewModel
 
         try
         {
-            await DataStore.SignUpAsync(CurrentUser);
+            await DataStore.AddUserAsync(CurrentUser);
             _signUpAction?.Invoke(CurrentUser.Username);
             _ = await Shell.Current.Navigation.PopModalAsync();
         }

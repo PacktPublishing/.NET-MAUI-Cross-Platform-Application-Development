@@ -195,6 +195,21 @@ public class MockDataStore : IDataStore<Item, User>
         get => _user;
     }
 
+    public User GetUser(string username) 
+    {
+        return new User();
+    }
+
+    public async Task UpdateUserAsync(User user) 
+    {
+        Debug.WriteLine("UpdateUserAsync");
+    }
+
+    public async Task DeleteUserAsync(User user) 
+    {
+        Debug.WriteLine("DeleteUserAsync");
+    }
+
     public List<string> GetUsersList()
     {
         List<string> userList = new List<string>();
@@ -334,9 +349,26 @@ public class MockDataStore : IDataStore<Item, User>
         return db.FindEntryById(id);
     }
 
-    public async Task<Item?> GetItemAsync(string id)
+    public Item? GetItem(string id, bool SearchRecursive = false)
     {
-        return await Task.FromResult(Items.FirstOrDefault(s => s.Id == id));
+        var item = Items.FirstOrDefault(s => s.Id == id);
+        if (item != null) { return item; }
+
+        if(SearchRecursive) 
+        { 
+            item = db.FindEntryById(id);
+            if (item != null) { return item; }
+            else 
+            {
+                return FindGroup(id);
+            }
+        }
+        return item;
+    }
+
+    public async Task<Item?> GetItemAsync(string id, bool SearchRecursive = false)
+    {
+        return await Task.FromResult(GetItem(id));
     }
 
     public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
@@ -386,7 +418,7 @@ public class MockDataStore : IDataStore<Item, User>
 #endif
     }
 
-    public async Task SignUpAsync(PassXYZLib.User user)
+    public async Task AddUserAsync(PassXYZLib.User user)
     {
         if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
 

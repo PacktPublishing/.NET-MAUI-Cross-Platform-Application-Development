@@ -26,9 +26,22 @@ public class ItemsViewModel : BaseViewModel
         {
             if (value != null)
             {
-                _selectedItem = DataStore.CurrentGroup = DataStore.FindGroup(value);
-                ExecuteLoadItemsCommand();
-                Debug.WriteLine($"ItemsViewModel: ItemId={DataStore.CurrentGroup.Name}, {DataStore.CurrentGroup.Description}");
+                var item = DataStore.GetItem(value, true);
+                if (item != null) 
+                {
+                    _selectedItem = DataStore.CurrentGroup = DataStore.GetItem(value, true);
+                    ExecuteLoadItemsCommand();
+                    Debug.WriteLine($"ItemsViewModel: ItemId={DataStore.CurrentGroup.Name}, {DataStore.CurrentGroup.Description}");
+                }
+                else 
+                {
+                    Debug.WriteLine($"ItemsViewModel: ItemId cannot be found.");
+                }
+            }
+            else 
+            {
+                _selectedItem = null;
+                DataStore.CurrentGroup = DataStore.RootGroup;
             }
         }
     }
