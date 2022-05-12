@@ -26,7 +26,7 @@ public class LoginViewModel : BaseViewModel
     {
         get
         {
-            return DataStore.Users;
+            return UserService.Users;
         }
     }
 
@@ -41,7 +41,6 @@ public class LoginViewModel : BaseViewModel
         CurrentUser.PropertyChanged +=
             (_, __) => SignUpCommand.ChangeCanExecute();
         Debug.WriteLine($"data_path={PxDataFile.DataFilePath}");
-
     }
 
     public LoginViewModel(Action<string> signUpAction) : this()
@@ -88,7 +87,7 @@ public class LoginViewModel : BaseViewModel
                 return;
             }
 
-            bool status = await DataStore.LoginAsync(CurrentUser);
+            bool status = await UserService.LoginAsync(CurrentUser);
 
             if (status)
             {
@@ -135,7 +134,7 @@ public class LoginViewModel : BaseViewModel
 
         try
         {
-            await DataStore.AddUserAsync(CurrentUser);
+            await UserService.AddUserAsync(CurrentUser);
             _signUpAction?.Invoke(CurrentUser.Username);
             _ = await Shell.Current.Navigation.PopModalAsync();
         }
@@ -184,16 +183,16 @@ public class LoginViewModel : BaseViewModel
 
     public string GetMasterPassword()
     {
-        return DataStore.GetMasterPassword();
+        return UserService.GetMasterPassword();
     }
 
     public string GetDeviceLockData()
     {
-        return DataStore.GetDeviceLockData();
+        return UserService.GetDeviceLockData();
     }
 
     public bool CreateKeyFile(string data)
     {
-        return DataStore.CreateKeyFile(data, CurrentUser.Username);
+        return UserService.CreateKeyFile(data, CurrentUser.Username);
     }
 }

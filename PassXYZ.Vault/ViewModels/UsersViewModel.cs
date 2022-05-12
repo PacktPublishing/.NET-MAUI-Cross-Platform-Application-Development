@@ -29,7 +29,7 @@ namespace PassXYZ.Vault.ViewModels
         {
             get
             {
-                return DataStore.Users;
+                return UserService.Users;
             }
         }
 
@@ -244,13 +244,13 @@ namespace PassXYZ.Vault.ViewModels
 
         private async void ExecuteLoadUsersCommand()
         {
-            if (DataStore.IsBusyToLoadUsers)
+            if (UserService.IsBusyToLoadUsers)
             {
                 Debug.WriteLine("UsersViewModel: is busy and cannot load users");
                 return;
             }
 
-            await DataStore.SynchronizeUsersAsync();
+            await UserService.SynchronizeUsersAsync();
 
             Debug.WriteLine("UsersViewModel: ExecuteLoadUsersCommand done");
         }

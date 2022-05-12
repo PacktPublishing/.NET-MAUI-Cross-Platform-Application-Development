@@ -34,6 +34,7 @@ public partial class App : Application
 		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
 		DependencyService.Register<MockDataStore>();
+        DependencyService.Register<UserService>();
         MainPage = new AppShell();
 	}
 

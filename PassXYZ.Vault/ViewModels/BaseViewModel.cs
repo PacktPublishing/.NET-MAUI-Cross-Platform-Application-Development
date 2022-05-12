@@ -13,6 +13,7 @@ namespace PassXYZ.Vault.ViewModels;
 public class BaseViewModel : INotifyPropertyChanged
 {
     public IDataStore<Item, User> DataStore => DependencyService.Get<IDataStore<Item, User>>();
+    public IUserService<User> UserService => DependencyService.Get<IUserService<User>>();
 
     bool isBusy = false;
     public bool IsBusy
