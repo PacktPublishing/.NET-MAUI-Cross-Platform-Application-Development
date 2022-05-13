@@ -24,18 +24,18 @@ public class ItemsViewModel : BaseViewModel
         }
         set
         {
-            if (value != null)
+            if (!string.IsNullOrEmpty(value))
             {
                 var item = DataStore.GetItem(value, true);
                 if (item != null) 
                 {
                     _selectedItem = DataStore.CurrentGroup = DataStore.GetItem(value, true);
-                    ExecuteLoadItemsCommand();
-                    Debug.WriteLine($"ItemsViewModel: ItemId={DataStore.CurrentGroup.Name}, {DataStore.CurrentGroup.Description}");
+                    Debug.WriteLine($"ItemsViewModel: ItemId={DataStore.CurrentGroup!.Name}, {DataStore.CurrentGroup!.Description}");
                 }
                 else 
                 {
                     Debug.WriteLine($"ItemsViewModel: ItemId cannot be found.");
+                    throw new ArgumentNullException("ItemId");
                 }
             }
             else 
@@ -43,6 +43,7 @@ public class ItemsViewModel : BaseViewModel
                 _selectedItem = null;
                 DataStore.CurrentGroup = DataStore.RootGroup;
             }
+            ExecuteLoadItemsCommand();
         }
     }
 
