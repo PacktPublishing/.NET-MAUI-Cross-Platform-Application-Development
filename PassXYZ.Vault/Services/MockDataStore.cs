@@ -109,7 +109,7 @@ public static class PwDatabaseEx
     }
 }
 
-public class MockDataStore : IDataStore<Item, User>
+public class MockDataStore : IDataStore<Item>
 {
     public MockDataStore()
     {

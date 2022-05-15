@@ -5,24 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PassXYZ.Vault.Services
+namespace PassXYZ.Vault.Services;
+
+public interface IUserService<T>
 {
-    public interface IUserService<T>
-    {
-        T CurrentUser { get; }
-        bool IsBusyToLoadUsers { get; }
-        ObservableCollection<T>? Users { get; }
-        T GetUser(string username);
-        Task AddUserAsync(T user);
-        Task UpdateUserAsync(T user);
-        Task DeleteUserAsync(T user);
-        List<string> GetUsersList();
-        Task<bool> SynchronizeUsersAsync();
-        Task<bool> LoginAsync(T user);
-        void Logout();
-        string GetMasterPassword();
-        Task<bool> ChangeMasterPassword(string newPassword);
-        string GetDeviceLockData();
-        bool CreateKeyFile(string data, string username);
-    }
+    T CurrentUser { get; }
+    bool IsBusyToLoadUsers { get; }
+    ObservableCollection<T>? Users { get; }
+    T GetUser(string username);
+    Task AddUserAsync(T user);
+    Task UpdateUserAsync(T user);
+    Task DeleteUserAsync(T user);
+    List<string> GetUsersList();
+    Task<bool> SynchronizeUsersAsync();
+    Task<bool> LoginAsync(T user);
+    void Logout();
+    string GetMasterPassword();
+    Task<bool> ChangeMasterPassword(string newPassword);
+    string GetDeviceLockData();
+    bool CreateKeyFile(string data, string username);
 }

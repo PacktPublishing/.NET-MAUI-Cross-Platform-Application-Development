@@ -12,7 +12,7 @@ namespace PassXYZ.Vault.ViewModels;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    public IDataStore<Item, User> DataStore => DependencyService.Get<IDataStore<Item, User>>();
+    public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
     public IUserService<User> UserService => DependencyService.Get<IUserService<User>>();
 
     bool isBusy = false;
@@ -29,6 +29,7 @@ public class BaseViewModel : INotifyPropertyChanged
         set { SetProperty(ref title, value); }
     }
 
+    #region INotifyPropertyChanged
     protected bool SetProperty<T>(ref T backingStore, T value,
         [CallerMemberName] string propertyName = "",
         Action onChanged = null)
@@ -42,7 +43,6 @@ public class BaseViewModel : INotifyPropertyChanged
         return true;
     }
 
-    #region INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {

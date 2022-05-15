@@ -29,7 +29,7 @@ public class ItemsViewModel : BaseViewModel
                 var item = DataStore.GetItem(value, true);
                 if (item != null) 
                 {
-                    _selectedItem = DataStore.CurrentGroup = DataStore.GetItem(value, true);
+                    _selectedItem = DataStore.CurrentGroup = item;
                     Debug.WriteLine($"ItemsViewModel: ItemId={DataStore.CurrentGroup!.Name}, {DataStore.CurrentGroup!.Description}");
                 }
                 else 
@@ -138,7 +138,7 @@ public class ItemsViewModel : BaseViewModel
 
         if (item.IsGroup) 
         {
-            // This will push the ItemDetailPage onto the navigation stack
+            // This will push the ItemsPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemsPage)}?{nameof(ItemsViewModel.ItemId)}={item.Id}");
         }
         else 

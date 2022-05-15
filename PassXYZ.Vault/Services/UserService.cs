@@ -164,19 +164,6 @@ namespace PassXYZ.Vault.Services
             _user = user;
 
             return true;
-#if MockDataStore
-        return await Task.Run(() =>
-        {
-            if (string.IsNullOrEmpty(user.Password)) { return false; }
-
-            db.Open(user);
-            if (db.IsOpen)
-            {
-                db.CurrentGroup = db.RootGroup;
-            }
-            return db.IsOpen;
-        });
-#endif
         }
 
         public void Logout()

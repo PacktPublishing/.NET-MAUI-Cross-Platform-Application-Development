@@ -11,18 +11,18 @@ namespace PassXYZ.Vault.ViewModels;
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
 public class ItemDetailViewModel : BaseViewModel
 {
-    private string itemId;
-    private string description;
-    public string Id { get; set; }
+    private string? itemId = default;
+    private string? description = default;
+    public string? Id { get; set; }
     public ObservableCollection<Field> Fields { get; set; }
 
-    public string Description
+    public string? Description
     {
         get => description;
         set => SetProperty(ref description, value);
     }
 
-    public string ItemId
+    public string? ItemId
     {
         get
         {
@@ -30,6 +30,7 @@ public class ItemDetailViewModel : BaseViewModel
         }
         set
         {
+            if (value == null) throw new ArgumentNullException(nameof(value));
             itemId = value;
             LoadItemId(value);
         }
@@ -38,11 +39,7 @@ public class ItemDetailViewModel : BaseViewModel
     public ItemDetailViewModel()
     {
         Fields = new ObservableCollection<Field>();
-    }
-
-    ~ItemDetailViewModel()
-    {
-        Debug.WriteLine($"~ItemDetailViewModel: Title={Title}.");
+        Id = default;
     }
 
     public async void LoadItemId(string itemId)
@@ -50,21 +47,22 @@ public class ItemDetailViewModel : BaseViewModel
         try
         {
             var item = await DataStore.GetItemAsync(itemId);
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(itemId));
+            }
+
             Id = item.Id;
             Title = item.Name;
             Description = item.Description;
-
-            if (!item.IsGroup) 
+            PwEntry dataEntry = (PwEntry)item;
+            Fields.Clear();
+            List<Field> fields = dataEntry.GetFields(GetImage: FieldIcons.GetImage);
+            foreach (Field field in fields)
             {
-                PwEntry dataEntry = (PwEntry)item;
-                Fields.Clear();
-                List<Field> fields = dataEntry.GetFields(GetImage: FieldIcons.GetImage);
-                foreach (Field field in fields)
-                {
-                    Fields.Add(field);
-                }
-                Debug.WriteLine($"ItemDetailViewModel: Name={dataEntry.Name}, IsBusy={IsBusy}.");
+                Fields.Add(field);
             }
+            Debug.WriteLine($"ItemDetailViewModel: Name={dataEntry.Name}, IsBusy={IsBusy}.");
         }
         catch (Exception)
         {

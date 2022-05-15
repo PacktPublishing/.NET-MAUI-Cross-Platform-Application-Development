@@ -5,7 +5,7 @@ using PassXYZLib;
 
 namespace PassXYZ.Vault.Services;
 
-public interface IDataStore<T, U>
+public interface IDataStore<T>
 {
     #region DS_misc
     T CurrentGroup { get; set; }
