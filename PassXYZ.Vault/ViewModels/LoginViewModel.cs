@@ -11,6 +11,7 @@ namespace PassXYZ.Vault.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
+    readonly IUserService<User> userService = LoginUser.UserService;
     private Action<string> _signUpAction;
     public Command LoginCommand { get; }
     public Command SignUpCommand { get; }
@@ -26,7 +27,7 @@ public class LoginViewModel : BaseViewModel
     {
         get
         {
-            return UserService.Users;
+            return userService.Users;
         }
     }
 
@@ -40,6 +41,7 @@ public class LoginViewModel : BaseViewModel
 
         CurrentUser.PropertyChanged +=
             (_, __) => SignUpCommand.ChangeCanExecute();
+
         Debug.WriteLine($"data_path={PxDataFile.DataFilePath}");
     }
 
@@ -87,7 +89,7 @@ public class LoginViewModel : BaseViewModel
                 return;
             }
 
-            bool status = await UserService.LoginAsync(CurrentUser);
+            bool status = await userService.LoginAsync(CurrentUser);
 
             if (status)
             {
@@ -106,7 +108,7 @@ public class LoginViewModel : BaseViewModel
                 }
                 else
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+                    throw (new NullReferenceException("CurrentAppShell is null"));
                 }
             }
             IsBusy = false;
@@ -134,7 +136,7 @@ public class LoginViewModel : BaseViewModel
 
         try
         {
-            await UserService.AddUserAsync(CurrentUser);
+            await userService.AddUserAsync(CurrentUser);
             _signUpAction?.Invoke(CurrentUser.Username);
             _ = await Shell.Current.Navigation.PopModalAsync();
         }
@@ -183,16 +185,21 @@ public class LoginViewModel : BaseViewModel
 
     public string GetMasterPassword()
     {
-        return UserService.GetMasterPassword();
+        return userService.GetMasterPassword();
     }
 
     public string GetDeviceLockData()
     {
-        return UserService.GetDeviceLockData();
+        return userService.GetDeviceLockData();
     }
 
     public bool CreateKeyFile(string data)
     {
-        return UserService.CreateKeyFile(data, CurrentUser.Username);
+        return userService.CreateKeyFile(data, CurrentUser.Username);
+    }
+
+    public List<string> GetUsersList()
+    {
+        return userService.GetUsersList();
     }
 }

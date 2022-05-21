@@ -32,7 +32,7 @@ namespace PassXYZ.Vault.Services
                 }
             }
         }
-        private User _user;
+        private User? _user = default;
         private readonly PasswordDb db = default!;
         public UserService() 
         {

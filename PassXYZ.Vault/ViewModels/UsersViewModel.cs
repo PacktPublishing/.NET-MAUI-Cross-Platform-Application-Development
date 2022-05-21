@@ -17,6 +17,7 @@ namespace PassXYZ.Vault.ViewModels
 {
     public class UsersViewModel : BaseViewModel
     {
+        
         public LoginUser CurrentUser
         {
             get
@@ -25,11 +26,13 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
+        readonly IUserService<User> userService = LoginUser.UserService;
+
         public ObservableCollection<User> Users
         {
             get
             {
-                return UserService.Users;
+                return userService.Users;
             }
         }
 
@@ -59,6 +62,7 @@ namespace PassXYZ.Vault.ViewModels
             AddUserCommand = new Command(OnAddUser);
             ImportUserCommand = new Command(() => ImportUser());
             ExportUserCommand = new Command(() => { ExportUserAsync(); });
+
 #if PASSXYZ_CLOUD_SERVICE
             CloudConfigCommand = new Command(OnCloudConfig);
 #endif // PASSXYZ_CLOUD_SERVICE
@@ -244,13 +248,13 @@ namespace PassXYZ.Vault.ViewModels
 
         private async void ExecuteLoadUsersCommand()
         {
-            if (UserService.IsBusyToLoadUsers)
+            if (userService.IsBusyToLoadUsers)
             {
                 Debug.WriteLine("UsersViewModel: is busy and cannot load users");
                 return;
             }
 
-            await UserService.SynchronizeUsersAsync();
+            await userService.SynchronizeUsersAsync();
 
             Debug.WriteLine("UsersViewModel: ExecuteLoadUsersCommand done");
         }

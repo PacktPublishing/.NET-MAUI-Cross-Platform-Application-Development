@@ -1,7 +1,7 @@
 using System.Diagnostics;
 
 using PassXYZ.Vault.Views;
-using PassXYZ.Vault.ViewModels;
+using PassXYZ.Vault.Services;
 
 namespace PassXYZ.Vault;
 
@@ -29,6 +29,8 @@ public partial class AppShell : Shell
     private async void OnMenuItemClicked(object sender, EventArgs e)
     {
         Debug.WriteLine("AppShell: Logout");
+        LoginUser user = LoginUser.Instance;
+        user.Logout();
 
         await Current.GoToAsync("//LoginPage");
     }

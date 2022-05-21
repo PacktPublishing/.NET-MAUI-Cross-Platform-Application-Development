@@ -40,7 +40,7 @@ public partial class LoginPage : ContentPage
     {
         if(_viewModel.Users != null)
         {
-            var users = _viewModel.UserService.GetUsersList();
+            var users = _viewModel.GetUsersList();
             var username = await DisplayActionSheet(Properties.Resources.pt_id_switchusers, Properties.Resources.action_id_cancel, null, users.ToArray());
             if (username != Properties.Resources.action_id_cancel)
             {

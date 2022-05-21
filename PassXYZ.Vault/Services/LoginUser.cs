@@ -13,19 +13,20 @@ public class LoginUser : PxUser
 
     public static bool IsPrivacyNoticeAccepted
     {
-        get
-        {
-            return Preferences.Get(PrivacyNotice, false);
-        }
+        get => Preferences.Get(PrivacyNotice, false);
 
-        set
-        {
-            Preferences.Set(PrivacyNotice, value);
-        }
+        set => Preferences.Set(PrivacyNotice, value);
     }
 
     private bool _isFingerprintEnabled = false;
     public bool IsFingerprintEnabled => _isFingerprintEnabled;
+
+    public static IUserService<User> UserService => DependencyService.Get<IUserService<User>>();
+
+    public override void Logout() 
+    {
+        UserService.Logout();
+    }
 
     /// <summary>
     /// Get password in secure storage
