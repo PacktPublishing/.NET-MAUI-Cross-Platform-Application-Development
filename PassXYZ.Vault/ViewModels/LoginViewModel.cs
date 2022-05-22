@@ -11,25 +11,13 @@ namespace PassXYZ.Vault.ViewModels;
 
 public class LoginViewModel : BaseViewModel
 {
-    readonly IUserService<User> userService = LoginUser.UserService;
+    readonly IUserService<User> userService = ServiceHelper.GetService<IUserService<User>>();
+    public ObservableCollection<User>? Users => userService.Users;
+    public LoginUser CurrentUser => LoginUser.Instance;
     private Action<string> _signUpAction;
     public Command LoginCommand { get; }
     public Command SignUpCommand { get; }
     public Command CancelCommand { get; }
-    public LoginUser CurrentUser
-    {
-        get
-        {
-            return LoginUser.Instance;
-        }
-    }
-    public ObservableCollection<User>? Users 
-    {
-        get
-        {
-            return userService.Users;
-        }
-    }
 
     public LoginViewModel()
     {
@@ -41,7 +29,7 @@ public class LoginViewModel : BaseViewModel
 
         CurrentUser.PropertyChanged +=
             (_, __) => SignUpCommand.ChangeCanExecute();
-
+        
         Debug.WriteLine($"data_path={PxDataFile.DataFilePath}");
     }
 

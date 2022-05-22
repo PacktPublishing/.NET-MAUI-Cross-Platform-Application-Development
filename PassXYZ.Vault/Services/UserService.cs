@@ -32,7 +32,6 @@ namespace PassXYZ.Vault.Services
                 }
             }
         }
-        private User? _user = default;
         private readonly PasswordDb db = default!;
         public UserService() 
         {
@@ -41,9 +40,22 @@ namespace PassXYZ.Vault.Services
             SynchronizeUsersAsync();
         }
 
+        private User? _user = default;
         public User CurrentUser
         {
-            get => _user;
+            get 
+            { 
+                if (_user == null)
+                {
+                    _user = ServiceHelper.GetService<LoginUser>();
+                    Debug.WriteLine("UserService: _user is null and resolving using DI.");
+                }
+                return _user;
+            }
+            set 
+            {
+                _user = value;
+            }
         }
 
         public User GetUser(string username)
@@ -141,11 +153,11 @@ namespace PassXYZ.Vault.Services
                 IsBusyToLoadUsers = false;
                 if (Users.Count > 0)
                 {
-                    // We need to check whether the current user at App level exist
-                    if (!Users.Contains(App.CurrentUser) && !string.IsNullOrEmpty(App.CurrentUser.Username))
+                    // We need to check whether the current user is in the list. It may be a cache user, but delete already.
+                    if (!Users.Contains(CurrentUser) && !string.IsNullOrEmpty(CurrentUser.Username))
                     {
-                        Debug.WriteLine($"LoginViewModel: Username={App.CurrentUser.Username} doesn't existed.");
-                        App.CurrentUser.Username = string.Empty;
+                        Debug.WriteLine($"LoginViewModel: Username={CurrentUser.Username} doesn't existed.");
+                        CurrentUser.Username = string.Empty;
                     }
                 }
 
@@ -161,7 +173,7 @@ namespace PassXYZ.Vault.Services
         public async Task<bool> LoginAsync(User user)
         {
             if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
-            _user = user;
+            // _user = user; _user should be the same as user here.
 
             return true;
         }

@@ -17,24 +17,10 @@ namespace PassXYZ.Vault.ViewModels
 {
     public class UsersViewModel : BaseViewModel
     {
-        
-        public LoginUser CurrentUser
-        {
-            get
-            {
-                return LoginUser.Instance;
-            }
-        }
 
-        readonly IUserService<User> userService = LoginUser.UserService;
-
-        public ObservableCollection<User> Users
-        {
-            get
-            {
-                return userService.Users;
-            }
-        }
+        readonly IUserService<User> _userService = ServiceHelper.GetService<IUserService<User>>();
+        public ObservableCollection<User> Users => _userService.Users;
+        LoginUser _currentUser => LoginUser.Instance;
 
         public Command LoadUsersCommand { get; }
         public Command AddUserCommand { get; }
@@ -85,9 +71,9 @@ namespace PassXYZ.Vault.ViewModels
 
         public void OnUserSelected(User user)
         {
-            if (CurrentUser != null)
+            if (_currentUser != null)
             {
-                CurrentUser.Username = user.Username;
+                _currentUser.Username = user.Username;
             }
             Debug.WriteLine($"UsersViewModel: OnUserSelected {user.Username}");
         }
@@ -233,7 +219,7 @@ namespace PassXYZ.Vault.ViewModels
 
         private async void ExportUserAsync()
         {
-            if (CurrentUser.Path == null) 
+            if (_currentUser.Path == null) 
             {
                 await Shell.Current.DisplayAlert(Properties.Resources.settings_export_title, Properties.Resources.export_error1, Properties.Resources.alert_id_ok);
                 return;
@@ -241,20 +227,20 @@ namespace PassXYZ.Vault.ViewModels
 
             await Share.RequestAsync(new ShareFileRequest
             {
-                Title = Properties.Resources.settings_export_title + $": {CurrentUser.Username}",
-                File = new ShareFile(CurrentUser.Path)
+                Title = Properties.Resources.settings_export_title + $": {_currentUser.Username}",
+                File = new ShareFile(_currentUser.Path)
             });
         }
 
         private async void ExecuteLoadUsersCommand()
         {
-            if (userService.IsBusyToLoadUsers)
+            if (_userService.IsBusyToLoadUsers)
             {
                 Debug.WriteLine("UsersViewModel: is busy and cannot load users");
                 return;
             }
 
-            await userService.SynchronizeUsersAsync();
+            await _userService.SynchronizeUsersAsync();
 
             Debug.WriteLine("UsersViewModel: ExecuteLoadUsersCommand done");
         }

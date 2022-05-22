@@ -29,8 +29,7 @@ public partial class AppShell : Shell
     private async void OnMenuItemClicked(object sender, EventArgs e)
     {
         Debug.WriteLine("AppShell: Logout");
-        LoginUser user = LoginUser.Instance;
-        user.Logout();
+        LoginUser.Instance.Logout();
 
         await Current.GoToAsync("//LoginPage");
     }

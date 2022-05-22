@@ -12,13 +12,6 @@ public partial class App : Application
 {
     public static bool InBackground = false;
     private static bool _isLogout = false;
-    public static LoginUser CurrentUser
-    {
-        get
-        {
-            return LoginUser.Instance;
-        }
-    }
 
     /// <summary>
     /// When a connection is timeout, the network is not stable.
@@ -33,8 +26,6 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
 		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
-		DependencyService.Register<MockDataStore>();
-        DependencyService.Register<UserService>();
         MainPage = new AppShell();
 	}
 

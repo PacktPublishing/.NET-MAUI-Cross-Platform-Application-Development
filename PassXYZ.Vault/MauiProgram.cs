@@ -1,4 +1,7 @@
-﻿namespace PassXYZ.Vault;
+﻿using KPCLib;
+using PassXYZLib;
+using PassXYZ.Vault.Services; 
+namespace PassXYZ.Vault;
 
 public static class MauiProgram
 {
@@ -16,6 +19,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
 			});
 
-		return builder.Build();
+        builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
+        builder.Services.AddSingleton<IUserService<User>, UserService>();
+        builder.Services.AddSingleton<LoginUser, LoginUser>();
+
+        return builder.Build();
 	}
 }

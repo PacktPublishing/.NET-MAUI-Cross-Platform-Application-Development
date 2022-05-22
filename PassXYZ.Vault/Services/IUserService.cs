@@ -9,7 +9,7 @@ namespace PassXYZ.Vault.Services;
 
 public interface IUserService<T>
 {
-    T CurrentUser { get; }
+    T CurrentUser { get; set; }
     bool IsBusyToLoadUsers { get; }
     ObservableCollection<T>? Users { get; }
     T GetUser(string username);
