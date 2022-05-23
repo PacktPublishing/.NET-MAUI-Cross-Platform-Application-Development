@@ -91,29 +91,16 @@ namespace PassXYZ.Vault.Services
         {
             if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
 
-            var logger = new KPCLibLogger();
-            await Task.Run(() => {
+            await Task.Run(async () => {
                 db.New(user);
                 // Create a PassXYZ Usage note entry
                 PwEntry pe = new PwEntry(true, true);
                 pe.Strings.Set(PxDefs.TitleField, new ProtectedString(false, Properties.Resources.entry_id_passxyz_usage));
                 pe.Strings.Set(PxDefs.NotesField, new ProtectedString(false, Properties.Resources.about_passxyz_usage));
-                //pe.CustomData.Set(Item.TemplateType, ItemSubType.Notes.ToString());
-                //pe.CustomData.Set(Item.PxIconName, "ic_entry_passxyz.png");
                 pe.SetType(ItemSubType.Notes);
                 db.RootGroup.AddEntry(pe, true);
 
-                try
-                {
-                    logger.StartLogging("Saving database ...", true);
-                    db.DescriptionChanged = DateTime.UtcNow;
-                    db.Save(logger);
-                    logger.EndLogging();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Failed to save database." + e.Message);
-                }
+                await db.SaveAsync();
             });
 
         }
@@ -173,15 +160,24 @@ namespace PassXYZ.Vault.Services
         public async Task<bool> LoginAsync(User user)
         {
             if (user == null) { Debug.Assert(false); throw new ArgumentNullException("user"); }
-            // _user = user; _user should be the same as user here.
 
-            return true;
+            return await Task.Run(() =>
+            {
+                if (string.IsNullOrEmpty(user.Password)) { return false; }
+
+                db.Open(user);
+                if (db.IsOpen)
+                {
+                    db.CurrentGroup = db.RootGroup;
+                }
+                return db.IsOpen;
+            });
         }
 
         public void Logout()
         {
             if (db.IsOpen) { db.Close(); }
-            Debug.WriteLine("DataStore.Logout(done)");
+            Debug.WriteLine("UserService.Logout(done)");
         }
 
         public string GetMasterPassword()
