@@ -22,6 +22,7 @@ public interface IDataStore<T>
     #endregion
 
     #region DS_Item
+    T? CreateNewItem(ItemSubType type);
     T? GetItem(string id, bool SearchRecursive = false);
     Task<T?> GetItemAsync(string id, bool SearchRecursive = false);
     Task AddItemAsync(T item);

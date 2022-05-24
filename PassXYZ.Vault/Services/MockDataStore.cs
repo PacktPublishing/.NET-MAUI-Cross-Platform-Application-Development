@@ -245,6 +245,41 @@ public class MockDataStore : IDataStore<Item>
         return db.FindEntryById(id);
     }
 
+    public Item? CreateNewItem(ItemSubType type)
+    {
+        Item? newItem = default;
+
+        if (type == ItemSubType.Group)
+        {
+            newItem = new PwGroup(true, true);
+        }
+        else if (type != ItemSubType.None)
+        {
+            PwEntry entry = new PwEntry(true, true);
+            entry.SetType(type);
+
+            // Init standard field
+            if (type == ItemSubType.Entry)
+            {
+                entry.Strings.Set(PwDefs.UserNameField, new ProtectedString(false, ""));
+                entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, ""));
+                entry.Strings.Set(PwDefs.UrlField, new ProtectedString(false, ""));
+            }
+            else if (type == ItemSubType.PxEntry)
+            {
+                uint idx = 0;
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_username, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_password, idx++), new ProtectedString(true, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_url, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_email, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_mobile, idx++), new ProtectedString(false, ""));
+            }
+
+            newItem = entry;
+        }
+        return newItem;
+    }
+
     public Item? GetItem(string id, bool SearchRecursive = false)
     {
         var item = Items.FirstOrDefault(s => s.Id == id);

@@ -1,9 +1,10 @@
-﻿using PassXYZ.Vault.Views;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 using KPCLib;
 using PassXYZLib;
+using PassXYZ.Vault.Properties;
+using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.ViewModels;
 
@@ -56,11 +57,6 @@ public class ItemsViewModel : BaseViewModel
         ItemTapped = new Command<Item>(OnItemSelected);
 
         AddItemCommand = new Command(OnAddItem);
-    }
-
-    ~ItemsViewModel()
-    {
-        Debug.WriteLine($"~ItemDetailViewModel: Title={Title} destroyed.");
     }
 
     public async Task ExecuteLoadItemsCommand()
@@ -128,7 +124,50 @@ public class ItemsViewModel : BaseViewModel
 
     private async void OnAddItem(object obj)
     {
-        await Shell.Current.GoToAsync(nameof(NewItemPage));
+        string[] templates = {
+                Properties.Resources.item_subtype_group,
+                Properties.Resources.item_subtype_entry,
+                Properties.Resources.item_subtype_notes,
+                Properties.Resources.item_subtype_pxentry
+            };
+
+        var template = await Shell.Current.DisplayActionSheet(Properties.Resources.pt_id_choosetemplate, Properties.Resources.action_id_cancel, null, templates);
+        ItemSubType type;
+        if (template == Properties.Resources.item_subtype_entry)
+        {
+            type = ItemSubType.Entry;
+        }
+        else if (template == Properties.Resources.item_subtype_pxentry)
+        {
+            type = ItemSubType.PxEntry;
+        }
+        else if (template == Properties.Resources.item_subtype_group)
+        {
+            type = ItemSubType.Group;
+        }
+        else if (template == Properties.Resources.item_subtype_notes)
+        {
+            type = ItemSubType.Notes;
+        }
+        else if (template == Properties.Resources.action_id_cancel)
+        {
+            type = ItemSubType.None;
+            Debug.WriteLine("Canceled the Template selection.");
+        }
+        else
+        {
+            type = ItemSubType.None;
+            Debug.WriteLine("Canceled the Template selection.");
+        }
+
+        if (type != ItemSubType.None)
+        {
+            var itemType = new Dictionary<string, object>
+            {
+                { "Type", type }
+            };
+            await Shell.Current.GoToAsync(nameof(NewItemPage), itemType);
+        }
     }
 
     public async void OnItemSelected(Item item)

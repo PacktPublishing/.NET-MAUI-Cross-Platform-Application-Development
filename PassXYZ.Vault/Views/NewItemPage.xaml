@@ -1,19 +1,35 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
              x:Class="PassXYZ.Vault.Views.NewItemPage"
-             Shell.PresentationMode="ModalAnimated"
-             Title="New Item">
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_cancel}" Command="{Binding CancelCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeRegular"
+			        Glyph="{x:Static styles:FontAwesomeRegular.WindowClose}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_save}" Command="{Binding SaveCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeRegular"
+			        Glyph="{x:Static styles:FontAwesomeRegular.Save}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
+            <Label Text="{x:Static resources:Resources.field_id_name}" FontSize="Medium" />
             <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Description" FontSize="Medium" />
+            <Label Text="{x:Static resources:Resources.field_id_notes}" FontSize="Medium" />
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
     

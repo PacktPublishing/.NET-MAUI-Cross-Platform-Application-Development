@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
              x:Class="PassXYZ.Vault.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"  
@@ -9,7 +11,14 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_add}" Command="{Binding AddItemCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeSolid"
+			        Glyph="{x:Static styles:FontAwesomeSolid.Plus}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
     <StackLayout>
