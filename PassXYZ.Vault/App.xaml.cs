@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reflection;
 
 using KPCLib;
 using PassXYZLib;
@@ -33,7 +34,7 @@ public partial class App : Application
     {
         InBackground = false;
         IsSshOperationTimeout = false;
-        //InitTestDb();
+        InitTestDb();
         //ExtractIcons();
 
         Debug.WriteLine($"PassXYZ: OnStart, InBackground={InBackground}");
@@ -81,4 +82,20 @@ public partial class App : Application
         Debug.WriteLine($"PassXYZ: OnResume, InBackground={InBackground}");
     }
 
+    [System.Diagnostics.Conditional("DEBUG")]
+    private void InitTestDb()
+    {
+        foreach (EmbeddedDatabase eDb in TEST_DB.DataFiles)
+        {
+            if (!File.Exists(eDb.Path))
+            {
+                var assembly = this.GetType().GetTypeInfo().Assembly;
+                using (var stream = assembly.GetManifestResourceStream(eDb.ResourcePath))
+                using (var fileStream = new FileStream(eDb.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
+        }
+    }
 }

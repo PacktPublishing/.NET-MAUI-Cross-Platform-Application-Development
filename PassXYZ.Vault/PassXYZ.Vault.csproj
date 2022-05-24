@@ -51,6 +51,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="data\pass_d_E8f4pEk.xyz" />
+	  <None Remove="data\pass_e_JyHzpRxcopt.xyz" />
+	  <None Remove="data\pass_k_JyHzpRxcopt.k4xyz" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="data\pass_d_E8f4pEk.xyz" />
+	  <EmbeddedResource Include="data\pass_e_JyHzpRxcopt.xyz" />
+	  <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\..\PassXYZLib\PassXYZLib\PassXYZLib.csproj" />
 	</ItemGroup>
 
