@@ -181,11 +181,11 @@ public class ItemsViewModel : BaseViewModel
             return;
         }
 
-        await Shell.Current.Navigation.PushModalAsync(new NavigationPage(new FieldEditPage(async (string k, string v, bool isProtected) => {
+        await Shell.Current.Navigation.PushAsync(new FieldEditPage(async (string k, string v, bool isProtected) => {
             item.Name = k;
             item.Notes = v;
             await DataStore.UpdateItemAsync(item);
-        }, item.Name, item.Notes, true)));
+        }, item.Name, item.Notes, true));
     }
 
     /// <summary>

@@ -93,12 +93,12 @@ namespace PassXYZ.Vault.Views
             {
                 _updateAction?.Invoke(keyField.Text, valueField.Text, false);
             }
-            _ = await Navigation.PopModalAsync();
+            _ = await Shell.Current.Navigation.PopAsync();
         }
 
         private async void OnCancelClicked(object sender, EventArgs e)
         {
-            _ = await Navigation.PopModalAsync();
+            _ = await Shell.Current.Navigation.PopAsync();
         }
 
         private void OnPasswordCheckBoxChanged(object sender, CheckedChangedEventArgs e)
