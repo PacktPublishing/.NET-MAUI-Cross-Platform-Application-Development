@@ -27,6 +27,27 @@ public partial class ItemsPage : ContentPage
         _viewModel.OnAppearing();
     }
 
+    private void OnMenuEdit(object sender, EventArgs e)
+    {
+        var mi = (MenuItem)sender;
+
+        if (mi.CommandParameter is Item item)
+        {
+            _viewModel.Update(item);
+        }
+    }
+
+    private async void OnMenuDeleteAsync(object sender, EventArgs e)
+    {
+        var mi = (MenuItem)sender;
+
+        if (mi.CommandParameter is Item item)
+        {
+            await _viewModel.DeletedAsync(item);
+            Debug.WriteLine("ItemsPage: OnMenuDeleteAsync clicked");
+        }
+    }
+
     void OnItemSelected(object sender, SelectedItemChangedEventArgs args) 
     {
         var item = args.SelectedItem as Item;

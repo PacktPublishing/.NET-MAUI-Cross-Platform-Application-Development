@@ -36,6 +36,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnMenuEdit" CommandParameter="{Binding .}" 
+                                      Text="{x:Static resources:Resources.action_id_edit}" />
+                            <MenuItem Clicked="OnMenuDeleteAsync" CommandParameter="{Binding .}"
+                                      Text="{x:Static resources:Resources.action_id_delete}" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+
                         <Grid Padding="10" x:DataType="model:Item" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32" />

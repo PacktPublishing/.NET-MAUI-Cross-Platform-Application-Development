@@ -170,6 +170,46 @@ public class ItemsViewModel : BaseViewModel
         }
     }
 
+    /// <summary>
+    /// Update an item. The item can be a group or an entry.
+    /// </summary>
+    /// <param name="item">an instance of Item</param>
+    public async void Update(Item item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        await Shell.Current.Navigation.PushModalAsync(new NavigationPage(new FieldEditPage(async (string k, string v, bool isProtected) => {
+            item.Name = k;
+            item.Notes = v;
+            await DataStore.UpdateItemAsync(item);
+        }, item.Name, item.Notes, true)));
+    }
+
+    /// <summary>
+    /// Delete an item.
+    /// </summary>
+    /// <param name="item">an instance of Item</param>
+    public async Task DeletedAsync(Item item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        if (Items.Remove(item))
+        {
+            _ = await DataStore.DeleteItemAsync(item.Id);
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
     public async void OnItemSelected(Item item)
     {
         if (item == null)
