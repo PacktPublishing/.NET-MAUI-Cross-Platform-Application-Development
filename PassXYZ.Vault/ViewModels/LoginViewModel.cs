@@ -40,7 +40,6 @@ public class LoginViewModel : BaseViewModel
 
     private bool ValidateLogin()
     {
-        Debug.WriteLine($"LoginViewModel: ValidateLogin username={CurrentUser.Username}, password={CurrentUser.Password}");
         return !string.IsNullOrWhiteSpace(CurrentUser.Username)
 #if PASSXYZ_PRIVACYNOTICE_REQUIRED
             && LoginUser.IsPrivacyNoticeAccepted

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO.Compression;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -35,7 +36,7 @@ public partial class App : Application
         InBackground = false;
         IsSshOperationTimeout = false;
         InitTestDb();
-        //ExtractIcons();
+        ExtractIcons();
 
         Debug.WriteLine($"PassXYZ: OnStart, InBackground={InBackground}");
     }
@@ -80,6 +81,32 @@ public partial class App : Application
         }
 
         Debug.WriteLine($"PassXYZ: OnResume, InBackground={InBackground}");
+    }
+
+    private void ExtractIcons()
+    {
+        var assembly = this.GetType().GetTypeInfo().Assembly;
+        foreach (EmbeddedDatabase iconFile in EmbeddedIcons.IconFiles)
+        {
+            if (!File.Exists(iconFile.Path))
+            {
+                using (var stream = assembly.GetManifestResourceStream(iconFile.ResourcePath))
+                using (var fileStream = new FileStream(iconFile.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+                {
+                    stream.CopyTo(fileStream);
+                }
+            }
+        }
+
+        if (!File.Exists(EmbeddedIcons.iconZipFile.Path))
+        {
+            using (var stream = assembly.GetManifestResourceStream(EmbeddedIcons.iconZipFile.ResourcePath))
+            using (var fileStream = new FileStream(EmbeddedIcons.iconZipFile.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+            {
+                stream.CopyTo(fileStream);
+            }
+            ZipFile.ExtractToDirectory(EmbeddedIcons.iconZipFile.Path, PxDataFile.IconFilePath);
+        }
     }
 
     [System.Diagnostics.Conditional("DEBUG")]
