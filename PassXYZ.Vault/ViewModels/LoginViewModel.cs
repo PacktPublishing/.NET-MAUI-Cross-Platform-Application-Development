@@ -124,8 +124,11 @@ public class LoginViewModel : BaseViewModel
         try
         {
             await userService.AddUserAsync(CurrentUser);
-            _signUpAction?.Invoke(CurrentUser.Username);
-            _ = await Shell.Current.Navigation.PopModalAsync();
+            if(_signUpAction != null) 
+            {
+                _signUpAction?.Invoke(CurrentUser.Username);
+                _ = await Shell.Current.Navigation.PopModalAsync();
+            }
         }
         catch (Exception ex)
         {
