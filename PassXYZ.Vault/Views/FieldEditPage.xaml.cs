@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using PureOtp;
-using KeePassLib;
+using KPCLib;
 using PassXYZ.Vault.Properties;
 using PassXYZ.Vault.ViewModels;
 
@@ -18,7 +18,7 @@ namespace PassXYZ.Vault.Views
         private Action<string, string, bool> _updateAction;
         private readonly bool _isNewField = true;
         private Color _checkboxColor;
-        private PwEntry _dataEntry = null;
+        private Item _dataEntry = null;
 
         public FieldEditPage(Action<string, string, bool> updateAction, string key = "", string value = "")
         {
@@ -41,7 +41,7 @@ namespace PassXYZ.Vault.Views
         /// <summary>
         /// This one is used to add a field in ItemDetailViewModel.OnAddField().
         /// </summary>
-        public FieldEditPage(Action<string, string, bool> updateAction, PwEntry entry, string key = "", string value = "") : this(updateAction, key, value)
+        public FieldEditPage(Action<string, string, bool> updateAction, Item entry, string key = "", string value = "") : this(updateAction, key, value)
         {
             _dataEntry = entry;
         }

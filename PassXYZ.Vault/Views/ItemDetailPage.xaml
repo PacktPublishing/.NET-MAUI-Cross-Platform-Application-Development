@@ -1,12 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
              x:Class="PassXYZ.Vault.Views.ItemDetailPage"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemDetailViewModel"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_add}" Command="{Binding AddFieldCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeSolid"
+			        Glyph="{x:Static styles:FontAwesomeSolid.Plus}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_attach}" Command="{Binding AddBinaryCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeSolid"
+			        Glyph="{x:Static styles:FontAwesomeSolid.Paperclip}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
     <StackLayout>
         <ListView x:Name="FieldsListView" 
                   ItemsSource="{Binding Fields}"
@@ -15,39 +36,59 @@
                   RowHeight="84"
                   IsPullToRefreshEnabled="true"
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  CachingStrategy="RetainElement"
-                  ItemSelected="OnFieldSelected">
+                  CachingStrategy="RetainElement">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10" x:DataType="model:Field" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
-                                <RowDefinition Height="32" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.RowSpan="2" Padding="10">
+                    <ViewCell BindingContextChanged="OnBindingContextChanged">
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnMenuCopyAsync" CommandParameter="{Binding .}"
+                                      Text="{x:Static resources:Resources.action_id_copy}" />
+                            <MenuItem Clicked="OnMenuEdit" CommandParameter="{Binding .}" 
+                                      Text="{x:Static resources:Resources.action_id_edit}" />
+                            <MenuItem Clicked="OnMenuDeleteAsync" CommandParameter="{Binding .}"
+                                      Text="{x:Static resources:Resources.action_id_delete}" IsDestructive="True" />
+                            <MenuItem Clicked="OnMenuShow" CommandParameter="{Binding .}" 
+                                      Text="{x:Static resources:Resources.action_id_show}" />
+                        </ViewCell.ContextActions>
+
+                        <StackLayout Padding="10" Orientation="Horizontal" x:DataType="model:Field" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32" />
+                                    <RowDefinition Height="32" />
+                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
-                            </Grid>
-                            <Label Text="{Binding Key}"  Grid.Column="1"
+                                <Grid Grid.RowSpan="2" Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                                </Grid>
+                                <Label Text="{Binding Key}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontAttributes="Bold"
                                 FontSize="Small" />
-                            <Label Text="{Binding Value}"  Grid.Row="1" Grid.Column="1"
+                                <Label Text="{Binding Value}"  Grid.Row="1" Grid.Column="1"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="Small" />
-                        </Grid>
+                            </Grid>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemDetailViewModel}}, Path=FieldTapped}"
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
