@@ -87,7 +87,7 @@ public class ItemDetailViewModel : BaseViewModel
             }
 
             Title = item.Name;
-            Description = item.Description;
+            Description = item.GetNotesInHtml();
             CurrentItem = item;
             Fields.Clear();
             List<Field> fields = CurrentItem.GetFields();
