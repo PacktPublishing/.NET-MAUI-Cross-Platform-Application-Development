@@ -13,7 +13,7 @@ namespace PassXYZ.Vault.ViewModels;
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
 public class ItemDetailViewModel : BaseViewModel
 {
-    public Item? CurrentItem { get; set; }
+    private Item? _item { get; set; }
     public ObservableCollection<Field> Fields { get; set; }
     public Command LoadFieldsCommand { get; }
     public Command AddFieldCommand { get; }
@@ -55,15 +55,15 @@ public class ItemDetailViewModel : BaseViewModel
     {
         try
         {
-            if (CurrentItem != null)
+            if (_item != null)
             {
                 Fields.Clear();
-                List<Field> fields = CurrentItem.GetFields();
+                List<Field> fields = _item.GetFields();
                 foreach (Field field in fields)
                 {
                     Fields.Add(field);
                 }
-                Debug.WriteLine($"ItemDetailViewModel: (LFC) Name={CurrentItem.Name}, IsBusy={IsBusy}.");
+                Debug.WriteLine($"ItemDetailViewModel: (LFC) Name={_item.Name}, IsBusy={IsBusy}.");
             }
         }
         catch (Exception ex)
@@ -88,14 +88,14 @@ public class ItemDetailViewModel : BaseViewModel
 
             Title = item.Name;
             Description = item.GetNotesInHtml();
-            CurrentItem = item;
+            _item = item;
             Fields.Clear();
-            List<Field> fields = CurrentItem.GetFields();
+            List<Field> fields = _item.GetFields();
             foreach (Field field in fields)
             {
                 Fields.Add(field);
             }
-            Debug.WriteLine($"ItemDetailViewModel: Name={CurrentItem.Name}, IsBusy={IsBusy}.");
+            Debug.WriteLine($"ItemDetailViewModel: Name={_item.Name}, IsBusy={IsBusy}.");
         }
         catch (Exception)
         {
@@ -114,11 +114,11 @@ public class ItemDetailViewModel : BaseViewModel
             return;
         }
 
-        if (!field.IsBinaries && CurrentItem != null)
+        if (!field.IsBinaries && _item != null)
         {
             await Shell.Current.Navigation.PushAsync(new FieldEditPage(async (string k, string v, bool isProtected) => {
-                CurrentItem.UpdateField(k, v, field.IsProtected);
-                await DataStore.UpdateItemAsync(CurrentItem);
+                _item.UpdateField(k, v, field.IsProtected);
+                await DataStore.UpdateItemAsync(_item);
             }, field.Key, field.EditValue));
         }
         else
@@ -137,10 +137,10 @@ public class ItemDetailViewModel : BaseViewModel
             return;
         }
 
-        if (Fields.Remove(field) && CurrentItem != null)
+        if (Fields.Remove(field) && _item != null)
         {
-            CurrentItem.DeleteField(field);
-            await DataStore.UpdateItemAsync(CurrentItem);
+            _item.DeleteField(field);
+            await DataStore.UpdateItemAsync(_item);
         }
         else
         {
@@ -150,25 +150,25 @@ public class ItemDetailViewModel : BaseViewModel
     private async void OnAddField(object obj)
     {
         await Shell.Current.Navigation.PushAsync(new FieldEditPage(async (string k, string v, bool isProtected) => {
-            Field field = CurrentItem.AddField(k, v, isProtected);
-            if (field != null && CurrentItem != null)
+            Field field = _item.AddField(k, v, isProtected);
+            if (field != null && _item != null)
             {
                 Fields.Add(field);
-                await DataStore.UpdateItemAsync(CurrentItem);
+                await DataStore.UpdateItemAsync(_item);
             }
-        }, CurrentItem));
+        }, _item));
     }
 
     private async void AddBinary(string tempFilePath, string fileName)
     {
-        if (CurrentItem != null) 
+        if (_item != null) 
         {
             var vBytes = File.ReadAllBytes(tempFilePath);
-            Field field = CurrentItem.AddBinaryField(fileName, vBytes, Properties.Resources.label_id_attachment);
+            Field field = _item.AddBinaryField(fileName, vBytes, Properties.Resources.label_id_attachment);
             if(field != null) 
             {
                 Fields.Add(field);
-                await DataStore.UpdateItemAsync(CurrentItem);
+                await DataStore.UpdateItemAsync(_item);
             }
         }
     }

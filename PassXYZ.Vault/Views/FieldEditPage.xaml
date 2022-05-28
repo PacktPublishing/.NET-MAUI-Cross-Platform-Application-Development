@@ -39,8 +39,10 @@
                 <!-- Notes -->
                 <ScrollView VerticalOptions="FillAndExpand">
                     <StackLayout>
-                        <Editor x:Name="valueField" 
+                        <Editor x:Name="valueField"
                         Placeholder="{x:Static resources:Resources.ph_id_value}"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="true"
                         VerticalOptions="FillAndExpand" 
                         HorizontalOptions="FillAndExpand">
                             <Editor.FontFamily>
