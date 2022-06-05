@@ -193,7 +193,7 @@ namespace PassXYZ.Vault.Services
             {
                 db.MasterKeyChanged = DateTime.UtcNow;
                 // Save the database to take effect
-                await SaveAsync();
+                await db.SaveAsync();
             }
             return result;
         }
@@ -214,9 +214,5 @@ namespace PassXYZ.Vault.Services
             return db.CreateKeyFile(data, username);
         }
 
-        private async Task SaveAsync()
-        {
-            Debug.WriteLine($"UserService: SaveAsync");
-        }
     }
 }
