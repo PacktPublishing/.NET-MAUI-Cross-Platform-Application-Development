@@ -100,7 +100,7 @@ public class ItemsViewModel : BaseViewModel
 
     async public void OnAppearing()
     {
-        IsBusy = true;
+        //IsBusy = true;
         if (_selectedItem == null) 
         {
             // Loading from RootPage
