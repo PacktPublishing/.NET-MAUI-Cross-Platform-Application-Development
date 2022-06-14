@@ -19,6 +19,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
 			});
 
+        builder.Services.AddMauiBlazorWebView();
+#if DEBUG
+        builder.Services.AddBlazorWebViewDeveloperTools();
+#endif
         builder.Services.AddSingleton<IDataStore<Item>, DataStore>();
         builder.Services.AddSingleton<IUserService<User>, UserService>();
         builder.Services.AddSingleton<LoginUser, LoginUser>();
