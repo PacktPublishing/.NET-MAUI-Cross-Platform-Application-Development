@@ -13,15 +13,16 @@
              Shell.NavBarIsVisible="False">
 
     <StackLayout x:DataType="viewmodels:LoginViewModel">
-        <b:BlazorWebView HostPage="wwwroot/index.html" HeightRequest="400" Margin="20">
+        <b:BlazorWebView HostPage="wwwroot/login.html" HeightRequest="500">
             <b:BlazorWebView.RootComponents>
-                <b:RootComponent Selector="#app" ComponentType="{x:Type local:Login}" />
+                <b:RootComponent Selector="#login-app" ComponentType="{x:Type local:Login}" />
             </b:BlazorWebView.RootComponents>
         </b:BlazorWebView>
 
         <Button Text="{x:Static resources:Resources.LoginPageTitle}" 
-                            HorizontalOptions="CenterAndExpand"
-                            Command="{Binding LoginCommand}" />
+                HorizontalOptions="CenterAndExpand"
+                Margin="20"
+                Command="{Binding LoginCommand}" />
     </StackLayout>
 
 </ContentPage>

@@ -1,35 +1,27 @@
-﻿<div class="main">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <img src="https://passxyz.github.io/images/passxyz96.png" id="icon" alt="User Icon" />
-        </div>
-        <label>Please enter your username and password to login to PassXYZ</label>
+﻿<div>
+    <main class="form-signin">
+        <form>
+            <img class="mb-4" src="https://raw.githubusercontent.com/shugaoye/PassXYZ.Vault2/chapter06/PassXYZ.Vault/Resources/Images/passxyz_logo.svg" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-        <!-- Login Form -->
-        <div class="main">
-            <div class="col-md-6 col-sm-12">
-                <div class="login-form">
-                    <form>
-                        <div class="form-group">
-                            <label>User Name</label>
-                            <input type="text" class="form-control" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password">
-                        </div>
-
-                        <!--
-                        <button type="submit" class="btn btn-black">Login</button>
-                        -->
-                    </form>
-                </div>
+            <div class="form-floating">
+                <label for="floatingInput">Email address</label>
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
             </div>
-        </div>
+            <div class="form-floating">
+                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            </div>
 
-    </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+        </form>
+    </main>
 </div>
 
 @code {
