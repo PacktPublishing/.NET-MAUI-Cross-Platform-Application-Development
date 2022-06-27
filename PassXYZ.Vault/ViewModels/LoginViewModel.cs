@@ -30,7 +30,7 @@ public class LoginViewModel : BaseViewModel
         CurrentUser.PropertyChanged +=
             (_, __) => SignUpCommand.ChangeCanExecute();
         
-        Debug.WriteLine($"data_path={PxDataFile.DataFilePath}");
+        Debug.WriteLine($"LoginViewModel: data_path={PxDataFile.DataFilePath}");
     }
 
     public LoginViewModel(Action<string> signUpAction) : this()

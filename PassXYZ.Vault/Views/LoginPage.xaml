@@ -12,17 +12,10 @@
              x:Class="PassXYZ.Vault.Views.LoginPage"
              Shell.NavBarIsVisible="False">
 
-    <StackLayout x:DataType="viewmodels:LoginViewModel">
-        <b:BlazorWebView HostPage="wwwroot/login.html" HeightRequest="500">
-            <b:BlazorWebView.RootComponents>
-                <b:RootComponent Selector="#login-app" ComponentType="{x:Type local:Login}" />
-            </b:BlazorWebView.RootComponents>
-        </b:BlazorWebView>
-
-        <Button Text="{x:Static resources:Resources.LoginPageTitle}" 
-                HorizontalOptions="CenterAndExpand"
-                Margin="20"
-                Command="{Binding LoginCommand}" />
-    </StackLayout>
+    <b:BlazorWebView HostPage="wwwroot/login.html">
+        <b:BlazorWebView.RootComponents>
+            <b:RootComponent Selector="#login-app" ComponentType="{x:Type local:Login}" />
+        </b:BlazorWebView.RootComponents>
+    </b:BlazorWebView>
 
 </ContentPage>
