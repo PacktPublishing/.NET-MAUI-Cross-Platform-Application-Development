@@ -1,14 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
              xmlns:b="clr-namespace:Microsoft.AspNetCore.Components.WebView.Maui;assembly=Microsoft.AspNetCore.Components.WebView.Maui"
              xmlns:local="clr-namespace:PassXYZ.Vault.Pages"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
-             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
-             xmlns:viewmodels="clr-namespace:PassXYZ.Vault.ViewModels"
              x:Class="PassXYZ.Vault.Views.LoginPage"
              Shell.NavBarIsVisible="False">
 

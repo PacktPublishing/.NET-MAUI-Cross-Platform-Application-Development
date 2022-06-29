@@ -1,7 +1,4 @@
-﻿@using System.Diagnostics
-@using PassXYZ.Vault.Services
-@using PassXYZ.Vault.ViewModels
-@inject LoginViewModel viewModel
+﻿@namespace PassXYZ.Vault.Pages
 
 <div>
     <main class="form-signin">
@@ -24,25 +21,9 @@
                 </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit" @onclick="OnLogin">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+            <p class="mt-5 mb-3 text-muted">&copy; 2021–2022</p>
         </form>
     </main>
 </div>
 
-@code {
-    private LoginUser currentUser { get; set; } = default!;
 
-    protected override void OnInitialized()
-    {
-        if (currentUser == null)
-        {
-            currentUser = viewModel.CurrentUser;
-        }
-    }
-
-    private void OnLogin(MouseEventArgs e)
-    {
-        Debug.WriteLine($"username={currentUser.Username}, password={currentUser.Password}");
-        viewModel.OnLoginClicked();
-    }
-}
