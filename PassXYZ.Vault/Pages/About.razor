@@ -1,0 +1,15 @@
+﻿@page "/about"
+@using System.Diagnostics
+
+<h1>About</h1>
+
+<p role="status">This is the about page</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private void IncrementCount()
+    {
+        Debug.WriteLine("You are in About page.");
+    }
+}
