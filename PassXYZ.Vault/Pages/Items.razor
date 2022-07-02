@@ -1,7 +1,19 @@
-﻿@page "/items"
+﻿@page "/group"
+@page "/group/{SelectedItemId}"
 
-<h1>Hello, world!</h1>
+<h1>@Title</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="list-group">
+    @foreach (var item in items)
+    {
+        <a href="@item.GetActionLink()" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="@item.GetIcon()" alt="icon" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">@item.Name</h6>
+                    <p class="mb-0">@item.Description</p>
+                </div>
+            </div>
+        </a>
+    }
+</div>

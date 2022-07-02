@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="456"
+   height="456"
+   viewBox="0 0 456 456"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg10"
+   sodipodi:docname="passxyz-white.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:export-filename="C:\Users\Roger_Ye\OneDrive\Pictures\passxyz-white.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs14" /><sodipodi:namedview
+   id="namedview12"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="1.2901597"
+   inkscape:cx="227.87876"
+   inkscape:cy="228.26631"
+   inkscape:window-width="1920"
+   inkscape:window-height="1017"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="layer2" />
+    
+      
+      
+      
+      
+      
+      
+      
+<g
+   inkscape:groupmode="layer"
+   id="layer1"
+   inkscape:label="Background"
+   style="display:inline"
+   sodipodi:insensitive="true"><rect
+     style="clip-rule:evenodd;display:inline;fill:#3498db;fill-opacity:1;fill-rule:evenodd;stroke-width:1.4131;stroke-linejoin:round;stroke-miterlimit:2"
+     id="rect22216"
+     width="460.2052"
+     height="458.86673"
+     x="-1.5777717"
+     y="-0.56034267" /></g><g
+   inkscape:groupmode="layer"
+   id="layer3"
+   inkscape:label="Cycle"
+   sodipodi:insensitive="true"><ellipse
+     style="clip-rule:evenodd;fill:#3498db;fill-opacity:1;fill-rule:evenodd;stroke-width:1.08193;stroke-linejoin:round;stroke-miterlimit:2"
+     id="path27088"
+     cx="229.0414"
+     cy="228.2663"
+     rx="227.49121"
+     ry="228.2663" /></g><g
+   inkscape:groupmode="layer"
+   id="layer2"
+   inkscape:label="Logo"
+   style="display:inline"><path
+     id="path34625"
+     style="clip-rule:evenodd;display:inline;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.792161;stroke-linejoin:round;stroke-miterlimit:2"
+     d="m 171.1643,46.67175 c -16.12906,-0.21445 -32.20441,4.875431 -47.06702,15.199734 -5.74138,3.988247 -63.250938,66.001756 -66.81664,72.049426 -16.504374,27.99271 -16.326416,58.18334 0.502633,85.26939 3.216147,5.17633 5.306719,7.3542 28.976824,30.18463 l 24.186703,23.32845 -0.99709,1.07418 -5.27545,5.68741 a 18.310654,18.499021 0 0 0 0.84346,26.14803 l 127.40855,120.59976 a 18.310654,18.499021 0 0 0 25.88175,-0.8511 L 425.06058,246.08971 a 18.310654,18.499021 0 0 0 -0.84347,-26.14802 L 296.80859,99.341952 a 18.310654,18.499021 0 0 0 -25.88176,0.852148 l -6.2522,6.74106 -24.62422,-22.855644 C 216.05269,61.804617 213.64256,59.733748 208.3509,56.831624 196.28617,50.21497 183.7091,46.838569 171.1643,46.67175 Z m -2.08781,56.98024 a 33.065013,27.38703 44.706672 0 1 22.43264,10.18865 l 35.55359,33.65179 -75.9838,81.93485 -35.55259,-33.65384 a 33.065013,27.38703 44.706672 0 1 -5.38432,-42.81149 l 38.73107,-41.76509 a 33.065013,27.38703 44.706672 0 1 20.20341,-7.54487 z" /><text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:70.4138px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#3498db;fill-opacity:1;stroke:none;stroke-width:1.10022"
+     x="117.05744"
+     y="261.4035"
+     id="text43804"
+     transform="scale(0.92993498,1.075344)"><tspan
+       sodipodi:role="line"
+       id="tspan43802"
+       x="117.05744"
+       y="261.4035"
+       style="stroke-width:1.10022">PassXYZ</tspan></text></g></svg>

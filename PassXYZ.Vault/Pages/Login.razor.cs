@@ -31,7 +31,7 @@ public partial class Login : ComponentBase
                 // If there is file to merge, we merge it first.
                 bool result = await dataStore.MergeAsync(path);
             }
-            navigationManager.NavigateTo("/items");
+            navigationManager.NavigateTo("/group");
         }
     }
 }

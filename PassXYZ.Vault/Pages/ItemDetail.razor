@@ -1,0 +1,28 @@
+﻿@page "/entry/{SelectedItemId}"
+
+@using System.Collections.ObjectModel
+@using KPCLib
+@using KeePassLib
+@using PassXYZ.Vault.Shared
+@using PassXYZ.Vault.Services
+
+@namespace PassXYZ.Vault.Pages
+
+<h1>@selectedItem!.Name</h1>
+
+<div class="list-group">
+    @foreach (var field in fields)
+    {
+        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="passxyz-blue.svg" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">@field.Key</h6>
+                    <p class="mb-0">@field.Value</p>
+                </div>
+            </div>
+        </a>
+    }
+</div>
+<div>@((MarkupString)notes)</div>
+
