@@ -24,14 +24,14 @@ public partial class App : Application
     public App()
 	{
 		InitializeComponent();
-#if USING_XAML
+#if MAUI_BLAZOR
+        MainPage = new MainPage();
+#else
         Routing.RegisterRoute(nameof(ItemsPage), typeof(ItemsPage));
         Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+        Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
         MainPage = new AppShell();
-#else
-        MainPage = new MainPage();
 #endif
     }
 
