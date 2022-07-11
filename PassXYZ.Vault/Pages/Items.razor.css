@@ -96,3 +96,7 @@ img {
 .dropdown-toggle::after {
     display: none !important;
 }
+
+.modal-dialog {
+    top: 7rem !important;
+}

@@ -71,8 +71,8 @@
     opacity: .5;
 }
 
-img {
-    margin-top: 1.5em
+.oi-pencil {
+    margin-top: 1em
 }
 
 .btn-light {
@@ -95,4 +95,8 @@ img {
 
 .dropdown-toggle::after {
     display: none !important;
+}
+
+.modal-dialog {
+    top: 7rem !important;
 }
