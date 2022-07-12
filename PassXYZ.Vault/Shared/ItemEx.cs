@@ -51,5 +51,32 @@ namespace PassXYZ.Vault.Shared
 
             return (action == null) ? $"/{itemType}/{item.Id}" : $"/{itemType}/{action}/{item.Id}";
         }
+
+        /// <summary>
+        /// Get the parent link of an item.
+        /// </summary>
+        public static string? GetParentLink(this Item item)
+        {
+            Item? parent = default;
+
+            if (item == null) return null;
+
+            if(item.IsGroup)
+            {
+                PwGroup group = (PwGroup)item;
+                if (group.ParentGroup == null) return null;
+
+                parent = group.ParentGroup;
+            }
+            else 
+            {
+                PwEntry entry = (PwEntry)item;
+                if (entry.ParentGroup == null) return null;
+
+                parent = entry.ParentGroup;
+            }
+
+            return $"/{PxConstants.Group}/{parent.Id}";
+        }
     }
 }

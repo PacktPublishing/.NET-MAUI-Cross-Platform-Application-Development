@@ -1,7 +1,20 @@
 ﻿@page "/group"
 @page "/group/{SelectedItemId}"
 
-<h1>@Title</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>
+                @if (selectedItem!.GetParentLink() != null)
+                {
+                    <a class="btn btn-outline-dark" href="@selectedItem!.GetParentLink()"><span class="oi oi-chevron-left" aria-hidden="true"></span></a>
+                }
+                @(" " + Title)
+                <button type="button" class="btn btn-outline-dark float-end"><span class="oi oi-plus" aria-hidden="true"></span></button>
+            </h1>
+        </div>
+    </div>
+</div>
 
 <div class="list-group">
     @foreach (var item in items)
