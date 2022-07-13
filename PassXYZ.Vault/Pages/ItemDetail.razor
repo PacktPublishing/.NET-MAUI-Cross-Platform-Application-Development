@@ -8,6 +8,7 @@
 
 @namespace PassXYZ.Vault.Pages
 
+<!-- Back button and title -->
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -23,13 +24,12 @@
     </div>
 </div>
 
-
+<!-- List view with context menu -->
 <div class="list-group">
     @foreach (var field in fields)
     {
         <div class="dropdown list-group-item list-group-item-action d-flex gap-1 py-2" aria-current="true">
             <span class="oi oi-pencil" aria-hidden="true"></span>
-
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <h6 class="mb-0">@field.Key</h6>
@@ -45,7 +45,11 @@
                         Edit
                     </button>
                 </li>
-                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">Delete</button></li>
+                <li>
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">
+                        Delete
+                    </button>
+                </li>
                 @if (field.IsProtected)
                 {
                     <li><button class="dropdown-item">Show</button></li>

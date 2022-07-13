@@ -1,6 +1,7 @@
 ﻿@page "/group"
 @page "/group/{SelectedItemId}"
 
+<!-- Back button and title -->
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -16,6 +17,7 @@
     </div>
 </div>
 
+<!-- List view with context menu -->
 <div class="list-group">
     @foreach (var item in items)
     {
@@ -38,7 +40,10 @@
                         Edit
                     </button>
                 </li>
-                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">Delete</button></li>
+                <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">
+                    Delete
+                    </button>
+                </li>
             </ul>
         </div>
     }
@@ -90,4 +95,3 @@
         </div>
     </div>
 </div>
-
