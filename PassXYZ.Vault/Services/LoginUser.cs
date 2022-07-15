@@ -77,7 +77,15 @@ public class LoginUser : PxUser
         }
     }
 
-    public static LoginUser Instance { get; } = new LoginUser();
+    private static LoginUser? instance = null;
+    public static LoginUser Instance 
+    {
+        get 
+        {
+            if (instance == null) { instance = new LoginUser(); }
+            return instance;
+        }
+    }
 
     private LoginUser() { }
 }
