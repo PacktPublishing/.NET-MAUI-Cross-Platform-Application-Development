@@ -37,22 +37,17 @@
                 </div>
             </a>
             <button class="opacity-50 btn btn-light dropdown-toggle" type="button" 
-                id="itemsContextMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                id="itemsContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
+                @onclick="@(() => listGroupItem=item)">
                 <span class="oi oi-menu" aria-hidden="true"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemsContextMenu">
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel" 
-                        @onclick="@(() => listGroupItem=item)">
-                        Edit
-                    </button>
-                </li>
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel">
+                        Edit</button></li>
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel" 
-                        @onclick="@(() => listGroupItem=item)">
-                    Delete
-                    </button>
-                </li>
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">
+                    Delete</button></li>
             </ul>
         </div>
     }

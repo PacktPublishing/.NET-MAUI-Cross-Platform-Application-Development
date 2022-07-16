@@ -18,7 +18,10 @@
                     <a class="btn btn-outline-dark" href="@selectedItem!.GetParentLink()"><span class="oi oi-chevron-left" aria-hidden="true"></span></a>
                 }
                 @(" " + selectedItem!.Name)
-                <button type="button" class="btn btn-outline-dark float-end" data-bs-toggle="modal" data-bs-target="#editModel"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-outline-dark float-end"
+                        data-bs-toggle="modal" data-bs-target="#editModel" 
+                        @onclick="@(() => IsKeyEditingEnable=true)">
+                    <span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
         </div>
     </div>
@@ -36,12 +39,15 @@
                     <p class="mb-0">@field.Value</p>
                 </div>
             </div>
-            <button class="opacity-50 btn btn-light dropdown-toggle" type="button" id="itemDetailContextMenu" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="opacity-50 btn btn-light dropdown-toggle" type="button" 
+                id="itemDetailContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
+                @onclick="@(() => listGroupField=field)">
                 <span class="oi oi-menu" aria-hidden="true"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemDetailContextMenu">
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel">
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel"
+                        @onclick="@(() => IsKeyEditingEnable=false)">
                         Edit
                     </button>
                 </li>
@@ -52,7 +58,16 @@
                 </li>
                 @if (field.IsProtected)
                 {
-                    <li><button class="dropdown-item">Show</button></li>
+                    <li><button class="dropdown-item" @onclick="OnToggleShowPassword">
+                        @if (field.IsHide)
+                        {
+                            <span>Show</span>
+                        }
+                        else
+                        {
+                            <span>Hide</span>
+                        }                    
+                    </button></li>
                 }
             </ul>
         </div>
@@ -70,19 +85,38 @@
             </div>
             <div class="modal-body">
                 <form class="row gx-2 gy-3">
+                    @if (IsKeyEditingEnable)
+                    {
+                        <div>
+                            <label for="keyField">Key</label>
+                            <input type="text" class="form-control" id="keyField" 
+                                @bind="newKey">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" @bind="IsPassword" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Password
+                            </label>
+                        </div>
+                    }
                     <div>
-                        <label for="keyField">Title</label>
-                        <input type="text" class="form-control" id="keyField" placeholder="Item title">
-                    </div>
-                    <div>
-                        <label for="valueField">Description</label>
-                        <textarea class="form-control" id="valueField" style="height: 100px"></textarea>
+                        @if (IsKeyEditingEnable)
+                        {
+                            <label for="valueField">Value</label>
+                        }
+                        else 
+                        {
+                            <label for="valueField">@listGroupFieldKey</label>
+                        }
+                        <textarea class="form-control" id="valueField" style="height: 100px"
+                                  value=@listGroupFieldValue @onchange="OnValueChanged" />
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @onclick="UpdateField">Save changes</button>
             </div>
         </div>
     </div>
@@ -97,11 +131,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete?
+                Do you want to delete @listGroupFieldKey?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @onclick="DeleteField">Confirm</button>
             </div>
         </div>
     </div>
