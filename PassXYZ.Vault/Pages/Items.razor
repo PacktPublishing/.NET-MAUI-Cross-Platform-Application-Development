@@ -11,7 +11,7 @@
                     <a class="btn btn-outline-dark" href="@selectedItem!.GetParentLink()"><span class="oi oi-chevron-left" aria-hidden="true"></span></a>
                 }
                 @(" " + Title)
-                <button type="button" class="btn btn-outline-dark float-end"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-outline-dark float-end" data-bs-toggle="modal" data-bs-target="#newItemModel"><span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
         </div>
     </div>
@@ -58,20 +58,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
+                <form class="row gx-2 gy-3">
+                    <div>
                         <label for="keyField">Title</label>
-                        <input type="text" class="form-control" id="keyField" placeholder="Your title">
+                        <input type="text" class="form-control" id="keyField" placeholder="Item title">
                     </div>
-                    <div class="form-group">
-                        <label for="valueField">Please update:</label>
-                        <textarea class="form-control" id="valueField" rows="3"></textarea>
+                    <div>
+                        <label for="valueField">Description</label>
+                        <textarea class="form-control" id="valueField" style="height: 100px"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
@@ -90,7 +90,39 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Modal -->
+<div class="modal fade" id="newItemModel" tabindex="-1" aria-labelledby="newItemModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newItemModelLabel">Add a new item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row gx-2 gy-3">
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected value="1">Group</option>
+                      <option value="2">Entry</option>
+                    </select>
+                    <div>
+                        <label for="keyField">Title</label>
+                        <input type="text" class="form-control" id="keyField" placeholder="Your title">
+                    </div>
+                    <div>
+                        <label for="valueField">Description of your item</label>
+                        <textarea class="form-control" id="valueField" style="height: 150px"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
