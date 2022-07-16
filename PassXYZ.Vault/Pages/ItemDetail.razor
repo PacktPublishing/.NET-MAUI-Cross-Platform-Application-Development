@@ -106,7 +106,9 @@
                         }
                         else 
                         {
-                            <label for="valueField">@listGroupFieldKey</label>
+                            <input type="text" class="form-control" id="keyField"
+                               value="@listGroupFieldKey" 
+                               @onchange="OnKeyChanged">
                         }
                         <textarea class="form-control" id="valueField" style="height: 100px"
                                   value=@listGroupFieldValue @onchange="OnValueChanged" />

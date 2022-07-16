@@ -82,6 +82,21 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
+        private void OnKeyChanged(ChangeEventArgs e) 
+        {
+            if (e.Value == null)
+            {
+                Debug.WriteLine("ItemDetail.OnKeyChanged: ChangeEventArgs is null");
+            }
+            else 
+            {
+                if (listGroupField == null) return;
+
+                listGroupField.Key = e.Value.ToString();
+                Debug.WriteLine($"ItemDetail.OnKeyChanged: Key={listGroupField.Key}");
+            }
+        }
+
         private void OnValueChanged(ChangeEventArgs e)
         {
             if (e.Value == null)

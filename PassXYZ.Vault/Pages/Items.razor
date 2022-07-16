@@ -14,7 +14,8 @@
                 }
                 @(" " + Title)
                 <button type="button" class="btn btn-outline-dark float-end" 
-                    data-bs-toggle="modal" data-bs-target="#newItemModel">
+                        data-bs-toggle="modal" data-bs-target="#editModel"
+                        @onclick="@(() => IsKeyEditingEnable=true)">
                     <span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
         </div>
@@ -43,7 +44,8 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemsContextMenu">
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel">
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel"
+                        @onclick="@(() => IsKeyEditingEnable=false)">
                         Edit</button></li>
                 <li>
                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">
@@ -58,15 +60,48 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModelLabel">Edit</h5>
+                <h5 class="modal-title" id="editModelLabel">
+                    @if (IsKeyEditingEnable)
+                    {
+                        <span>Add a new item</span>
+                    }
+                    else 
+                    {
+                        <span>Edit</span>
+                    }
+                        
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form class="row gx-2 gy-3">
+                    @if (IsKeyEditingEnable)
+                    {
+                        <select @bind="newItemType" class ="form-select" aria-label="Group">
+                            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
+                            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+                            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
+                            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
+                        </select>
+                        <div>
+                            <label for="keyField">Name</label>
+                            <input type="text" class="form-control" id="keyField" 
+                                @bind="newItemTitle">
+                        </div>
+                    }
                     <div>
-                        <label for="valueField">@((listGroupItem != null) ? listGroupItem.Name : "")</label>
+                        @if (IsKeyEditingEnable)
+                        {
+                            <label for="valueField">Notes</label>
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control" id="keyField"
+                               value="@listGroupItemName"
+                               @onchange="OnNameChanged">
+                        }
                         <textarea class="form-control" id="valueField" style="height: 100px"
-                                  value=@((listGroupItem != null) ? listGroupItem.Notes : "")
+                                  value=@listGroupItemNotes
                                   @onchange="OnNotesChanged" />
                     </div>
                 </form>
@@ -89,7 +124,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete @((listGroupItem != null) ? listGroupItem.Name : "")?
+                Do you want to delete @listGroupItemName?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -100,40 +135,3 @@
     </div>
 </div>
 
-<!-- New Modal -->
-<div class="modal fade" id="newItemModel" tabindex="-1" aria-labelledby="newItemModelLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newItemModelLabel">Add a new item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row gx-2 gy-3">
-                    <select @bind="newItemType" class ="form-select" aria-label="Group">
-                        <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
-                        <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
-                        <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
-                        <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
-                    </select>
-                    <div>
-                        <label for="keyField">Title</label>
-                        <input type="text" class="form-control" id="keyField" 
-                            @bind="newItemTitle">
-                    </div>
-                    <div>
-                        <label for="valueField">Description of your item</label>
-                        <textarea class="form-control" id="valueField" 
-                            @bind="newItemNotes" style="height: 150px"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" 
-                    @onclick="AddNewItem">Add</button>
-            </div>
-        </div>
-    </div>
-</div>

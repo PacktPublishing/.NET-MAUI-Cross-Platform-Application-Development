@@ -27,6 +27,9 @@ public partial class Items
     private string newItemNotes = string.Empty;
     private string newItemType = ItemSubType.Entry.ToString();
     Item? listGroupItem = default!;
+    private string listGroupItemName => (listGroupItem != null) ? listGroupItem.Name : "";
+    private string listGroupItemNotes => (listGroupItem != null) ? listGroupItem.Notes : "";
+    bool IsKeyEditingEnable = false;
 
     public Items() 
     {
@@ -91,34 +94,57 @@ public partial class Items
         }
     }
 
+    private void OnNameChanged(ChangeEventArgs e)
+    {
+        if (e.Value == null)
+        {
+            Debug.WriteLine("Items.OnNameChanged: ChangeEventArgs is null");
+        }
+        else 
+        {
+            if (listGroupItem == null) return;
+
+            listGroupItem.Name = e.Value.ToString();
+            Debug.WriteLine($"Items.OnNameChanged: Notes={listGroupItem.Name}");
+        }
+    }
+
     private void OnNotesChanged(ChangeEventArgs e) 
     {
-        if (listGroupItem == null) return;
         if (e.Value == null) 
         {
             Debug.WriteLine("Items.OnNotesChanged: ChangeEventArgs is null");
         }
         else 
         {
-            listGroupItem.Notes = e.Value.ToString();
-            Debug.WriteLine($"Items.OnNotesChanged: Notes={listGroupItem.Notes}");
+            if (listGroupItem == null || IsKeyEditingEnable) 
+            {
+                newItemNotes = e.Value.ToString();
+                Debug.WriteLine($"Items.OnNotesChanged: New Notes={newItemNotes}");
+            }
+            else 
+            {
+                listGroupItem.Notes = e.Value.ToString();
+                Debug.WriteLine($"Items.OnNotesChanged: Notes={listGroupItem.Notes}");
+            }
         }
     }
 
     private void UpdateItem(MouseEventArgs e)
     {
-        if (listGroupItem == null) return;
-        Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
+        if (listGroupItem == null || IsKeyEditingEnable) 
+        {
+            Debug.WriteLine($"Items.AddNewItem: type={newItemType}, name={newItemTitle}, Notes={newItemNotes}");
+        }
+        else 
+        {
+            Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
+        }
     }
 
     private void DeleteItem(MouseEventArgs e)
     {
         if (listGroupItem == null) return;
         Debug.WriteLine($"Items.DeleteItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
-    }
-
-    private void AddNewItem(MouseEventArgs e)
-    {
-        Debug.WriteLine($"Items.AddNewItem: type={newItemType}, name={newItemTitle}, Notes={newItemNotes}");
     }
 }
