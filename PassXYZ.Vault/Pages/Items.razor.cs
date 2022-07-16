@@ -23,6 +23,11 @@ public partial class Items
     readonly ObservableCollection<Item> items;
     Item? selectedItem = default!;
 
+    private string newItemTitle = string.Empty;
+    private string newItemNotes = string.Empty;
+    private string newItemType = ItemSubType.Entry.ToString();
+    Item? listGroupItem = default!;
+
     public Items() 
     {
         items = new ObservableCollection<Item>();
@@ -84,5 +89,36 @@ public partial class Items
             // Case 1: Set to Root Group
             await LoadGroup(DataStore.RootGroup);
         }
+    }
+
+    private void OnNotesChanged(ChangeEventArgs e) 
+    {
+        if (listGroupItem == null) return;
+        if (e.Value == null) 
+        {
+            Debug.WriteLine("Items.OnNotesChanged: ChangeEventArgs is null");
+        }
+        else 
+        {
+            listGroupItem.Notes = e.Value.ToString();
+            Debug.WriteLine($"Items.OnNotesChanged: Notes={listGroupItem.Notes}");
+        }
+    }
+
+    private void UpdateItem(MouseEventArgs e)
+    {
+        if (listGroupItem == null) return;
+        Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
+    }
+
+    private void DeleteItem(MouseEventArgs e)
+    {
+        if (listGroupItem == null) return;
+        Debug.WriteLine($"Items.DeleteItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
+    }
+
+    private void AddNewItem(MouseEventArgs e)
+    {
+        Debug.WriteLine($"Items.AddNewItem: type={newItemType}, name={newItemTitle}, Notes={newItemNotes}");
     }
 }
