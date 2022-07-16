@@ -18,7 +18,7 @@
                     <a class="btn btn-outline-dark" href="@selectedItem!.GetParentLink()"><span class="oi oi-chevron-left" aria-hidden="true"></span></a>
                 }
                 @(" " + selectedItem!.Name)
-                <button type="button" class="btn btn-outline-dark float-end"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-outline-dark float-end" data-bs-toggle="modal" data-bs-target="#editModel"><span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
         </div>
     </div>
@@ -69,20 +69,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
+                <form class="row gx-2 gy-3">
+                    <div>
                         <label for="keyField">Title</label>
-                        <input type="text" class="form-control" id="keyField" placeholder="Your title">
+                        <input type="text" class="form-control" id="keyField" placeholder="Item title">
                     </div>
-                    <div class="form-group">
-                        <label for="valueField">Please update:</label>
-                        <textarea class="form-control" id="valueField" rows="3"></textarea>
+                    <div>
+                        <label for="valueField">Description</label>
+                        <textarea class="form-control" id="valueField" style="height: 100px"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
