@@ -4,7 +4,6 @@ using System.Diagnostics;
 using KPCLib;
 using PassXYZLib;
 using PassXYZ.Vault.Services;
-using PassXYZ.Vault.ViewModels;
 using Microsoft.AspNetCore.Components.Web;
 using System.Collections.ObjectModel;
 
@@ -130,21 +129,39 @@ public partial class Items
         }
     }
 
-    private void UpdateItem(MouseEventArgs e)
+    private async void UpdateItemAsync(MouseEventArgs e)
     {
         if (listGroupItem == null || IsKeyEditingEnable) 
         {
+            // Add new item
+            var newType = ItemSubType.None;
+            newType = newType.GetItemSubType(newItemType);
+            Item? newItem = DataStore.CreateNewItem(newType);
+            if (newItem != null)
+            {
+                newItem.Name = newItemTitle;
+                newItem.Notes = newItemNotes;
+                items.Add(newItem);
+                await DataStore.AddItemAsync(newItem);
+            }
             Debug.WriteLine($"Items.AddNewItem: type={newItemType}, name={newItemTitle}, Notes={newItemNotes}");
         }
         else 
         {
+            // Update the current item
+            await DataStore.UpdateItemAsync(listGroupItem);
             Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
         }
     }
 
-    private void DeleteItem(MouseEventArgs e)
+    private async void DeleteItemAsync(MouseEventArgs e)
     {
         if (listGroupItem == null) return;
+
+        if (items.Remove(listGroupItem)) 
+        {
+            _ = await DataStore.DeleteItemAsync(listGroupItem.Id);
+        }
         Debug.WriteLine($"Items.DeleteItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
     }
 }
