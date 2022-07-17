@@ -82,21 +82,6 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
-        private void OnKeyChanged(ChangeEventArgs e) 
-        {
-            if (e.Value == null)
-            {
-                Debug.WriteLine("ItemDetail.OnKeyChanged: ChangeEventArgs is null");
-            }
-            else 
-            {
-                if (listGroupField == null) return;
-
-                listGroupField.Key = e.Value.ToString();
-                Debug.WriteLine($"ItemDetail.OnKeyChanged: Key={listGroupField.Key}");
-            }
-        }
-
         private void OnValueChanged(ChangeEventArgs e)
         {
             if (e.Value == null)
@@ -132,22 +117,40 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
-        private void UpdateField(MouseEventArgs e)
+        private async void UpdateFieldAsync(MouseEventArgs e)
         {
+            if (selectedItem == null)
+            {
+                throw new NullReferenceException("Selected item is null");
+            }
+
             if (listGroupField == null || IsKeyEditingEnable)
             {
-                Debug.WriteLine($"ItemDetail.UpdateField: New Key={newKey}, New Value={newValue}, IsPassword={IsPassword}");
+                // Add a new field
+                Field newField = selectedItem.AddField(newKey, newValue, IsPassword);
+                fields.Add(newField);
+                Debug.WriteLine($"ItemDetail.UpdateFieldAsync: New Key={newKey}, New Value={newValue}, IsPassword={IsPassword}");
             }
             else 
             {
-                Debug.WriteLine($"ItemDetail.UpdateField: Key={listGroupField.Key}, Value={listGroupField.Value}");
+                // Update the current field
+                var newData = (listGroupField.IsProtected) ? listGroupField.EditValue : listGroupField.Value;
+                selectedItem.UpdateField(listGroupField.Key, newData, listGroupField.IsProtected);
+                Debug.WriteLine($"ItemDetail.UpdateFieldAsync: Key={listGroupField.Key}, Value={listGroupField.Value}");
             }
+            await DataStore.UpdateItemAsync(selectedItem);
         }
 
-        private void DeleteField(MouseEventArgs e)
+        private async void DeleteFieldAsync(MouseEventArgs e)
         {
-            if (listGroupField == null) return;
-            Debug.WriteLine($"ItemDetail.DeleteField: Key={listGroupField.Key}, Value={listGroupField.Value}");
+            if (listGroupField == null || selectedItem == null) 
+            {
+                throw new NullReferenceException("Selected item or field is null");
+            }
+            listGroupField.ShowContextAction = listGroupField;
+            selectedItem.DeleteField(listGroupField);
+            await DataStore.UpdateItemAsync(selectedItem);
+            Debug.WriteLine($"ItemDetail.DeleteFieldAsync: Key={listGroupField.Key}, Value={listGroupField.Value}");
         }
 
     }
