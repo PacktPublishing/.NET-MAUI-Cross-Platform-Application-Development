@@ -10,11 +10,13 @@
 
             <div class="form-floating">
                 <label for="floatingInput">Username</label>
-                <input type="text" @bind="@currentUser.Username" class="form-control" id="floatingInput" placeholder="Username">
+                <input type="text" @bind="@currentUser.Username" class="form-control" 
+                    id="floatingInput" placeholder="Username" required>
             </div>
             <div class="form-floating">
                 <label for="floatingPassword">Password</label>
-                <input type="password" @bind="@currentUser.Password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" @bind="@currentUser.Password" class="form-control" 
+                    id="floatingPassword" placeholder="Password" required>
             </div>
 
             <div class="checkbox mb-3">

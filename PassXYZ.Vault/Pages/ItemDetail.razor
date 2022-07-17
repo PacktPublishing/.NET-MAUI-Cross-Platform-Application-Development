@@ -82,7 +82,7 @@
                         <div>
                             <label for="keyField">Key</label>
                             <input type="text" class="form-control" id="keyField" 
-                                @bind="newKey">
+                                @bind="newKey" required>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" @bind="IsPassword" id="flexCheckDefault">
@@ -101,14 +101,16 @@
                             <label for="valueField">@listGroupFieldKey</label>
                         }
                         <textarea class="form-control" id="valueField" style="height: 100px"
-                                  value=@listGroupFieldValue @onchange="OnValueChanged" />
+                                  value=@listGroupFieldValue @onchange="OnValueChanged" required/>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"
+                                @onclick="UpdateFieldAsync">
+                            Save changes
+                        </button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        @onclick="UpdateFieldAsync">Save changes</button>
             </div>
         </div>
     </div>

@@ -134,6 +134,8 @@ public partial class Items
         if (listGroupItem == null || IsKeyEditingEnable) 
         {
             // Add new item
+            if (string.IsNullOrEmpty(newItemNotes) || string.IsNullOrEmpty(newItemTitle)) return;
+
             var newType = ItemSubType.None;
             newType = newType.GetItemSubType(newItemType);
             Item? newItem = DataStore.CreateNewItem(newType);

@@ -127,6 +127,8 @@ namespace PassXYZ.Vault.Pages
             if (listGroupField == null || IsKeyEditingEnable)
             {
                 // Add a new field
+                if (string.IsNullOrEmpty(newKey) || string.IsNullOrEmpty(newValue)) return;
+
                 Field newField = selectedItem.AddField(newKey, newValue, IsPassword);
                 fields.Add(newField);
                 Debug.WriteLine($"ItemDetail.UpdateFieldAsync: New Key={newKey}, New Value={newValue}, IsPassword={IsPassword}");

@@ -86,7 +86,7 @@
                         <div>
                             <label for="keyField">Name</label>
                             <input type="text" class="form-control" id="keyField" 
-                                @bind="newItemTitle">
+                                @bind="newItemTitle" required>
                         </div>
                     }
                     <div>
@@ -102,14 +102,17 @@
                         }
                         <textarea class="form-control" id="valueField" style="height: 100px"
                                   value=@listGroupItemNotes
-                                  @onchange="OnNotesChanged" />
+                                  @onchange="OnNotesChanged" required/>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"
+                                @onclick="UpdateItemAsync">
+                            Save changes
+                        </button>
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        @onclick="UpdateItemAsync">Save changes</button>
             </div>
         </div>
     </div>
