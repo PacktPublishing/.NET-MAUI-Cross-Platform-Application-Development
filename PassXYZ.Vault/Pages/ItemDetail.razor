@@ -81,11 +81,11 @@
                     {
                         <div>
                             <label for="keyField">Key</label>
-                            <input type="text" class="form-control" id="keyField" 
-                                @bind="newKey" required>
+                            <input type="text" class="form-control" id="keyField"
+                               @bind="listGroupField.Key" required>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" @bind="IsPassword" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" @bind="listGroupField.IsProtected" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Password
                             </label>
@@ -98,10 +98,10 @@
                         }
                         else 
                         {
-                            <label for="valueField">@listGroupFieldKey</label>
+                            <label for="valueField">@listGroupField.Key</label>
                         }
                         <textarea class="form-control" id="valueField" style="height: 100px"
-                                  value=@listGroupFieldValue @onchange="OnValueChanged" required/>
+                                  @bind="listGroupField.Value" required/>
                     </div>
                     <div class="col-12">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,7 +125,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete @listGroupFieldKey?
+                Do you want to delete @listGroupField.Key?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

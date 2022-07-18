@@ -16,33 +16,19 @@ namespace PassXYZ.Vault.Pages
         [Parameter]
         public string SelectedItemId { get; set; } = default!;
 
-        string? notes = default!;
-
         [Inject]
         public IDataStore<Item> DataStore { get; set; } = default!;
 
         readonly ObservableCollection<Field> fields;
-
         Item? selectedItem = default!;
-
-        private string newKey = string.Empty;
-        private string newValue = string.Empty;
-        private bool IsPassword = false;
-        private Field? listGroupField = default!;
-        private string listGroupFieldKey => ((listGroupField != null) ? listGroupField.Key : "");
-        private string listGroupFieldValue
-        { 
-            get 
-            { 
-                if (listGroupField == null) { return ""; }
-                if (listGroupField.IsProtected) { return listGroupField.EditValue; }
-                return listGroupField.Value; 
-            }
-        }
+        private Field newField;
+        private Field listGroupField;
         bool IsKeyEditingEnable = false;
+        string? notes = default!;
 
         public ItemDetail()
         {
+            listGroupField = newField = new("","",false);
             fields = new ObservableCollection<Field>();
         }
 
@@ -82,27 +68,6 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
-        private void OnValueChanged(ChangeEventArgs e)
-        {
-            if (e.Value == null)
-            {
-                Debug.WriteLine("ItemDetail.OnValueChanged: ChangeEventArgs is null");
-            }
-            else
-            {
-                if (listGroupField == null || IsKeyEditingEnable)
-                {
-                    newValue = e.Value.ToString();
-                    Debug.WriteLine($"ItemDetail.OnValueChanged: New Value={newValue}");
-                }
-                else
-                {
-                    listGroupField.Value = e.Value.ToString();
-                    Debug.WriteLine($"ItemDetail.OnValueChanged: Value={listGroupField.Value}");
-                }
-            }
-        }
-
         private void OnToggleShowPassword(MouseEventArgs e) 
         {
             if (listGroupField == null) return;
@@ -123,15 +88,16 @@ namespace PassXYZ.Vault.Pages
             {
                 throw new NullReferenceException("Selected item is null");
             }
+            if (string.IsNullOrEmpty(listGroupField.Key) || string.IsNullOrEmpty(listGroupField.Value)) return;
 
             if (listGroupField == null || IsKeyEditingEnable)
             {
                 // Add a new field
-                if (string.IsNullOrEmpty(newKey) || string.IsNullOrEmpty(newValue)) return;
-
-                Field newField = selectedItem.AddField(newKey, newValue, IsPassword);
+                Field newField = selectedItem.AddField(listGroupField.Key, 
+                    ((listGroupField.IsProtected) ? listGroupField.EditValue : listGroupField.Value), 
+                    listGroupField.IsProtected);
                 fields.Add(newField);
-                Debug.WriteLine($"ItemDetail.UpdateFieldAsync: New Key={newKey}, New Value={newValue}, IsPassword={IsPassword}");
+                Debug.WriteLine($"ItemDetail.UpdateFieldAsync: New Key={listGroupField.Key}, New Value={listGroupField.Value}, IsPassword={listGroupField.IsProtected}");
             }
             else 
             {

@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 using KPCLib;
 using PassXYZLib;
 using PassXYZ.Vault.Services;
-using Microsoft.AspNetCore.Components.Web;
-using System.Collections.ObjectModel;
+using PassXYZ.Vault.Shared;
 
 namespace PassXYZ.Vault.Pages;
 
@@ -22,16 +23,14 @@ public partial class Items
     readonly ObservableCollection<Item> items;
     Item? selectedItem = default!;
 
-    private string newItemTitle = string.Empty;
-    private string newItemNotes = string.Empty;
-    private string newItemType = ItemSubType.Entry.ToString();
-    Item? listGroupItem = default!;
-    private string listGroupItemName => (listGroupItem != null) ? listGroupItem.Name : "";
-    private string listGroupItemNotes => (listGroupItem != null) ? listGroupItem.Notes : "";
+    NewItem newItem;
+    Item listGroupItem;
     bool IsKeyEditingEnable = false;
 
     public Items() 
     {
+        listGroupItem = newItem = new();
+
         items = new ObservableCollection<Item>();
     }
 
@@ -93,60 +92,26 @@ public partial class Items
         }
     }
 
-    private void OnNameChanged(ChangeEventArgs e)
-    {
-        if (e.Value == null)
-        {
-            Debug.WriteLine("Items.OnNameChanged: ChangeEventArgs is null");
-        }
-        else 
-        {
-            if (listGroupItem == null) return;
-
-            listGroupItem.Name = e.Value.ToString();
-            Debug.WriteLine($"Items.OnNameChanged: Notes={listGroupItem.Name}");
-        }
-    }
-
-    private void OnNotesChanged(ChangeEventArgs e) 
-    {
-        if (e.Value == null) 
-        {
-            Debug.WriteLine("Items.OnNotesChanged: ChangeEventArgs is null");
-        }
-        else 
-        {
-            if (listGroupItem == null || IsKeyEditingEnable) 
-            {
-                newItemNotes = e.Value.ToString();
-                Debug.WriteLine($"Items.OnNotesChanged: New Notes={newItemNotes}");
-            }
-            else 
-            {
-                listGroupItem.Notes = e.Value.ToString();
-                Debug.WriteLine($"Items.OnNotesChanged: Notes={listGroupItem.Notes}");
-            }
-        }
-    }
-
     private async void UpdateItemAsync(MouseEventArgs e)
     {
-        if (listGroupItem == null || IsKeyEditingEnable) 
+        if (listGroupItem == null) return;
+        if (string.IsNullOrEmpty(listGroupItem.Name) || string.IsNullOrEmpty(listGroupItem.Notes)) return;
+
+        if (IsKeyEditingEnable)
         {
             // Add new item
-            if (string.IsNullOrEmpty(newItemNotes) || string.IsNullOrEmpty(newItemTitle)) return;
-
-            var newType = ItemSubType.None;
-            newType = newType.GetItemSubType(newItemType);
-            Item? newItem = DataStore.CreateNewItem(newType);
-            if (newItem != null)
+            if (listGroupItem is NewItem aNewItem)
             {
-                newItem.Name = newItemTitle;
-                newItem.Notes = newItemNotes;
-                items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                Item? newItem = DataStore.CreateNewItem(aNewItem.SubType);
+                if (newItem != null)
+                {
+                    newItem.Name = aNewItem.Name;
+                    newItem.Notes = aNewItem.Notes;
+                    items.Add(newItem);
+                    await DataStore.AddItemAsync(newItem);
+                }
+                Debug.WriteLine($"Items.AddNewItem: type={aNewItem.ItemType}, name={aNewItem.Name}, Notes={aNewItem.Notes}");
             }
-            Debug.WriteLine($"Items.AddNewItem: type={newItemType}, name={newItemTitle}, Notes={newItemNotes}");
         }
         else 
         {

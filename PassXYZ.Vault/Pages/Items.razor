@@ -77,7 +77,7 @@
                 <form class="row gx-2 gy-3">
                     @if (IsKeyEditingEnable)
                     {
-                        <select @bind="newItemType" class ="form-select" aria-label="Group">
+                        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
                             <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
                             <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
                             <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
@@ -86,7 +86,7 @@
                         <div>
                             <label for="keyField">Name</label>
                             <input type="text" class="form-control" id="keyField" 
-                                @bind="newItemTitle" required>
+                                @bind="listGroupItem.Name" required>
                         </div>
                     }
                     <div>
@@ -97,12 +97,10 @@
                         else
                         {
                             <input type="text" class="form-control" id="keyField"
-                               value="@listGroupItemName"
-                               @onchange="OnNameChanged">
+                               @bind="listGroupItem.Name" required>
                         }
                         <textarea class="form-control" id="valueField" style="height: 100px"
-                                  value=@listGroupItemNotes
-                                  @onchange="OnNotesChanged" required/>
+                                  @bind="listGroupItem.Notes" required/>
                     </div>
 
                     <div class="col-12">
@@ -127,7 +125,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete @listGroupItemName?
+                Do you want to delete @listGroupItem.Name?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
