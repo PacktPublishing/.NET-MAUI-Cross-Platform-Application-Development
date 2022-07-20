@@ -25,6 +25,8 @@ namespace PassXYZ.Vault.Pages
         private Field listGroupField;
         bool IsKeyEditingEnable = false;
         string? notes = default!;
+        string DialogEditId = "editModel";
+        string DialogDeleteId = "deleteModel";
 
         public ItemDetail()
         {

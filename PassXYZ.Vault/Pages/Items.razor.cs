@@ -26,6 +26,8 @@ public partial class Items
     NewItem newItem;
     Item listGroupItem;
     bool IsKeyEditingEnable = false;
+    string DialogEditId = "editModel";
+    string DialogDeleteId = "deleteModel";
 
     public Items() 
     {

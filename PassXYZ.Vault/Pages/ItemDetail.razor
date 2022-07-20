@@ -47,11 +47,13 @@
                     <span class="oi oi-menu" aria-hidden="true"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="itemDetailContextMenu">
-                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModel"
+                    <li>
+                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@DialogEditId"
                         @onclick="@(() => IsKeyEditingEnable=false)">
                             Edit
                         </button></li>
-                    <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModel">
+                    <li>
+                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@DialogDeleteId">
                             Delete
                         </button></li>
                     @if (field.IsProtected) {
@@ -68,7 +70,7 @@
 <div class="container"><article>@((MarkupString)notes)</article></div>
 
 <!-- Editing Modal -->
-<div class="modal fade" id="editModel" tabindex="-1" aria-labelledby="editModelLabel" aria-hidden="true">
+<div class="modal fade" id=@DialogEditId tabindex="-1" aria-labelledby="editModelLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -117,7 +119,7 @@
 </div>
 
 <!-- Deleting Modal -->
-<div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
+<div class="modal fade" id=@DialogDeleteId tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
