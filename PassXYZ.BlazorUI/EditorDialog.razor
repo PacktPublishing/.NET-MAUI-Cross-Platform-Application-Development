@@ -1,0 +1,17 @@
+﻿<ModalDialog Id=@Id Title=@Title SaveButtonText="Save" CloseButtonText="Close" 
+        OnSaveAsync=@OnSaveClicked>
+    @if (IsKeyEditingEnable)
+    {
+        <input type="text" class="form-control" id="keyField"
+           @bind="Key" required>
+    }
+    else
+    {
+        <label for="valueField">@Key</label>
+    }
+    @ChildContent
+    <div>
+        <textarea class="form-control" id="valueField" style="height: 100px"
+                  @bind="Value" required />
+    </div>
+</ModalDialog>
