@@ -43,9 +43,9 @@ namespace PassXYZ.Vault.Tests
                 parameters => parameters.Add(p => p.IsNewItem, true)
                 .Add(p => p.testItem, testItem));
             cut.Find("h5").TextContent.MarkupMatches("Creating a new Item");
-            //cut.Find("input").Change("GitHub");
-            //cut.Find("textarea").Change("Your GitHub account");
-            //cut.Find("select").Change("PxEntry");
+            cut.Find("input").Change("Google");
+            cut.Find("textarea").Change("Your Google account");
+            cut.Find("select").Change("PxEntry");
             cut.Find("button[type=submit]").Click();
             Debug.WriteLine($"{cut.Markup}");
         }
@@ -62,7 +62,7 @@ namespace PassXYZ.Vault.Tests
                 parameters => parameters.Add(p => p.IsNewItem, false)
                 .Add(p => p.testItem, testItem));
             cut.Find("h5").TextContent.MarkupMatches("Creating a new Item");
-            //cut.Find("textarea").Change("This is the new value.");
+            cut.Find("textarea").Change("This is the new value.");
             cut.Find("button[type=submit]").Click();
             Debug.WriteLine($"{cut.Markup}");
         }
@@ -75,9 +75,9 @@ namespace PassXYZ.Vault.Tests
                 parameters => parameters.Add(p => p.IsNewField, true)
                 .Add(p => p.TestField, testField));
             cut.Find("h5").TextContent.MarkupMatches("Creating a new Field");
-            //cut.Find("input").Change("Username");
-            //cut.Find("textarea").Change("John Yang");
-            //cut.Find("input[type=\"checkbox\"]").Change("false");
+            cut.Find("input").Change("Username");
+            cut.Find("textarea").Change("Mike Wang");
+            cut.Find("input[type=\"checkbox\"]").Change("false");
             cut.Find("button[type=submit]").Click();
             Debug.WriteLine($"{cut.Markup}");
         }
@@ -90,8 +90,7 @@ namespace PassXYZ.Vault.Tests
                 parameters => parameters.Add(p => p.IsNewField, false)
                 .Add(p => p.TestField, testField));
             cut.Find("h5").TextContent.MarkupMatches("Creating a new Field");
-            //cut.Find("textarea").Change("1234567890");
-            //cut.Find("input[type=\"checkbox\"]").Change("false");
+            cut.Find("textarea").Change("13579");
             cut.Find("button[type=submit]").Click();
             Debug.WriteLine($"{cut.Markup}");
         }

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace PassXYZ.BlazorUI;
 
-public partial class ModalDialog 
+public partial class ModalDialog : IDisposable
 {
     [Parameter]
     public string? Id { get; set; }
@@ -38,5 +38,11 @@ public partial class ModalDialog
         {
             await OnSaveAsync();
         }
+    }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+        Debug.WriteLine($"ModalDialog: delete - {Id}");
     }
 }

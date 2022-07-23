@@ -2,7 +2,7 @@
 @using KPCLib
 
 <EditorDialog Id=@id IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
-    @bind-Key="testItem.Name" @bind-Value="testItem.Notes" Title="Creating a new Item">
+    Key=@testItem.Name Value=@testItem.Notes Title="Creating a new Item">
     @if (IsNewItem)
     {
         <select @bind="testItem.ItemType" class="form-select" aria-label="Group">

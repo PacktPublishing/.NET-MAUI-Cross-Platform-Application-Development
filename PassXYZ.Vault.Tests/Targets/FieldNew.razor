@@ -1,7 +1,7 @@
 ﻿@using System.Diagnostics
 @using KPCLib
 
-<EditorDialog Id=@id IsKeyEditingEnable=@IsNewField @bind-Key="TestField.Key" @bind-Value="TestField.Value"
+<EditorDialog Id=@id IsKeyEditingEnable=@IsNewField Key=@TestField.Key Value=@TestField.Value
               OnSave=@OnSaveClicked Title ="Creating a new Field">
     @if (IsNewField)
     {

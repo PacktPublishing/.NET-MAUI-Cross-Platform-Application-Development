@@ -109,6 +109,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\PassXYZLib\PassXYZLib\PassXYZLib.csproj" />
+	  <ProjectReference Include="..\PassXYZ.BlazorUI\PassXYZ.BlazorUI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

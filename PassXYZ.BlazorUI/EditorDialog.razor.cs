@@ -38,7 +38,8 @@ public partial class EditorDialog
         {
             _value = value ?? string.Empty;
             ValueChanged?.InvokeAsync(_value);
-        } 
+            Debug.WriteLine($"EditorDialog: Value={_value}");
+        }
     }
     [Parameter]
     public EventCallback<string>? ValueChanged { get; set; }
