@@ -10,8 +10,6 @@ public partial class EditorDialog
     [Parameter]
     public string? Id { get; set; }
     [Parameter]
-    public string Title { get; set; } = "editModal";
-    [Parameter]
     public bool IsKeyEditingEnable { get; set; }
 
     string _key = string.Empty;
@@ -28,6 +26,8 @@ public partial class EditorDialog
     }
     [Parameter]
     public EventCallback<string>? KeyChanged { get; set; }
+    [Parameter]
+    public string? KeyPlaceHolder { get; set; }
 
     string _value = string.Empty;
     [Parameter]
@@ -43,6 +43,8 @@ public partial class EditorDialog
     }
     [Parameter]
     public EventCallback<string>? ValueChanged { get; set; }
+    [Parameter]
+    public string? ValuePlaceHolder { get; set; }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;

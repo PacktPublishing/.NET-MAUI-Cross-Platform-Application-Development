@@ -26,12 +26,10 @@ namespace PassXYZ.Vault.Tests
         [Fact]
         public void ConfirmDialogInitTest() 
         {
-            string title = "Please confirm";
+            string title = "Deleting";
             var cut = RenderComponent<ConfirmDialog>();
             ConfirmDialog dialog = cut.Instance;
-            var context = dialog.TestField;
             cut.Find("h5").TextContent.MarkupMatches(title);
-            cut.Find("button[type=submit]").Click();
             Debug.WriteLine($"{cut.Markup}");
         }
     }
