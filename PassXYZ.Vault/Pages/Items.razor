@@ -15,7 +15,7 @@
                 @(" " + Title)
                 <button type="button" class="btn btn-outline-dark float-end" 
                         data-bs-toggle="modal" data-bs-target="#editModel"
-                        @onclick="@(() => IsKeyEditingEnable=true)">
+                        @onclick="@(() => _isNewItem=true)">
                     <span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
         </div>
@@ -44,11 +44,11 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemsContextMenu">
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@DialogEditId"
-                        @onclick="@(() => IsKeyEditingEnable=false)">
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogEditId"
+                        @onclick="@(() => _isNewItem=false)">
                         Edit</button></li>
                 <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@DialogDeleteId">
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogDeleteId">
                     Delete</button></li>
             </ul>
         </div>
@@ -56,83 +56,21 @@
 </div>
 
 <!-- Editing Modal -->
-<div class="modal fade" id=@DialogEditId tabindex="-1" aria-labelledby="editModelLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModelLabel">
-                    @if (IsKeyEditingEnable)
-                    {
-                        <span>Add a new item</span>
-                    }
-                    else 
-                    {
-                        <span>Edit</span>
-                    }
-                        
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="row gx-2 gy-3">
-                    @if (IsKeyEditingEnable)
-                    {
-                        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
-                            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
-                            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
-                            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
-                            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
-                        </select>
-                        <div>
-                            <label for="keyField">Name</label>
-                            <input type="text" class="form-control" id="keyField" 
-                                @bind="listGroupItem.Name" required>
-                        </div>
-                    }
-                    <div>
-                        @if (IsKeyEditingEnable)
-                        {
-                            <label for="valueField">Notes</label>
-                        }
-                        else
-                        {
-                            <input type="text" class="form-control" id="keyField"
-                               @bind="listGroupItem.Name" required>
-                        }
-                        <textarea class="form-control" id="valueField" style="height: 100px"
-                                  @bind="listGroupItem.Notes" required/>
-                    </div>
-
-                    <div class="col-12">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"
-                                @onclick="UpdateItemAsync">
-                            Save changes
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<EditorDialog Id=@_dialogEditId Key=@listGroupItem.Name Value=@listGroupItem.Notes
+              IsKeyEditingEnable=true OnSave="UpdateItemAsync"
+    KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
+    @if (_isNewItem)
+    {
+        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
+            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
+            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
+            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
+        </select>
+    }
+</EditorDialog>
 
 <!-- Deleting Modal -->
-<div class="modal fade" id=@DialogDeleteId tabindex="-1" aria-labelledby="deleteModelLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModelLabel">Please confirm</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Do you want to delete @listGroupItem.Name?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        @onclick="DeleteItemAsync">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
+<ConfirmDialog Id="@_dialogDeleteId" Title=@listGroupItem.Name OnConfirmClick="DeleteItemAsync" />
+
 

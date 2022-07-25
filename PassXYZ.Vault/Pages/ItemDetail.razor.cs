@@ -23,10 +23,10 @@ namespace PassXYZ.Vault.Pages
         Item? selectedItem = default!;
         private Field newField;
         private Field listGroupField;
-        bool IsKeyEditingEnable = false;
+        bool _isNewField = false;
         string? notes = default!;
-        string DialogEditId = "editModel";
-        string DialogDeleteId = "deleteModel";
+        string _dialogEditId = "editModel";
+        string _dialogDeleteId = "deleteModel";
 
         public ItemDetail()
         {
@@ -84,15 +84,17 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
-        private async void UpdateFieldAsync(MouseEventArgs e)
+        private async void UpdateFieldAsync(string key, string value)
         {
             if (selectedItem == null)
             {
                 throw new NullReferenceException("Selected item is null");
             }
-            if (string.IsNullOrEmpty(listGroupField.Key) || string.IsNullOrEmpty(listGroupField.Value)) return;
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
+            listGroupField.Key = key;
+            listGroupField.Value = value;
 
-            if (listGroupField == null || IsKeyEditingEnable)
+            if (listGroupField == null || _isNewField)
             {
                 // Add a new field
                 Field newField = selectedItem.AddField(listGroupField.Key, 
@@ -111,7 +113,7 @@ namespace PassXYZ.Vault.Pages
             await DataStore.UpdateItemAsync(selectedItem);
         }
 
-        private async void DeleteFieldAsync(MouseEventArgs e)
+        private async void DeleteFieldAsync()
         {
             if (listGroupField == null || selectedItem == null) 
             {

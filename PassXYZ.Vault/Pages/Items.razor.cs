@@ -25,9 +25,9 @@ public partial class Items
 
     NewItem newItem;
     Item listGroupItem;
-    bool IsKeyEditingEnable = false;
-    string DialogEditId = "editModel";
-    string DialogDeleteId = "deleteModel";
+    bool _isNewItem = false;
+    string _dialogEditId = "editModel";
+    string _dialogDeleteId = "deleteModel";
 
     public Items() 
     {
@@ -94,12 +94,15 @@ public partial class Items
         }
     }
 
-    private async void UpdateItemAsync(MouseEventArgs e)
+    private async void UpdateItemAsync(string key, string value)
     {
         if (listGroupItem == null) return;
-        if (string.IsNullOrEmpty(listGroupItem.Name) || string.IsNullOrEmpty(listGroupItem.Notes)) return;
+        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
 
-        if (IsKeyEditingEnable)
+        listGroupItem.Name = key;
+        listGroupItem.Notes = value;
+
+        if (_isNewItem)
         {
             // Add new item
             if (listGroupItem is NewItem aNewItem)
@@ -123,7 +126,7 @@ public partial class Items
         }
     }
 
-    private async void DeleteItemAsync(MouseEventArgs e)
+    private async void DeleteItemAsync()
     {
         if (listGroupItem == null) return;
 
