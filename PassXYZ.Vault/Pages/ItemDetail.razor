@@ -70,19 +70,23 @@
 <div class="container"><article>@((MarkupString)notes)</article></div>
 
 <!-- Editing Modal -->
-<EditorDialog Id=@_dialogEditId @bind-Key="listGroupField.Key" @bind-Value="listGroupField.Value"
-              IsKeyEditingEnable=@_isNewField OnSave="UpdateFieldAsync"
-              KeyPlaceHolder="Field name" ValuePlaceHolder="Field content">
-    @if (_isNewField)
-    {
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" @bind="listGroupField.IsProtected" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Password
-            </label>
-        </div>
-    }
-</EditorDialog>
+<CascadingValue Value="@_dialogEditId" Name="Id">
+    <EditorDialog @bind-Key="listGroupField.Key" @bind-Value="listGroupField.Value"
+                  IsKeyEditingEnable=@_isNewField OnSave="UpdateFieldAsync"
+                  KeyPlaceHolder="Field name" ValuePlaceHolder="Field content">
+        @if (_isNewField)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="listGroupField.IsProtected" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Password
+                </label>
+            </div>
+        }
+    </EditorDialog>
+</CascadingValue>
 
 <!-- Deleting Modal -->
-<ConfirmDialog Id="@_dialogDeleteId" Title=@listGroupField.Key OnConfirmClick="DeleteFieldAsync" />
+<CascadingValue Value="@_dialogDeleteId" Name="Id">
+    <ConfirmDialog Title=@listGroupField.Key OnConfirmClick="DeleteFieldAsync" />
+</CascadingValue>

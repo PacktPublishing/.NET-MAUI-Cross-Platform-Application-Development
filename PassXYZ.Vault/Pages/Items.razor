@@ -56,21 +56,25 @@
 </div>
 
 <!-- Editing Modal -->
-<EditorDialog Id=@_dialogEditId @bind-Key="listGroupItem.Name" @bind-Value="listGroupItem.Notes"
-              IsKeyEditingEnable=true OnSave="UpdateItemAsync"
-    KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
-    @if (_isNewItem)
-    {
-        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
-            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
-            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
-            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
-            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
-        </select>
-    }
-</EditorDialog>
+<CascadingValue Value="@_dialogEditId" Name="Id">
+    <EditorDialog @bind-Key="listGroupItem.Name" @bind-Value="listGroupItem.Notes"
+                  IsKeyEditingEnable=true OnSave="UpdateItemAsync"
+                  KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
+        @if (_isNewItem)
+        {
+            <select @bind="newItem.SubType" class="form-select" aria-label="Group">
+                <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
+                <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+                <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
+                <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
+            </select>
+        }
+    </EditorDialog>
+</CascadingValue>
 
 <!-- Deleting Modal -->
-<ConfirmDialog Id="@_dialogDeleteId" Title=@listGroupItem.Name OnConfirmClick="DeleteItemAsync" />
+<CascadingValue Value="@_dialogDeleteId" Name="Id">
+    <ConfirmDialog Title=@listGroupItem.Name OnConfirmClick="DeleteItemAsync" />
+</CascadingValue>
 
 

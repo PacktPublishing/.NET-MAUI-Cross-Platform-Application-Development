@@ -7,14 +7,14 @@ namespace PassXYZ.BlazorUI;
 
 public partial class ModalDialog : IDisposable
 {
-    [Parameter]
-    public string? Id { get; set; }
+    [CascadingParameter(Name = "Id")]
+    public string Id { get; set; } = default!;
     [Parameter]
     public string? Title { get; set; }
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
     [Parameter]
-    public Func<Task>? OnClose { get; set; }
+    public Action? OnClose { get; set; }
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
     [Parameter]
@@ -24,12 +24,10 @@ public partial class ModalDialog : IDisposable
     [NotNull]
     public string? SaveButtonText { get; set; }
 
-    private async Task OnClickClose()
+    private void OnClickClose()
     {
-        if (OnClose != null)
-        {
-            await OnClose();
-        }
+        Debug.WriteLine($"ModalDialog: DialogId={Id}");
+        OnClose?.Invoke();
     }
 
     private async Task OnClickSave() 

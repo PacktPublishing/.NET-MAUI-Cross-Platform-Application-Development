@@ -1,13 +1,13 @@
 ﻿@using System.Diagnostics
 
-<ModalDialog Id=@Id Title=@($"Deleting {Title}") OnSaveAsync=@OnSave
+<ModalDialog Title=@($"Deleting {Title}") OnSaveAsync=@OnSave
     SaveButtonText="Confirm" CloseButtonText="Cancel">
     Please confirm to delete @Title?
 </ModalDialog>
 
 @code {
-    [Parameter]
-    public string Id { get; set; } = "confirmDialog";
+    [CascadingParameter(Name = "Id")]
+    public string Id { get; set; } = default!;
     [Parameter]
     public string? Title { get; set; }
     [Parameter]
@@ -15,7 +15,7 @@
 
     async Task<bool> OnSave() 
     {
-        Debug.WriteLine("ConfirmDialog: confirm clicked");
+        Debug.WriteLine($"ConfirmDialog: DialogId={Id} confirm clicked");
         OnConfirmClick?.Invoke();
         return true;
     }
