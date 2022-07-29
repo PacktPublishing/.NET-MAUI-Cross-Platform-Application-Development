@@ -9,8 +9,24 @@ public partial class EditorDialog
 {
     [Parameter]
     public string? Id { get; set; }
+
+    bool _isKeyEditingEnable = false;
     [Parameter]
-    public bool IsKeyEditingEnable { get; set; }
+    public bool IsKeyEditingEnable 
+    {
+        get => _isKeyEditingEnable;
+        set 
+        {
+            if(value != _isKeyEditingEnable) 
+            {
+                _isKeyEditingEnable = value;
+                IsKeyEditingEnableChanged?.InvokeAsync(_isKeyEditingEnable);
+                Debug.WriteLine($"EditorDialog: _isKeyEditingEnable={_isKeyEditingEnable}");
+            }
+        }
+    }
+    [Parameter]
+    public EventCallback<bool>? IsKeyEditingEnableChanged { get; set; }
 
     string _key = string.Empty;
     [Parameter]
@@ -19,9 +35,12 @@ public partial class EditorDialog
         get => _key;
         set
         {
-            _key = value;
-            KeyChanged?.InvokeAsync(_key);
-            Debug.WriteLine($"EditorDialog: Key={_key}");
+            if(_key != value) 
+            {
+                _key = value;
+                KeyChanged?.InvokeAsync(_key);
+                Debug.WriteLine($"EditorDialog: Key={_key}");
+            }
         }
     }
     [Parameter]
@@ -36,9 +55,12 @@ public partial class EditorDialog
         get => _value;
         set 
         {
-            _value = value ?? string.Empty;
-            ValueChanged?.InvokeAsync(_value);
-            Debug.WriteLine($"EditorDialog: Value={_value}");
+            if(value != _value) 
+            {
+                _value = value ?? string.Empty;
+                ValueChanged?.InvokeAsync(_value);
+                Debug.WriteLine($"EditorDialog: Value={_value}");
+            }
         }
     }
     [Parameter]
