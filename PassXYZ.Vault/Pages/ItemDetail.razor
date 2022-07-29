@@ -70,7 +70,7 @@
 <div class="container"><article>@((MarkupString)notes)</article></div>
 
 <!-- Editing Modal -->
-<EditorDialog Id=@_dialogEditId Key=@listGroupField.Key Value=@listGroupField.Value
+<EditorDialog Id=@_dialogEditId @bind-Key="listGroupField.Key" @bind-Value="listGroupField.Value"
               IsKeyEditingEnable=@_isNewField OnSave="UpdateFieldAsync"
               KeyPlaceHolder="Field name" ValuePlaceHolder="Field content">
     @if (_isNewField)

@@ -56,7 +56,7 @@
 </div>
 
 <!-- Editing Modal -->
-<EditorDialog Id=@_dialogEditId Key=@listGroupItem.Name Value=@listGroupItem.Notes
+<EditorDialog Id=@_dialogEditId @bind-Key="listGroupItem.Name" @bind-Value="listGroupItem.Notes"
               IsKeyEditingEnable=true OnSave="UpdateItemAsync"
     KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
     @if (_isNewItem)
