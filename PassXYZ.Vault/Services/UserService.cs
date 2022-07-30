@@ -165,12 +165,21 @@ namespace PassXYZ.Vault.Services
             {
                 if (string.IsNullOrEmpty(user.Password)) { return false; }
 
-                db.Open(user);
-                if (db.IsOpen)
+                try 
                 {
-                    db.CurrentGroup = db.RootGroup;
+                    db.Open(user);
+                    if (db.IsOpen)
+                    {
+                        db.CurrentGroup = db.RootGroup;
+                    }
+                    return db.IsOpen;
                 }
-                return db.IsOpen;
+                catch (Exception ex) 
+                {
+                    Debug.WriteLine($"UserService.LoginAsync: ${ex}");
+                    return false;
+                }
+
             });
         }
 
