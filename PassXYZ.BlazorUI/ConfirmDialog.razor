@@ -19,4 +19,44 @@
         OnConfirmClick?.Invoke();
         return true;
     }
+
+    public ConfirmDialog() 
+    {
+        Debug.WriteLine($"ConfirmDialog-{Id}: is created");
+    }
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        Debug.WriteLine($"ConfirmDialog-{Id}: SetParametersAsync called");
+        return base.SetParametersAsync(parameters);
+    }
+    protected override void OnParametersSet()
+      => Debug.WriteLine($"ConfirmDialog-{Id}: OnParametersSet called - {Title}");
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Run(() =>
+        {
+            Debug.WriteLine($"ConfirmDialog-{Id}: OnParametersSetAsync called - {Title}");
+        });
+    }
+    protected override void OnInitialized()
+      => Debug.WriteLine($"ConfirmDialog-{Id}: OnInitialized called - {Title}");
+
+    protected override async Task OnInitializedAsync() => await Task.Run(() =>
+    {
+        Debug.WriteLine($"ConfirmDialog-{Id}: OnInitializedAsync called - {Title}");
+    });
+    protected override void OnAfterRender(bool firstRender)
+      => Debug.WriteLine($"ConfirmDialog-{Id}: OnAfterRender called with firstRender = {firstRender}");
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Run(() =>
+        {
+            Debug.WriteLine($"ConfirmDialog-{Id}: OnAfterRenderAsync called - {Title}");
+        });
+    }
+    protected override bool ShouldRender()
+    {
+        Debug.WriteLine($"ConfirmDialog-{Id}: ShouldRender called - {Title}");
+        return true;
+    }
 }

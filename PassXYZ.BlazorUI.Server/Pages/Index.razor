@@ -1,0 +1,73 @@
+﻿@page "/"
+@using System.Diagnostics
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@if(false) 
+{
+    <CascadingValue Value="@_editDialogId" Name="Id">
+        <EditorDialog Key=@_key @bind-Value="_value"
+                  @bind-IsKeyEditingEnable="isNew" OnSave="OnEditCompleted"
+                  KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
+            @if (isNew)
+            {
+                <select class="form-select" aria-label="Group">
+                    <option selected value="Group">Group</option>
+                    <option value="Entry">Entry</option>
+                    <option value="PxEntry">PxEntry</option>
+                    <option value="Notes">Notes</option>
+                </select>
+            }
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" @bind="isNew" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Edit
+                </label>
+            </div>
+        </EditorDialog>
+    </CascadingValue>
+}
+
+<CascadingValue Value="@_confirmDialogId" Name="Id">
+    <ConfirmDialog Title=@_key OnConfirmClick="OnConfirm" />
+</CascadingValue>
+
+<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_editDialogId">Edit a new item</button>
+
+<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_confirmDialogId">Delete</button>
+
+@code 
+{
+    string _editDialogId = "editFieldDialog";
+    string _key = "Google";
+    string _value = "My Google account";
+    bool isNew = false;
+
+    string _confirmDialogId = "confirmItemDialog";
+
+    public Index() 
+    {
+        if(isNew)
+        {
+            _key = string.Empty;
+            _value = string.Empty;
+        }
+    }
+
+    void OnEditCompleted(string key, string value) 
+    {
+        isNew = !isNew;
+        Debug.WriteLine($"Editing complete: key={key}, value={value}, isNew={isNew}");
+    }
+
+    void OnConfirm() 
+    {
+        Debug.WriteLine($"Index: confirm to delete");
+    }
+}

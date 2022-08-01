@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassXYZ.BlazorUI", "PassXYZ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassXYZ.Vault.Tests", "PassXYZ.Vault.Tests\PassXYZ.Vault.Tests.csproj", "{DDD5078B-506C-41B2-9450-BF020EA24558}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassXYZ.BlazorUI.Server", "PassXYZ.BlazorUI.Server\PassXYZ.BlazorUI.Server.csproj", "{EF00CA5E-089E-418A-966F-81B25F304EE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{DDD5078B-506C-41B2-9450-BF020EA24558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDD5078B-506C-41B2-9450-BF020EA24558}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDD5078B-506C-41B2-9450-BF020EA24558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF00CA5E-089E-418A-966F-81B25F304EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF00CA5E-089E-418A-966F-81B25F304EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF00CA5E-089E-418A-966F-81B25F304EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF00CA5E-089E-418A-966F-81B25F304EE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
