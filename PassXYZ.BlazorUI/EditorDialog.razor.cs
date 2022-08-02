@@ -74,6 +74,12 @@ public partial class EditorDialog
     [Parameter]
     public Action? OnClose { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Debug.WriteLine($"EditorDialog.OnParametersSet: IsKeyEditingEnable={_isKeyEditingEnable}");
+    }
+
     async Task<bool> OnSaveClicked()
     {
         OnSave?.Invoke(Key, Value);

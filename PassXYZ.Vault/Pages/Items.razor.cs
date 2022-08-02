@@ -26,8 +26,8 @@ public partial class Items
     NewItem newItem;
     Item listGroupItem;
     bool _isNewItem = false;
-    string _dialogEditId = "editModel";
-    string _dialogDeleteId = "deleteModel";
+    string _dialogEditId = "editItem";
+    string _dialogDeleteId = "deleteItem";
 
     public Items() 
     {

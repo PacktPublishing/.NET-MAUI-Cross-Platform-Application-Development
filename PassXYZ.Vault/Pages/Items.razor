@@ -3,32 +3,15 @@
 @using PassXYZLib
 
 <!-- Back button and title -->
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h1>
-                @if (selectedItem?.GetParentLink() != null)
-                {
-                    <a class="btn btn-outline-dark" href="@selectedItem?.GetParentLink()">
-                        <span class="oi oi-chevron-left" aria-hidden="true"></span></a>
-                }
-                @(" " + Title)
-                <button type="button" class="btn btn-outline-dark float-end" 
-                        data-bs-toggle="modal" data-bs-target="#@_dialogEditId"
-                        @onclick="@(() => _isNewItem=true)">
-                    <span class="oi oi-plus" aria-hidden="true"></span></button>
-            </h1>
-        </div>
-    </div>
-</div>
+<Navbar ParentLink="@selectedItem?.GetParentLink()" Title="@Title" DialogId="@_dialogEditId" 
+    OnAddClick="@(() => {_isNewItem=true;})" />
 
 <!-- List view with context menu -->
-<div class="list-group">
-    @foreach (var item in items)
-    {
+<ListView Items="items">
+    <Row Context="item">
         <div class="dropdown list-group-item list-group-item-action d-flex gap-1 py-2" aria-current="true">
-            <img src="@item.GetIcon()" alt="twbs" width="32" height="32" 
-                class="rounded-circle flex-shrink-0 float-start">
+            <img src="@item.GetIcon()" alt="twbs" width="32" height="32"
+                 class="rounded-circle flex-shrink-0 float-start">
             <a href="@item.GetActionLink()" class="list-group-item list-group-item-action border-0 gap-1 py-2">
                 <div class="d-flex">
                     <div>
@@ -37,23 +20,27 @@
                     </div>
                 </div>
             </a>
-            <button class="opacity-50 btn btn-light dropdown-toggle" type="button" 
-                id="itemsContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
-                @onclick="@(() => listGroupItem=item)">
+            <button class="opacity-50 btn btn-light dropdown-toggle" type="button"
+                    id="itemsContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
+                    @onclick="@(() => listGroupItem=item)">
                 <span class="oi oi-menu" aria-hidden="true"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="itemsContextMenu">
                 <li>
                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogEditId"
-                        @onclick="@(() => _isNewItem=false)">
-                        Edit</button></li>
+                            @onclick="@(() => _isNewItem=false)">
+                        Edit
+                    </button>
+                </li>
                 <li>
                     <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogDeleteId">
-                    Delete</button></li>
+                        Delete
+                    </button>
+                </li>
             </ul>
         </div>
-    }
-</div>
+    </Row>
+</ListView>
 
 <!-- Editing Modal -->
 <CascadingValue Value="@_dialogEditId" Name="Id">
