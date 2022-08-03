@@ -25,39 +25,14 @@
                     <p class="mb-0">@field.Value</p>
                 </div>
             </div>
-            <button class="opacity-50 btn btn-light dropdown-toggle" type="button"
-                id="itemDetailContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
-                @onclick="@(() => listGroupField=field)">
-                <span class="oi oi-menu" aria-hidden="true"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="itemDetailContextMenu">
-                <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogEditId"
-                        @onclick="@(() => _isNewField=false)">
-                        Edit
-                    </button>
-                </li>
-                <li>
-                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@_dialogDeleteId">
-                        Delete
-                    </button>
-                </li>
+            <Dropdown OnClick="@(() => listGroupField=field)">
+                <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewField=false)">Edit</MenuItem>
+                <MenuItem Id="@_dialogDeleteId">Delete</MenuItem>
                 @if (field.IsProtected)
                 {
-                    <li>
-                        <button class="dropdown-item" @onclick="OnToggleShowPassword">
-                            @if (field.IsHide)
-                            {
-                                <span>Show</span>
-                            }
-                            else
-                            {
-                                <span>Hide</span>
-                            }
-                        </button>
-                    </li>
+                    <MenuItem OnClick="OnToggleShowPassword">@(field.IsHide ? "Show":"Hide")</MenuItem>
                 }
-            </ul>
+            </Dropdown>
         }
     </Row>
     <Footer>
