@@ -22,18 +22,19 @@ namespace PassXYZ.BlazorUI
                     return field.Key;
                 }
                 return string.Empty;
-
             }
             set 
             {
                 if (Data is Item item)
                 {
                     item.Name = value;
+                    IsChanged = true;
                 }
 
                 if (Data is Field field)
                 {
                     field.Key = value;
+                    IsChanged = true;
                 }
             }
 
@@ -61,16 +62,19 @@ namespace PassXYZ.BlazorUI
                 if (Data is Item item) 
                 {
                     item.Notes = value;
+                    IsChanged = true;
                 }
 
                 if (Data is Field field)
                 {
                     field.EditValue = value;
+                    IsChanged = true;
                 }
             }
         }
 
-        public bool IsValid 
+        public bool IsChanged { get; set; } = false;
+        public bool IsValid
         { 
             get
             {

@@ -7,6 +7,7 @@ using KPCLib;
 using PassXYZLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Shared;
+using PassXYZ.BlazorUI;
 
 namespace PassXYZ.Vault.Pages;
 
@@ -25,6 +26,7 @@ public partial class Items
 
     NewItem newItem;
     Item listGroupItem;
+    KeyValueData<Item> currentItem;
     bool _isNewItem = false;
     string _dialogEditId = "editItem";
     string _dialogDeleteId = "deleteItem";
@@ -32,6 +34,10 @@ public partial class Items
     public Items() 
     {
         listGroupItem = newItem = new();
+        currentItem = new()
+        {
+            Data = listGroupItem
+        };
 
         items = new ObservableCollection<Item>();
     }
@@ -94,10 +100,10 @@ public partial class Items
         }
     }
 
-    private async void UpdateItemAsync(string key, string value)
+    private async Task<bool> UpdateItemAsync(string key, string value)
     {
-        if (listGroupItem == null) return;
-        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
+        if (listGroupItem == null) return false;
+        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return false;
 
         listGroupItem.Name = key;
         listGroupItem.Notes = value;
@@ -124,6 +130,8 @@ public partial class Items
             await DataStore.UpdateItemAsync(listGroupItem);
             Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
         }
+        StateHasChanged();
+        return true;
     }
 
     private async void DeleteItemAsync()

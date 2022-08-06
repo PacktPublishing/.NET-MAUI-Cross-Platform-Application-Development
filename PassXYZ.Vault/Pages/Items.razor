@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </a>
-            <Dropdown OnClick="@(() => listGroupItem=item)">
+        <Dropdown OnClick="@(() => currentItem.Data=listGroupItem=item)">
                 <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewItem=false)">Edit</MenuItem>
                 <MenuItem Id="@_dialogDeleteId">Delete</MenuItem>
             </Dropdown>
@@ -28,21 +28,18 @@
 </ListView>
 
 <!-- Editing Modal -->
-<CascadingValue Value="@_dialogEditId" Name="Id">
-    <EditorDialog @bind-Key="listGroupItem.Name" @bind-Value="listGroupItem.Notes"
-                  IsKeyEditingEnable=true OnSave="UpdateItemAsync"
-                  KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
-        @if (_isNewItem)
-        {
-            <select @bind="newItem.SubType" class="form-select" aria-label="Group">
-                <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
-                <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
-                <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
-                <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
-            </select>
-        }
-    </EditorDialog>
-</CascadingValue>
+<EditFormDialog Id="@_dialogEditId" ModelData="@currentItem" IsKeyEditingEnable="true"
+                OnSaveAsync="UpdateItemAsync" KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
+    @if (_isNewItem)
+    {
+        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
+            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
+            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
+            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
+        </select>
+    }
+</EditFormDialog>
 
 <!-- Deleting Modal -->
 <CascadingValue Value="@_dialogDeleteId" Name="Id">

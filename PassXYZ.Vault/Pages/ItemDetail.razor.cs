@@ -8,6 +8,7 @@ using KeePassLib;
 using PassXYZLib;
 using PassXYZ.Vault.Shared;
 using PassXYZ.Vault.Services;
+using PassXYZ.BlazorUI;
 
 namespace PassXYZ.Vault.Pages
 {
@@ -23,6 +24,7 @@ namespace PassXYZ.Vault.Pages
         Item? selectedItem = default!;
         private Field newField;
         private Field listGroupField;
+        KeyValueData<Field> currentField;
         bool _isNewField = false;
         string? notes = default!;
         string _dialogEditId = "editField";
@@ -31,6 +33,10 @@ namespace PassXYZ.Vault.Pages
         public ItemDetail()
         {
             listGroupField = newField = new("","",false);
+            currentField = new()
+            {
+                Data = listGroupField
+            };
             fields = new ObservableCollection<Field>();
         }
 
@@ -84,13 +90,13 @@ namespace PassXYZ.Vault.Pages
             }
         }
 
-        private async void UpdateFieldAsync(string key, string value)
+        private async Task<bool> UpdateFieldAsync(string key, string value)
         {
             if (selectedItem == null)
             {
                 throw new NullReferenceException("Selected item is null");
             }
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return false;
             listGroupField.Key = key;
             listGroupField.Value = value;
 
@@ -111,6 +117,8 @@ namespace PassXYZ.Vault.Pages
                 Debug.WriteLine($"ItemDetail.UpdateFieldAsync: Key={listGroupField.Key}, Value={listGroupField.Value}");
             }
             await DataStore.UpdateItemAsync(selectedItem);
+            StateHasChanged();
+            return true;
         }
 
         private async void DeleteFieldAsync()

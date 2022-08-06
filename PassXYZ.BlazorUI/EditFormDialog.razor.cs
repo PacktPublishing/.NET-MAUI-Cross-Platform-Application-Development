@@ -75,11 +75,12 @@ public partial class EditFormDialog<TItem>
 
     private async Task HandleValidSubmit()
     {
-        if (OnSaveAsync != null)
+        if (OnSaveAsync != null && ModelData.IsChanged)
         {
             await OnSaveAsync(ModelData.Key, ModelData.Value);
+            ModelData.IsChanged = false;
+            Debug.WriteLine($"EditFormDialog.HandleValidSubmit: {ModelData.Key} {ModelData.Value}");
         }
-        Debug.WriteLine($"EditFormDialog.HandleValidSubmit: {ModelData.Key} {ModelData.Value}");
     }
 
     private void KeyHandler() 
