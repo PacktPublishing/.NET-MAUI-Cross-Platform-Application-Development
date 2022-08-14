@@ -32,12 +32,12 @@
                 OnSaveAsync="UpdateItemAsync" KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
     @if (_isNewItem)
     {
-        <select @bind="newItem.SubType" class="form-select" aria-label="Group">
-            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
-            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+        <InputSelect @bind-Value="newItem.SubType" class="form-select">
+            <option value=@ItemSubType.Group>@ItemSubType.Group</option>
+            <option selected value=@ItemSubType.Entry>@ItemSubType.Entry</option>
             <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
             <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
-        </select>
+        </InputSelect>
     }
 </EditFormDialog>
 
