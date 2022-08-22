@@ -54,7 +54,6 @@ public partial class EditFormDialog<TItem>
     public EventCallback<bool>? IsKeyEditingEnableChanged { get; set; }
 
     private string dataDismiss = string.Empty;
-    private bool _canDismiss = false;
 
     public EditFormDialog()
     {
@@ -86,7 +85,6 @@ public partial class EditFormDialog<TItem>
     private void KeyHandler() 
     {
         SetSaveButtonText(true);
-        Debug.WriteLine($"EditFormDialog.KeyHandler - _canDismiss={_canDismiss}");
     }
 
     private void SetSaveButtonText(bool changed = false)
@@ -94,16 +92,13 @@ public partial class EditFormDialog<TItem>
         if (ModelData == null) return;
         if (!ModelData.IsValid || changed)
         {
-            _canDismiss = false;
             dataDismiss = string.Empty;
             SaveButtonText = "Save";
         }
         else
         {
-            _canDismiss = true;
             dataDismiss = "modal";
             SaveButtonText = "Close";
         }
-        Debug.WriteLine($"EditFormDialog.SetSaveButtonText - _canDismiss={_canDismiss}");
     }
 }

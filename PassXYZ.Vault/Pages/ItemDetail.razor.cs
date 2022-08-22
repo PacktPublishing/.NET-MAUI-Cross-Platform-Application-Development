@@ -22,7 +22,7 @@ namespace PassXYZ.Vault.Pages
 
         readonly ObservableCollection<Field> fields;
         Item? selectedItem = default!;
-        private Field newField;
+        private Field _newField;
         private Field listGroupField;
         KeyValueData<Field> currentField;
         bool _isNewField = false;
@@ -32,7 +32,7 @@ namespace PassXYZ.Vault.Pages
 
         public ItemDetail()
         {
-            listGroupField = newField = new("","",false);
+            listGroupField = _newField = new("","",false);
             currentField = new()
             {
                 Data = listGroupField

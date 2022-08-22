@@ -17,7 +17,7 @@
                     {
                         <div class="form-group">
                             <InputText id="Name" class="form-control" @oninput="KeyHandler" 
-                                placeholder=@KeyPlaceHolder @bind-Value="@ModelData.Key" />
+                                placeholder=@KeyPlaceHolder @bind-Value="ModelData.Key" />
                             <ValidationMessage For="() => ModelData.Key" />
                         </div>
                     }
@@ -33,17 +33,10 @@
                     <div class="col-12">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             @onclick="OnClickClose">@CloseButtonText</button>
-
-                        @if (_canDismiss)
-                        {
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="@dataDismiss"
-                                @onclick="OnClickSave">@SaveButtonText</button>
-                        }
-                        else 
-                        {
-                            <button type="submit" class="btn btn-primary"
-                                @onclick="OnClickSave">@SaveButtonText</button>
-                        }
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="@dataDismiss"
+                                @onclick="OnClickSave">
+                            @SaveButtonText
+                        </button>
                     </div>
                 </EditForm>
             </div>

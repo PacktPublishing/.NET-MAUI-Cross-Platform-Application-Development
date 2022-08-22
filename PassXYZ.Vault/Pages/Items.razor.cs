@@ -24,7 +24,7 @@ public partial class Items
     readonly ObservableCollection<Item> items;
     Item? selectedItem = default!;
 
-    NewItem newItem;
+    NewItem _newItem;
     Item listGroupItem;
     KeyValueData<Item> currentItem;
     bool _isNewItem = false;
@@ -33,7 +33,7 @@ public partial class Items
 
     public Items() 
     {
-        listGroupItem = newItem = new();
+        listGroupItem = _newItem = new();
         currentItem = new()
         {
             Data = listGroupItem

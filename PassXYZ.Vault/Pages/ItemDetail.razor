@@ -11,7 +11,7 @@
 
 <!-- Back button and title -->
 <Navbar ParentLink="@selectedItem?.GetParentLink()" Title="@selectedItem?.Name" DialogId="@_dialogEditId"
-        OnAddClick="@(() => {_isNewField=true;})" />
+        OnAddClick="@(() => {_isNewField=true;currentField.Data=listGroupField=_newField;_newField.Key="";_newField.Value="";})" />
 
 <!-- List view with context menu -->
 <ListView Items="fields">
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <Dropdown OnClick="@(() => {currentField.Data=listGroupField=field;})">
-            <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewField=false)">Edit</MenuItem>
+                <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewField=false)">Edit</MenuItem>
                 <MenuItem Id="@_dialogDeleteId">Delete</MenuItem>
                 @if (field.IsProtected)
                 {
