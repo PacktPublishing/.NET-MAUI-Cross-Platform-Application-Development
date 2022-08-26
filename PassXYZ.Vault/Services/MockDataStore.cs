@@ -116,7 +116,7 @@ public class MockDataStore : IDataStore<Item>
         db = PasswordDb.Instance;
         PwDatabaseEx.CreateTestDb(db);
         db.LastSelectedGroup = db.RootGroup.Uuid;
-        currentGroup = db.RootGroup;
+        _currentGroup = db.RootGroup;
         Debug.WriteLine("MockDataStore: db created.");
     }
 
@@ -132,51 +132,16 @@ public class MockDataStore : IDataStore<Item>
 
     public string CurrentPath => db.CurrentPath;
 
-    public List<Item> Items => currentGroup!.GetItems();
+    public List<Item> Items => _currentGroup.GetItems();
 
-    private PwGroup? currentGroup = null;
-    public Item CurrentGroup
-    {
-        get
-        {
-            if (db.RootGroup != null)
-            {
-                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
-                {
-                    db.LastSelectedGroup = db.RootGroup.Uuid;
-                    currentGroup = db.RootGroup;
-                }
-
-                if (currentGroup == null)
-                {
-                    if (!db.LastSelectedGroup.Equals(PwUuid.Zero)) { currentGroup = db.RootGroup.FindGroup(db.LastSelectedGroup, true); }
-                }
-            }
-            return currentGroup;
-        }
-
-        set
-        {
-            if (value == null) { Debug.Assert(false); throw new ArgumentNullException("value"); }
-            if (value is PwGroup group)
-            {
-                db.LastSelectedGroup = group.Uuid;
-                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
-                {
-                    db.LastSelectedGroup = db.RootGroup.Uuid;
-                    currentGroup = db.RootGroup;
-                }
-                else
-                    currentGroup = group;
-            }
-        }
-    }
+    PwGroup? _currentGroup = null;
+    public Item CurrentGroup { get => _currentGroup; set { _currentGroup = (PwGroup)value; } }
 
     public void SetCurrentToParent()
     {
         if (!CurrentGroup.GetUuid().Equals(RootGroup.GetUuid()))
         {
-            CurrentGroup = db.CurrentGroup.ParentGroup;
+            CurrentGroup = _currentGroup.ParentGroup;
         }
     }
 
@@ -191,11 +156,11 @@ public class MockDataStore : IDataStore<Item>
         Items.Add(item);
         if (item.IsGroup)
         {
-            db.CurrentGroup.AddGroup(item as PwGroup, true);
+            _currentGroup.AddGroup(item as PwGroup, true);
         }
         else
         {
-            db.CurrentGroup.AddEntry(item as PwEntry, true);
+            _currentGroup.AddEntry(item as PwEntry, true);
         }
         await SaveAsync();
         Debug.WriteLine($"DataStore: AddItemAsync({item.Name}), saved");
@@ -215,9 +180,10 @@ public class MockDataStore : IDataStore<Item>
         if (oldItem != null) 
         {
             _ = Items.Remove(oldItem);
+            return await Task.FromResult(true);
         }
 
-        return await Task.FromResult(true);
+        return await Task.FromResult(false);
     }
 
     public async Task<Item> GetItemFromCurrentGroupAsync(string id)
@@ -304,7 +270,7 @@ public class MockDataStore : IDataStore<Item>
 
     public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
     {
-        if (currentGroup == null) 
+        if (CurrentGroup == null) 
         {
             Debug.WriteLine($"MockDataStore: CurrentGroup is null!");
             return Enumerable.Empty<Item>(); 
