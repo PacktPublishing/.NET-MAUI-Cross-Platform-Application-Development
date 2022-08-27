@@ -10,13 +10,17 @@ using PassXYZ.Vault.Services;
 
 namespace PassXYZ.Vault.Tests
 {
+    [Collection("Serilog collection")]
     public class DataStoreTests
     {
         IDataStore<Item> datastore;
+        SerilogFixture serilogFixture;
 
-        public DataStoreTests() 
+        public DataStoreTests(SerilogFixture fixture)
         {
             datastore = new MockDataStore();
+            serilogFixture = fixture;
+            serilogFixture.Logger.Debug("DataStoreTests initialized");
         }
 
         [Fact]
@@ -33,6 +37,7 @@ namespace PassXYZ.Vault.Tests
 
             // Assert
             Assert.Equal(newItem.Id, item.Id);
+            serilogFixture.Logger.Debug("Add_Item done");
         }
 
         [Theory]
@@ -53,6 +58,7 @@ namespace PassXYZ.Vault.Tests
 
             // Assert
             Assert.True(result);
+            serilogFixture.Logger.Debug("Delete_Item: {Name}", newItem.Name);
         }
 
         [Theory]
@@ -65,6 +71,7 @@ namespace PassXYZ.Vault.Tests
             var item = datastore.CreateNewItem(itemSubType);
             item.Name = itemSubType.ToString();
             Debug.WriteLine($"Create_Item: {item.Name}");
+            serilogFixture.Logger.Debug("Create_Item: {Name}", item.Name);
 
             Assert.NotNull(item);
         }
