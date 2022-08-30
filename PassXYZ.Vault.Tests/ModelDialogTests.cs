@@ -1,5 +1,4 @@
 ﻿using PassXYZ.BlazorUI;
-using PassXYZ.Vault.Tests.Targets;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace PassXYZ.Vault.Tests
 {
+    [Collection("Serilog collection")]
     public class ModelDialogTests : TestContext
     {
+        SerilogFixture serilogFixture;
+
+        public ModelDialogTests(SerilogFixture serilogFixture)
+        {
+            this.serilogFixture = serilogFixture;
+        }   
+
         [Fact]
         public void ModalDialogInitTest() 
         {
@@ -20,7 +27,7 @@ namespace PassXYZ.Vault.Tests
                 .Add(p => p.CloseButtonText, "Close")
                 .Add(p => p.SaveButtonText, "Save"));
             cut.Find("h5").TextContent.MarkupMatches(title);
-            Debug.WriteLine($"{cut.Markup}");
+            serilogFixture.Logger.Debug("ModalDialogInitTest: done");
         }
 
         [Fact]
@@ -30,7 +37,7 @@ namespace PassXYZ.Vault.Tests
             var cut = RenderComponent<ConfirmDialog>();
             ConfirmDialog dialog = cut.Instance;
             cut.Find("h5").TextContent.MarkupMatches(title);
-            Debug.WriteLine($"{cut.Markup}");
+            serilogFixture.Logger.Debug("ConfirmDialogInitTest: done");
         }
     }
 }

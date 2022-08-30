@@ -1,0 +1,26 @@
+﻿@using KPCLib
+@using PassXYZLib
+@inherits TestContext
+@namespace PassXYZ.Vault.Tests
+
+<h3>ItemEditTests</h3>
+
+@code {
+    RenderFragment GetComponent()
+    {
+        return
+    @<CascadingValue Value="@_dialogId" Name="Id">
+        <EditorDialog IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
+                  Key=@testItem.Name Value=@testItem.Notes>
+            @if (IsNewItem) {
+                <select id="itemType" @bind="testItem.ItemType" class="form-select" aria-label="Group">
+                    <option selected value="Group">Group</option>
+                    <option value="Entry">Entry</option>
+                    <option value="PxEntry">PxEntry</option>
+                    <option value="Notes">Notes</option>
+                </select>
+            }
+        </EditorDialog>
+    </CascadingValue>;
+    }
+}

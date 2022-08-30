@@ -29,7 +29,7 @@ namespace PassXYZ.Vault.Tests
     }
 
     [CollectionDefinition("Serilog collection")]
-    public class DatabaseCollection : ICollectionFixture<SerilogFixture>
+    public class SerilogCollection : ICollectionFixture<SerilogFixture>
     {
     }
 

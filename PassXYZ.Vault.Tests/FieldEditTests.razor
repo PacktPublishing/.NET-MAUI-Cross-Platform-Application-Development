@@ -1,0 +1,27 @@
+@using KPCLib
+@using PassXYZ.Vault.Tests
+@inherits TestContext
+
+These tests are written entirely in razor and C# syntax.
+
+Learn more at https://bunit.dev/docs/getting-started/writing-tests.html#creating-basic-tests-in-razor-files
+
+@code {
+    RenderFragment GetComponent()
+    {
+        return
+    @<CascadingValue Value="@_dialogId" Name="Id">
+        <EditorDialog IsKeyEditingEnable=@IsNewField Key=@TestField.Key Value=@TestField.Value
+                  OnSave=@OnSaveClicked>
+            @if (IsNewField) {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" @bind="TestField.IsProtected" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Password
+                </label>
+            </div>
+        }
+        </EditorDialog>
+     </CascadingValue>;
+    }
+}

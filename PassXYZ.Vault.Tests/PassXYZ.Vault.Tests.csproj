@@ -8,6 +8,10 @@
   </PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="Bunit" />
 		<Using Include="Bunit.TestDoubles" />
 		<Using Include="Microsoft.Extensions.DependencyInjection" />
@@ -38,6 +42,18 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\PassXYZ.BlazorUI\PassXYZ.BlazorUI.csproj" />
 	  <ProjectReference Include="..\PassXYZ.Vault\PassXYZ.Vault.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="ItemEditTests.razor" />
 	</ItemGroup>
 
 
