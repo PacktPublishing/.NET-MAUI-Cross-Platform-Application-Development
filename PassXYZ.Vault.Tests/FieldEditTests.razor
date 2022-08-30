@@ -2,15 +2,12 @@
 @using PassXYZ.Vault.Tests
 @inherits TestContext
 
-These tests are written entirely in razor and C# syntax.
-
-Learn more at https://bunit.dev/docs/getting-started/writing-tests.html#creating-basic-tests-in-razor-files
+<h3>FieldEditTests</h3>
 
 @code {
-    RenderFragment GetComponent()
+    private RenderFragment _editorDialog => __builder =>
     {
-        return
-    @<CascadingValue Value="@_dialogId" Name="Id">
+    <CascadingValue Value="@_dialogId" Name="Id">
         <EditorDialog IsKeyEditingEnable=@IsNewField Key=@TestField.Key Value=@TestField.Value
                   OnSave=@OnSaveClicked>
             @if (IsNewField) {
@@ -22,6 +19,6 @@ Learn more at https://bunit.dev/docs/getting-started/writing-tests.html#creating
             </div>
         }
         </EditorDialog>
-     </CascadingValue>;
-    }
+     </CascadingValue>        
+    };
 }

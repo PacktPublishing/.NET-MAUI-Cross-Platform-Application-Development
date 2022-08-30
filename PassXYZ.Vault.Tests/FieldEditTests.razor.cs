@@ -31,7 +31,7 @@ public partial class FieldEditTests : TestContext
     {
         // Arrange
         IsNewField = false;
-        var cut = Render(GetComponent());
+        var cut = Render(_editorDialog);
         // Act
         cut.Find("textarea").Change(updated_value);
         cut.Find("button[type=submit]").Click();
@@ -44,7 +44,7 @@ public partial class FieldEditTests : TestContext
     {
         // Arrange
         IsNewField = true;
-        var cut = Render(GetComponent());
+        var cut = Render(_editorDialog);
         // Act
         cut.Find("#flexCheckDefault").Change(true);
         cut.Find("input").Change(updated_key);

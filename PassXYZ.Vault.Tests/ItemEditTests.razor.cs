@@ -34,7 +34,7 @@ public partial class ItemEditTests : TestContext
     {
         // Arrange
         IsNewItem = true;
-        var cut = Render(GetComponent());
+        var cut = Render(_editorDialog);
         // Act
         cut.Find("#itemType").Change("Entry");
         cut.Find("input").Change(updated_key);
@@ -50,7 +50,7 @@ public partial class ItemEditTests : TestContext
     {
         // Arrange
         IsNewItem = false;
-        var cut = Render(GetComponent());
+        var cut = Render(_editorDialog);
         var ex = Assert.Throws<ElementNotFoundException>(() => cut.Find("#itemType").Change("Entry"));
         Assert.Equal("No elements were found that matches the selector '#itemType'", ex.Message);
     }
