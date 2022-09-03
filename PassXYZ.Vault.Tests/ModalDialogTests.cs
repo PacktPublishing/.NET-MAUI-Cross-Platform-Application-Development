@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace PassXYZ.Vault.Tests
 {
     [Collection("Serilog collection")]
-    public class ModelDialogTests : TestContext
+    public class ModalDialogTests : TestContext
     {
         SerilogFixture serilogFixture;
 
-        public ModelDialogTests(SerilogFixture serilogFixture)
+        public ModalDialogTests(SerilogFixture serilogFixture)
         {
             this.serilogFixture = serilogFixture;
         }   
