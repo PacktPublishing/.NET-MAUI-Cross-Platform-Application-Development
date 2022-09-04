@@ -10,9 +10,9 @@
     private RenderFragment _editorDialog => __builder =>
     {        
     <CascadingValue Value="@_dialogId" Name="Id">
-        <EditorDialog IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
+        <EditorDialog IsKeyEditingEnable=@isNewItem OnSave=@OnSaveClicked
                   Key=@testItem.Name Value=@testItem.Notes>
-            @if (IsNewItem) {
+            @if (isNewItem) {
                 <select id="itemType" @bind="testItem.ItemType" class="form-select" aria-label="Group">
                     <option selected value="Group">Group</option>
                     <option value="Entry">Entry</option>

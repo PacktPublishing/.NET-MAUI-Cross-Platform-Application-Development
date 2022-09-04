@@ -4,21 +4,24 @@ using System.Diagnostics;
 
 namespace PassXYZ.Vault.Tests;
 
+[Collection("Serilog collection")]
 public partial class ItemEditTests : TestContext
 {
-    public bool IsNewItem { get; set; } = false;
-    public NewItem testItem { get; set; }
+    readonly SerilogFixture serilogFixture;
+    bool isNewItem { get; set; } = false;
+    NewItem testItem { get; set; }
     string _dialogId = "editItem";
     string updated_key = "Updated item";
     string updated_value = "This item is updated.";
 
-    public ItemEditTests()
+    public ItemEditTests(SerilogFixture fixture)
     {
         testItem = new()
         {
             Name = "New item",
             Notes = "This is a new item."
         };
+        serilogFixture = fixture;
     }
 
     void OnSaveClicked(string key, string value)
@@ -26,14 +29,14 @@ public partial class ItemEditTests : TestContext
         testItem.Name = key;
         testItem.Notes = value;
 
-        Debug.WriteLine($"ItemNew: OnSaveClicked(key={testItem.Name}, value={testItem.Notes}, type={testItem.ItemType})");
+        serilogFixture.Logger.Debug($"ItemEditTests: OnSaveClicked(key={testItem.Name}, value={testItem.Notes}, type={testItem.ItemType})");
     }
 
     [Fact]
     public void Edit_New_Item()
     {
         // Arrange
-        IsNewItem = true;
+        isNewItem = true;
         var cut = Render(_editorDialog);
         // Act
         cut.Find("#itemType").Change("Entry");
@@ -49,10 +52,13 @@ public partial class ItemEditTests : TestContext
     public void Edit_Existing_Item() 
     {
         // Arrange
-        IsNewItem = false;
+        isNewItem = false;
+        // Act
         var cut = Render(_editorDialog);
         var ex = Assert.Throws<ElementNotFoundException>(() => cut.Find("#itemType").Change("Entry"));
         Assert.Equal("No elements were found that matches the selector '#itemType'", ex.Message);
+        cut.Find("textarea").Change(updated_value);
+        cut.Find("button[type=submit]").Click();
+        Assert.Equal(updated_value, testItem.Notes);
     }
-
 }
