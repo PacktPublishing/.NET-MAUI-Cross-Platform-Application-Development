@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using KeePassLib;
 using System.Collections.ObjectModel;
-using Svg.ExCSS;
 
 namespace PassXYZ.Vault.Tests
 {
