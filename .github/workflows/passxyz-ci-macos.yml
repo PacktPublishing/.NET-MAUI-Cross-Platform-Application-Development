@@ -1,0 +1,44 @@
+name: PassXYZ.Vault CI Build
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+  DOTNETVERSION: 6.0.400
+
+jobs:
+# MAUI iOS Build
+  build-ios:
+    runs-on: macos-12
+    name: iOS Build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Restore Dependencies
+        run: dotnet restore PassXYZ.Vault/PassXYZ.Vault.csproj
+
+      - name: Build MAUI iOS
+        run: dotnet build PassXYZ.Vault/PassXYZ.Vault.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: passxyz-ios-ci-build
+          path: PassXYZ.Vault/bin/Release/net6.0-ios/iossimulator-x64/**/*.app
+
