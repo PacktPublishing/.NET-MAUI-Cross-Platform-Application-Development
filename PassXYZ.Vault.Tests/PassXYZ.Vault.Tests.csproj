@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<IsPackable>false</IsPackable>
+    <UseMaui>true</UseMaui>
+  </PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Bunit" />
+		<Using Include="Bunit.TestDoubles" />
+		<Using Include="Microsoft.Extensions.DependencyInjection" />
+		<Using Include="Xunit" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="bunit" Version="1.9.8" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Include="coverlet.collector" Version="3.1.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Moq" Version="4.18.2" />
+		<PackageReference Include="PassXYZLib" Version="2.0.2" />
+		<PackageReference Include="Serilog" Version="2.11.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="xunit" Version="2.4.1" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PassXYZ.BlazorUI\PassXYZ.BlazorUI.csproj" />
+	  <ProjectReference Include="..\PassXYZ.Vault\PassXYZ.Vault.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="ItemEditTests.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="ItemEditTests.razor" />
+	</ItemGroup>
+
+
+
+</Project>

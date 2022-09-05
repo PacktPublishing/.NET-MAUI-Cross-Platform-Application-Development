@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
+             xmlns:viewmodels="clr-namespace:PassXYZ.Vault.ViewModels"
+             Shell.NavBarIsVisible="False"
+             x:Class="PassXYZ.Vault.Views.SignUpPage">
+    <ContentPage.Content>
+        <StackLayout Padding="30" Spacing="10">
+            <Image HorizontalOptions="Center" HeightRequest="96">
+                <Image.Source>
+                    <FontImageSource FontFamily="FontAwesomeSolid"
+			            Glyph="{x:Static styles:FontAwesomeSolid.PassXYZ}"
+			            Color="{DynamicResource Blue100Accent}"
+                        Size="96" />
+                </Image.Source>
+            </Image>
+            <Label FontSize="Small"  HorizontalOptions="Center" 
+                       Text="{x:Static resources:Resources.SignUpPageMessage}" />
+            <Frame>
+                <StackLayout x:DataType="viewmodels:LoginViewModel">
+                    <Grid RowSpacing="20" ColumnSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <!--Image Source="ic_entry_username.png" Grid.Row="0" Grid.Column="0" /-->
+                        <Entry x:Name="usernameEntry" 
+                                   Placeholder="{x:Static resources:Resources.field_id_username}" 
+                                   ReturnType="Next"
+                                   Text="{Binding CurrentUser.Username}"
+                                   HorizontalOptions="Fill" 
+                                   Grid.Row="0" Grid.Column="1" />
+                        <!--Image Source="ic_entry_password.png" Grid.Row="1" Grid.Column="0" /-->
+                        <Entry x:Name="passwordEntry1" 
+                                   Placeholder="{x:Static resources:Resources.field_id_password}" 
+                                   IsPassword="true" 
+                                   Text="{Binding CurrentUser.Password}"
+                                   HorizontalOptions="Fill" 
+                                   Grid.Row="1" Grid.Column="1" />
+                        <!--Image Source="ic_entry_password.png" Grid.Row="2" Grid.Column="0" /-->
+                        <Entry x:Name="passwordEntry2"  
+                                   Placeholder="{x:Static resources:Resources.field_id_password}" 
+                                   IsPassword="true" 
+                                   Text="{Binding CurrentUser.Password2}"
+                                   HorizontalOptions="Fill" 
+                                   Grid.Row="2" Grid.Column="1" />
+                        <Button Text="{x:Static resources:Resources.SignUpPageTitle}"
+                                HorizontalOptions="CenterAndExpand" 
+                                Grid.Row="3" Grid.ColumnSpan="2"
+                                Command="{Binding SignUpCommand}" />
+                    </Grid>
+
+                    <StackLayout Orientation="Horizontal" Padding="30">
+                        <Label x:Name="KeyFileStatus"
+                                   Text="{x:Static resources:Resources.settings_security_UsingDeviceLock}" 
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        <Switch x:Name="KeyFileSwitcher" HorizontalOptions="Center"
+                                    IsToggled="{Binding CurrentUser.IsDeviceLockEnabled}" />
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+            <Label x:Name="messageLabel" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

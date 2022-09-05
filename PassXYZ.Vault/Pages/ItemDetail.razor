@@ -1,0 +1,60 @@
+﻿@page "/entry/{SelectedItemId}"
+
+@using System.Collections.ObjectModel
+@using System.Diagnostics
+@using KPCLib
+@using KeePassLib
+@using PassXYZ.Vault.Shared
+@using PassXYZ.Vault.Services
+
+@namespace PassXYZ.Vault.Pages
+
+<!-- Back button and title -->
+<Navbar ParentLink="@selectedItem?.GetParentLink()" Title="@selectedItem?.Name" DialogId="@_dialogEditId"
+        OnAddClick="@(() => {_isNewField=true;currentField.Data=listGroupField=_newField;_newField.Key="";_newField.Value="";})" />
+
+<!-- List view with context menu -->
+<ListView Items="fields">
+    <Row Context="field">
+        @if (field.ShowContextAction == null)
+        {
+            <span class="oi oi-pencil" aria-hidden="true"></span>
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">@field.Key</h6>
+                    <p class="mb-0">@field.Value</p>
+                </div>
+            </div>
+            <Dropdown OnClick="@(() => {currentField.Data=listGroupField=field;})">
+                <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewField=false)">Edit</MenuItem>
+                <MenuItem Id="@_dialogDeleteId">Delete</MenuItem>
+                @if (field.IsProtected)
+                {
+                    <MenuItem OnClick="OnToggleShowPassword">@(field.IsHide ? "Show":"Hide")</MenuItem>
+                }
+            </Dropdown>
+        }
+    </Row>
+    <Footer>
+        @((MarkupString)notes)
+    </Footer>
+</ListView>
+
+<!-- Editing Modal -->
+<EditFormDialog Id="@_dialogEditId" ModelData="@currentField" IsKeyEditingEnable=@_isNewField
+                OnSaveAsync="UpdateFieldAsync" KeyPlaceHolder="Field name" ValuePlaceHolder="Field content">
+    @if (_isNewField)
+    {
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind="listGroupField.IsProtected" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Password
+            </label>
+        </div>
+    }
+</EditFormDialog>
+
+<!-- Deleting Modal -->
+<CascadingValue Value="@_dialogDeleteId" Name="Id">
+    <ConfirmDialog Title=@listGroupField.Key OnConfirmClick="DeleteFieldAsync" />
+</CascadingValue>

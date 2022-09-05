@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+    <comment>About information of PassXYZ application</comment>
+  </data>
+  <data name="Appname" xml:space="preserve">
+    <value>PassXYZ.Vault</value>
+    <comment>Application name</comment>
+  </data>
+  <data name="LoginErrorMessage" xml:space="preserve">
+    <value>Login failed</value>
+    <comment>The error message of login</comment>
+  </data>
+  <data name="LoginPageTitle" xml:space="preserve">
+    <value>Login</value>
+    <comment>The title of Login page</comment>
+  </data>
+  <data name="LoginPageWelcomeMessage" xml:space="preserve">
+    <value>Please enter your username and password to login to PassXYZ.</value>
+    <comment>The default welcome message in login page.</comment>
+  </data>
+  <data name="field_id_password" xml:space="preserve">
+    <value>Password</value>
+    <comment>The Placeholder of password entry</comment>
+  </data>
+  <data name="SignUpErrorMessage" xml:space="preserve">
+    <value>Sign up failed, please check the format of username and password</value>
+    <comment>The error message of Sign Up</comment>
+  </data>
+  <data name="SignUpPageMessage" xml:space="preserve">
+    <value>You can create a new database or import a KeePass database.</value>
+    <comment>The notification message in sign up page.</comment>
+  </data>
+  <data name="SignUpPageTitle" xml:space="preserve">
+    <value>Sign Up</value>
+    <comment>The title of Sign Up page</comment>
+  </data>
+  <data name="action_id_add" xml:space="preserve">
+    <value>Add</value>
+    <comment>Toolbar item for add an entry or group</comment>
+  </data>
+  <data name="action_id_logout" xml:space="preserve">
+    <value>Logout</value>
+    <comment>Toolbar item for logout</comment>
+  </data>
+  <data name="field_id_username" xml:space="preserve">
+    <value>Username</value>
+    <comment>The Placeholder of username entry</comment>
+  </data>
+  <data name="SignUpErrorMessage1" xml:space="preserve">
+    <value>The user already exists. You can try to login with this username.</value>
+    <comment>The sign up error message.</comment>
+  </data>
+  <data name="SignUpErrorMessage2" xml:space="preserve">
+    <value>The Password and Password confirmation do not exactly match.</value>
+    <comment>The sign up error message</comment>
+  </data>
+  <data name="action_id_switchusers" xml:space="preserve">
+    <value>Users</value>
+    <comment>Switch users from this toolbar item</comment>
+  </data>
+  <data name="action_id_cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>The title of Cancel button</comment>
+  </data>
+  <data name="pt_id_switchusers" xml:space="preserve">
+    <value>Choose a user to switch</value>
+    <comment>(Page title or action sheet title) switch user actionsheet</comment>
+  </data>
+  <data name="field_id_email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="field_id_mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="field_id_notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="field_id_title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="field_id_url" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="action_id_browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="action_id_copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="action_id_generatebarcode" xml:space="preserve">
+    <value>Barcode</value>
+  </data>
+  <data name="action_id_generateqrcode" xml:space="preserve">
+    <value>QR code</value>
+  </data>
+  <data name="action_id_sendemail" xml:space="preserve">
+    <value>Send Email</value>
+  </data>
+  <data name="action_id_show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="action_id_save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="action_id_search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="action_id_edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="field_id_name" xml:space="preserve">
+    <value>Name</value>
+    <comment>The name of the owner of a record</comment>
+  </data>
+  <data name="action_id_delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="alert_id_remove" xml:space="preserve">
+    <value>Please confirm to delete</value>
+    <comment>Message in the DisplayAlert, when remove an item.</comment>
+  </data>
+  <data name="alert_id_no" xml:space="preserve">
+    <value>No</value>
+    <comment>Answer in the DisplayAlert, when remove an item</comment>
+  </data>
+  <data name="alert_id_yes" xml:space="preserve">
+    <value>Yes</value>
+    <comment>Answer in the DisplayAlert, when remove an item</comment>
+  </data>
+  <data name="group_id_recyclebin" xml:space="preserve">
+    <value>Recycle Bin</value>
+    <comment>The standard folder name for Recycle Bin</comment>
+  </data>
+  <data name="ph_id_password" xml:space="preserve">
+    <value>Please enter your password</value>
+    <comment>Placeholder of password field</comment>
+  </data>
+  <data name="ph_id_title" xml:space="preserve">
+    <value>Please enter your title</value>
+  </data>
+  <data name="pt_id_choosetemplate" xml:space="preserve">
+    <value>Please choose an item to be created: </value>
+    <comment>Action sheet title for template</comment>
+  </data>
+  <data name="message_id_import_confirmation" xml:space="preserve">
+    <value>The current user will be logout after the import. Please confirm to import</value>
+  </data>
+  <data name="action_id_import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="message_id_importData" xml:space="preserve">
+    <value>After import, please login using the original master password. Please create a user name for the data file:</value>
+  </data>
+  <data name="group_id_search" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>The group name of search results</comment>
+  </data>
+  <data name="alert_id_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="menu_id_help" xml:space="preserve">
+    <value>Help</value>
+    <comment>System menu item</comment>
+  </data>
+  <data name="menu_id_settings" xml:space="preserve">
+    <value>Settings</value>
+    <comment>System menu item</comment>
+  </data>
+  <data name="menu_id_template" xml:space="preserve">
+    <value>Template</value>
+    <comment>System menu item</comment>
+  </data>
+  <data name="menu_id_user" xml:space="preserve">
+    <value>User</value>
+    <comment>System menu item</comment>
+  </data>
+  <data name="message_id_import_login_request" xml:space="preserve">
+    <value>Please login first before import a</value>
+  </data>
+  <data name="item_subtype_entry" xml:space="preserve">
+    <value>Entry</value>
+  </data>
+  <data name="item_subtype_group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="item_subtype_notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="item_subtype_template" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="action_id_cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="action_id_paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="message_id_importDataSuccess" xml:space="preserve">
+    <value>You have successfully imported data file</value>
+  </data>
+  <data name="item_subtype_using_template" xml:space="preserve">
+    <value>Using templates</value>
+  </data>
+  <data name="field_name_switch_label_isProtected" xml:space="preserve">
+    <value>Protected field</value>
+  </data>
+  <data name="settings_fingerprint_remark" xml:space="preserve">
+    <value>Enable fingerprint to unlock</value>
+  </data>
+  <data name="settings_fingerprint_title" xml:space="preserve">
+    <value>Fingerprint setup</value>
+  </data>
+  <data name="settings_manage_db_remark" xml:space="preserve">
+    <value>Change password, name etc.</value>
+  </data>
+  <data name="settings_manage_db_title" xml:space="preserve">
+    <value>Manage database</value>
+  </data>
+  <data name="settings_manage_users_remark" xml:space="preserve">
+    <value>Add or delete users</value>
+  </data>
+  <data name="settings_manage_users_title" xml:space="preserve">
+    <value>Manage users</value>
+  </data>
+  <data name="settings_template_remark" xml:space="preserve">
+    <value>Create, import or delete</value>
+  </data>
+  <data name="settings_template_title" xml:space="preserve">
+    <value>Manage template</value>
+  </data>
+  <data name="action_id_login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="message_id_alert_removing_current_user" xml:space="preserve">
+    <value>Cannot remove the current user</value>
+  </data>
+  <data name="action_id_update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="settings_deleting_users" xml:space="preserve">
+    <value>Deleting users</value>
+  </data>
+  <data name="settings_empty_password" xml:space="preserve">
+    <value>You have selected to use an empty master password.</value>
+  </data>
+  <data name="settings_manage_users_reset_password" xml:space="preserve">
+    <value>Reset your master password</value>
+  </data>
+  <data name="settings_updated_password" xml:space="preserve">
+    <value>Updated password successfully.</value>
+  </data>
+  <data name="settings_updating_password" xml:space="preserve">
+    <value>Updating password ...</value>
+  </data>
+  <data name="settings_fingerprint_disabled" xml:space="preserve">
+    <value>Fingerprint is not supported</value>
+  </data>
+  <data name="fingerprint_login_message" xml:space="preserve">
+    <value>Please use fingerprint to login</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="about_learn_more" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="about_passxyz_copyright" xml:space="preserve">
+    <value>Copyright 2022, Roger Ye. All rights reserved.</value>
+  </data>
+  <data name="about_passxyz_license" xml:space="preserve">
+    <value>PassXYZ.Vault is licensed under the GNU General Public License v3.0 . You may not use this file except in compliance with the License. You may obtain a copy of the License at</value>
+  </data>
+  <data name="about_passxyz_web" xml:space="preserve">
+    <value>You can submit problem report and get more information on how to use PassXYZ from the website below.</value>
+  </data>
+  <data name="about_slogan" xml:space="preserve">
+    <value>Your personal information management system</value>
+  </data>
+  <data name="about_wechat_info" xml:space="preserve">
+    <value>You can also provide feedback through PassXYZ Wechat public account. PassXYZ Wechat public account is passxyz_kpclib. Or, you may wish to scan the QRcode below.</value>
+  </data>
+  <data name="error_message_invalid_url" xml:space="preserve">
+    <value>Invalid URL format.</value>
+  </data>
+  <data name="settings_timer_remark" xml:space="preserve">
+    <value>Time before locking database when the application is inactive</value>
+  </data>
+  <data name="settings_timer_title" xml:space="preserve">
+    <value>Timer setup</value>
+  </data>
+  <data name="settings_timer_unit_hour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="settings_timer_unit_minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="settings_timer_unit_seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="action_id_attach" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="label_id_attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
+  <data name="database_modified_time" xml:space="preserve">
+    <value>Last Modified Time</value>
+  </data>
+  <data name="database_name" xml:space="preserve">
+    <value>Database Name</value>
+  </data>
+  <data name="database_modified_date" xml:space="preserve">
+    <value>Last Modified Date</value>
+  </data>
+  <data name="field_id_file" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="field_id_template" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="entry_id_passxyz_usage" xml:space="preserve">
+    <value>How to use PassXYZ ?</value>
+  </data>
+  <data name="about_passxyz_usage" xml:space="preserve">
+    <value>This brief introduction is meant for those who are the new users of [PassXYZ](https://passxyz.github.io/). If you are a [KeePass](https://keepass.info/) veteran, you may skip this article and read another one called _In-depth understanding of PassXYZ_ on the [PassXYZ](https://passxyz.github.io/) website which can be found by clicking **Learn More** in menu item **Help**. 
+
+[PassXYZ](https://passxyz.github.io/) is similar to other password management software. It is quite easy to use. After the installation of [PassXYZ](https://passxyz.github.io/), the first screen you can see when you launch it, is to setup a username and password. Please be reminded that the password here is the master password of the database. If you forget it, nobody can access the database anymore.
+
+After setup of the username and password, you will enter the main page where you can record all your  personal information. Well, how to start using it? On the top-right hand side of the screen, you will see three icons. You must be able to recognize that they are **Search**, **Add** and **Logout**, right?
+
+Now, you can start entering all your personal information that you want [PassXYZ](https://passxyz.github.io/) to remember for you, such as bank accounts, IC, Passport, your favorite network accounts or any other personal documents. Let's use ID card as an example to explain how to add an item in PassXYZ. First, click on the icon **+**, you will get a list of four choices containing **Group**, **Entry**, **Notes** and **Using Templates**. Well, there is no choice for **ID card**, what should I do? Never mind, you may go to **Using Templates** to search for it. Most of the frequently-used items have been typically made as templates in PassXYZ. Even there is no choice that you are looking for, you still have three ways to enter your item. The first way is the laziest one. All the items that you cannot find in the templates, you may choose **Entry** in the list which is the general item for everything. Just key in all the information that you need, and save them thereafter. The **Entry** is the standard choice from KeePass. The second way is trying to find the template you want on [PassXYZ](https://passxyz.github.io/) website. There will be more templates there. The third choice is to create an item in templates on your own if you are not satisfied with the above. Once you know how to do that, you will be a master of [PassXYZ](https://passxyz.github.io/).
+
+We have introduced **Entry** and **Using Templates** as above. You may ask, what are **Group** and **Notes**? **Group** is actually a folder. For example, you may create a **Group** named **Banks**, and then enter **Banks** to choose **Entry** to key in the information of your bank account. You may wish to create separate entries for your different bank accounts under the **Banks** group so that they can be well-managed for your future use. As for the **Notes**, it is the same as what it means here. It is just a tool for you to record anything, such as a small piece of article or a paragraph of words. For example, this article is a **Notes**. In PassXYZ, you can use **Markdown** syntax to format your notes. With **Markdown** support, you can have a better view of plain text.
+
+Let's come back to the **ID card** to be added. You should be able to find **ID card** in the built-in templates. You can choose this template and fill in all the necessary information. Please do remember to save it after finishing filling in. Other than the literal information listed in the templates,  you can also attach scanned copies or photos of your documents as attachments. As such, next time when you are out on some important errand and need any of your documents urgently, you may easily share a copy of your document from [PassXYZ](https://passxyz.github.io/) using instant messaging tool to anyone you need.
+
+The basic usage of [PassXYZ](https://passxyz.github.io/) is just that simple. For more information, please visit [PassXYZ](https://passxyz.github.io/) website. 
+
+### FAQ:
+
+**Does it support fingerprint?** 
+
+Yes, you can turn on/off it in the **Settings**.
+
+**Does it support export/import data file?** 
+
+Yes, you can find it in the **Settings** as well.
+
+**Does it support synchronization between two devices?** 
+
+Yes, you can synchronize two devices in the **Settings**.
+
+**How to install PassXYZ on different platforms?**
+
+You can install PassXYZ on Android, iOS and Windows 10. Please refer to the below link about how to install PassXYZ on different platforms.
+https://passxyz.github.io/2018/06/26/Downloads/
+
+
+**Where I can download additional Templates?**
+
+PassXYZ built-in template files can be downloaded at the below links:
+
+1. [English](/passxyz_template/passxyz_en-us.t4xyz)
+2. [Chinese Simplified](/passxyz_template/passxyz_zh-hans.t4xyz)
+3. [Chinese Traditional](/passxyz_template/passxyz_zh-hant.t4xyz)</value>
+    <comment>How to use passxyz</comment>
+  </data>
+  <data name="message_id_sync_failure" xml:space="preserve">
+    <value>Cannot synchronize file</value>
+  </data>
+  <data name="message_id_sync_success" xml:space="preserve">
+    <value>Synchronization completed</value>
+  </data>
+  <data name="settings_export_remark" xml:space="preserve">
+    <value>Export database to other devices or cloud storage</value>
+  </data>
+  <data name="settings_export_title" xml:space="preserve">
+    <value>Export database</value>
+  </data>
+  <data name="settings_sync_remark" xml:space="preserve">
+    <value>Sychornize with other devices through messaging app</value>
+  </data>
+  <data name="settings_sync_title" xml:space="preserve">
+    <value>Sychronize database</value>
+  </data>
+  <data name="import_error_user_exits" xml:space="preserve">
+    <value>Cannot import this file! This user alreay exists.</value>
+  </data>
+  <data name="action_id_share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="action_id_close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="file_name_template" xml:space="preserve">
+    <value>PassXYZ.Resx.passxyz_en-us.t4xyz</value>
+  </data>
+  <data name="entry_id_bank_account" xml:space="preserve">
+    <value>Bank Account</value>
+  </data>
+  <data name="entry_id_cert_of_marriage" xml:space="preserve">
+    <value>Certificate of Marriage</value>
+  </data>
+  <data name="entry_id_credit_card" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="entry_id_driving_license" xml:space="preserve">
+    <value>Driving license</value>
+  </data>
+  <data name="entry_id_idcard" xml:space="preserve">
+    <value>ID Card</value>
+  </data>
+  <data name="entry_id_passport" xml:space="preserve">
+    <value>Passport</value>
+  </data>
+  <data name="entry_id_vehicle_license" xml:space="preserve">
+    <value>Vehicle license</value>
+  </data>
+  <data name="group_id_bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="group_id_document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="field_id_atm_pin" xml:space="preserve">
+    <value>ATM PIN</value>
+  </data>
+  <data name="field_id_cvv" xml:space="preserve">
+    <value>CVV</value>
+  </data>
+  <data name="field_id_internet_banking_p" xml:space="preserve">
+    <value>Internet Banking Password</value>
+  </data>
+  <data name="field_id_phone_banking_pin" xml:space="preserve">
+    <value>Phone Banking PIN</value>
+  </data>
+  <data name="field_id_pin" xml:space="preserve">
+    <value>PIN</value>
+  </data>
+  <data name="field_id_query_pin" xml:space="preserve">
+    <value>Query PIN</value>
+  </data>
+  <data name="field_id_u_key_pin" xml:space="preserve">
+    <value>U Key PIN</value>
+  </data>
+  <data name="about_acknowledgement" xml:space="preserve">
+    <value>Acknowledgement</value>
+  </data>
+  <data name="about_keepass" xml:space="preserve">
+    <value>PassXYZ.Vault is built on top of KPCLib which is a library changed based on KeePassLib. KPCLib enhanced KeePassLib so that it can be built as a PCL or .netstandard Library to run on .NET MAUI or Xamarin. KeePassLib is part of KeePass project developed by Dominik Reichl. The official website of KeePass is:</value>
+  </data>
+  <data name="about_kpclib" xml:space="preserve">
+    <value>The information and source code of KPCLib can be found at:</value>
+  </data>
+  <data name="entry_id_cmb" xml:space="preserve">
+    <value>China Merchants Bank</value>
+  </data>
+  <data name="field_id_all_in_one_net_p" xml:space="preserve">
+    <value>All In One Net Password</value>
+  </data>
+  <data name="entry_id_icbc" xml:space="preserve">
+    <value>Industrial and Commercial Bank of China</value>
+  </data>
+  <data name="field_id_internet_banking_u" xml:space="preserve">
+    <value>Internet Banking Username</value>
+  </data>
+  <data name="entry_id_boc" xml:space="preserve">
+    <value>Bank of China</value>
+  </data>
+  <data name="entry_id_ccb" xml:space="preserve">
+    <value>China Construction Bank</value>
+  </data>
+  <data name="entry_id_abc" xml:space="preserve">
+    <value>The Agricultural Bank of China</value>
+  </data>
+  <data name="entry_id_pingan" xml:space="preserve">
+    <value>Ping An Bank</value>
+  </data>
+  <data name="entry_id_qq" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="entry_id_wechat" xml:space="preserve">
+    <value>WeChat</value>
+  </data>
+  <data name="group_id_primary_services" xml:space="preserve">
+    <value>Primary Services</value>
+  </data>
+  <data name="entry_id_alipay" xml:space="preserve">
+    <value>Alipay</value>
+  </data>
+  <data name="entry_id_baidu" xml:space="preserve">
+    <value>Baidu</value>
+  </data>
+  <data name="entry_id_jingdong" xml:space="preserve">
+    <value>JD.com</value>
+  </data>
+  <data name="entry_id_netease" xml:space="preserve">
+    <value>Netease</value>
+  </data>
+  <data name="entry_id_taobao" xml:space="preserve">
+    <value>Taobao</value>
+  </data>
+  <data name="entry_id_weibo" xml:space="preserve">
+    <value>微博</value>
+  </data>
+  <data name="entry_id_12306" xml:space="preserve">
+    <value>Railway Ticket 12306</value>
+  </data>
+  <data name="entry_id_chsi" xml:space="preserve">
+    <value>学信网</value>
+  </data>
+  <data name="entry_id_csi" xml:space="preserve">
+    <value>Social Security</value>
+  </data>
+  <data name="entry_id_csi_sz" xml:space="preserve">
+    <value>社会统一用户基础平台</value>
+  </data>
+  <data name="entry_id_c_mobile" xml:space="preserve">
+    <value>China Mobile</value>
+  </data>
+  <data name="entry_id_c_telecom" xml:space="preserve">
+    <value>China Telecom</value>
+  </data>
+  <data name="entry_id_c_unicom" xml:space="preserve">
+    <value>China Unicom</value>
+  </data>
+  <data name="entry_id_hk_txz" xml:space="preserve">
+    <value>港澳通行证</value>
+  </data>
+  <data name="entry_id_picc" xml:space="preserve">
+    <value>PICC人保</value>
+  </data>
+  <data name="entry_id_szlt" xml:space="preserve">
+    <value>深圳市地方税务局</value>
+  </data>
+  <data name="entry_id_szrq" xml:space="preserve">
+    <value>深圳燃气</value>
+  </data>
+  <data name="entry_id_sz_hpf" xml:space="preserve">
+    <value>深圳住房公积金</value>
+  </data>
+  <data name="entry_id_ytc" xml:space="preserve">
+    <value>宜停车</value>
+  </data>
+  <data name="field_id_alipay" xml:space="preserve">
+    <value>支付宝生活号</value>
+  </data>
+  <data name="field_id_service_password" xml:space="preserve">
+    <value>Service Password</value>
+  </data>
+  <data name="field_id_wechat" xml:space="preserve">
+    <value>WeChat Official Account</value>
+  </data>
+  <data name="entry_id_abc_cc" xml:space="preserve">
+    <value>The Agricultural Bank of China - Credit Card</value>
+  </data>
+  <data name="entry_id_amazon" xml:space="preserve">
+    <value>Amazon</value>
+  </data>
+  <data name="entry_id_apple" xml:space="preserve">
+    <value>Apple ID</value>
+  </data>
+  <data name="entry_id_boc_cc" xml:space="preserve">
+    <value>Bank of China - Credit Card</value>
+  </data>
+  <data name="entry_id_ccb_cc" xml:space="preserve">
+    <value>China Construction Bank - Credit Card</value>
+  </data>
+  <data name="entry_id_cmb_cc" xml:space="preserve">
+    <value>China Merchants Bank - Credit Card</value>
+  </data>
+  <data name="entry_id_cms" xml:space="preserve">
+    <value>Merchants Securities</value>
+  </data>
+  <data name="entry_id_csdc" xml:space="preserve">
+    <value>Securities registration and Clearing</value>
+  </data>
+  <data name="entry_id_dbs" xml:space="preserve">
+    <value>DBS</value>
+  </data>
+  <data name="entry_id_dbs_vickers" xml:space="preserve">
+    <value>DBS Vickers</value>
+  </data>
+  <data name="entry_id_docker" xml:space="preserve">
+    <value>DockerHub</value>
+  </data>
+  <data name="entry_id_dropbox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="entry_id_facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="entry_id_github" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="entry_id_google" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="entry_id_icbc_cc" xml:space="preserve">
+    <value>Industrial and Commercial Bank of China - Credit Card</value>
+  </data>
+  <data name="entry_id_limtan" xml:space="preserve">
+    <value>Lim &amp; Tan</value>
+  </data>
+  <data name="entry_id_linkedin" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="entry_id_microsoft" xml:space="preserve">
+    <value>Microsoft</value>
+  </data>
+  <data name="entry_id_nuget" xml:space="preserve">
+    <value>NuGet</value>
+  </data>
+  <data name="entry_id_ocbc" xml:space="preserve">
+    <value>OCBC</value>
+  </data>
+  <data name="entry_id_onekey" xml:space="preserve">
+    <value>OneKey</value>
+  </data>
+  <data name="entry_id_paypal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="entry_id_pingan_cc" xml:space="preserve">
+    <value>Ping An Bank - Credit Card</value>
+  </data>
+  <data name="entry_id_sgx" xml:space="preserve">
+    <value>CDP</value>
+  </data>
+  <data name="entry_id_singpass" xml:space="preserve">
+    <value>SingPass</value>
+  </data>
+  <data name="entry_id_skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="entry_id_spgroup" xml:space="preserve">
+    <value>SP Services</value>
+  </data>
+  <data name="entry_id_sywg" xml:space="preserve">
+    <value>申万宏源</value>
+  </data>
+  <data name="entry_id_twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="entry_id_uob" xml:space="preserve">
+    <value>UOB</value>
+  </data>
+  <data name="entry_id_yahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="about_url" xml:space="preserve">
+    <value>https://passxyz.github.io/categories/Help/</value>
+  </data>
+  <data name="entry_id_dbs_cc" xml:space="preserve">
+    <value>DBS Credit Card</value>
+  </data>
+  <data name="entry_id_ocbc_cc" xml:space="preserve">
+    <value>OCBC Credit Card</value>
+  </data>
+  <data name="entry_id_uob_cc" xml:space="preserve">
+    <value>UOB Credit Card</value>
+  </data>
+  <data name="field_id_hotline" xml:space="preserve">
+    <value>Hotline</value>
+  </data>
+  <data name="field_id_trading_pin" xml:space="preserve">
+    <value>Trading Password</value>
+  </data>
+  <data name="field_id_payment_password" xml:space="preserve">
+    <value>Payment Password</value>
+  </data>
+  <data name="message_id_alert_saving" xml:space="preserve">
+    <value>Do you want to save the changes?</value>
+  </data>
+  <data name="about_problem_report" xml:space="preserve">
+    <value>If you encounter any problems when using PassXYZ, please send the problem report to PassXYZ Wechat public account or the email address passxyz@foxmail.com.</value>
+  </data>
+  <data name="about_problem_report_send" xml:space="preserve">
+    <value>Send problem report</value>
+  </data>
+  <data name="about_problem_report_not_found" xml:space="preserve">
+    <value>There is no problem report found.</value>
+  </data>
+  <data name="message_id_alert_removing_system_group" xml:space="preserve">
+    <value> is a system group. System groups cannot be removed!</value>
+  </data>
+  <data name="settings_onedrive_remark" xml:space="preserve">
+    <value>Login to synchronize using OneDrive</value>
+  </data>
+  <data name="settings_onedrive_title" xml:space="preserve">
+    <value>Using OneDrive sync current database</value>
+  </data>
+  <data name="settings_onedrive_status" xml:space="preserve">
+    <value>OneDrive Username is</value>
+  </data>
+  <data name="user_id_cloud" xml:space="preserve">
+    <value>File on cloud drive</value>
+  </data>
+  <data name="user_id_local" xml:space="preserve">
+    <value>Local file</value>
+  </data>
+  <data name="user_id_synced" xml:space="preserve">
+    <value>Synchronized with cloud</value>
+  </data>
+  <data name="user_id_syncing" xml:space="preserve">
+    <value>Synchronizing with cloud ...</value>
+  </data>
+  <data name="user_id_disabled" xml:space="preserve">
+    <value>Synchronization is disabled</value>
+  </data>
+  <data name="action_id_disable_sync" xml:space="preserve">
+    <value>Disable Sync</value>
+  </data>
+  <data name="action_id_enable_sync" xml:space="preserve">
+    <value>Enable Sync</value>
+  </data>
+  <data name="message_id_alert_logout_disable" xml:space="preserve">
+    <value>Cannot logout now, </value>
+  </data>
+  <data name="settings_merge_method_remark" xml:space="preserve">
+    <value>Select a suitable merge method</value>
+  </data>
+  <data name="settings_merge_method_title" xml:space="preserve">
+    <value>Merge method: </value>
+  </data>
+  <data name="settings_keyFileField_Key" xml:space="preserve">
+    <value>Security Settings</value>
+  </data>
+  <data name="settings_keyFileField_Value1" xml:space="preserve">
+    <value>Device Lock enabled. Device Lock Key can be exported</value>
+  </data>
+  <data name="settings_keyFileField_Value2" xml:space="preserve">
+    <value>Device Lock disabled</value>
+  </data>
+  <data name="settings_security_DeviceLockKey" xml:space="preserve">
+    <value>Device Lock Key</value>
+  </data>
+  <data name="settings_security_generate_QRCode" xml:space="preserve">
+    <value>Device Lock Key QR code</value>
+  </data>
+  <data name="settings_security_share_keyfile" xml:space="preserve">
+    <value>Export Device Lock Key to a file</value>
+  </data>
+  <data name="settings_security_DLK_Created_failure" xml:space="preserve">
+    <value>Failed to create Device Lock Key</value>
+  </data>
+  <data name="settings_security_DLK_Created_success" xml:space="preserve">
+    <value>Device Lock Key is created successfully</value>
+  </data>
+  <data name="settings_security_DLK_Wrong_Format" xml:space="preserve">
+    <value>This QR code is not a PassXYZ Device Lock Key</value>
+  </data>
+  <data name="settings_security_DLK_Wrong_User" xml:space="preserve">
+    <value>Wrong Device Lock Key. It is for user</value>
+  </data>
+  <data name="settings_security_permission" xml:space="preserve">
+    <value>Permission</value>
+  </data>
+  <data name="settings_security_permission_desc" xml:space="preserve">
+    <value>permission is required to use this app</value>
+  </data>
+  <data name="settings_security_permission_negative" xml:space="preserve">
+    <value>Maybe Later</value>
+  </data>
+  <data name="settings_security_scan_result" xml:space="preserve">
+    <value>Scanned QR code</value>
+  </data>
+  <data name="settings_security_UsingDeviceLock" xml:space="preserve">
+    <value>Using Device Lock</value>
+  </data>
+  <data name="settings_security_DLK_message1" xml:space="preserve">
+    <value>Need a Device Lock Key to login as user </value>
+  </data>
+  <data name="message_id_import_device_lock_desc" xml:space="preserve">
+    <value>A new database with Device Lock enabled will be created. Please assign a username for the new database.</value>
+  </data>
+  <data name="message_id_import_otp_failure" xml:space="preserve">
+    <value>OTP secret cannot be imported.</value>
+  </data>
+  <data name="message_id_import_otp_overwrite" xml:space="preserve">
+    <value>Do you want to overwrite the existing OTP secret?</value>
+  </data>
+  <data name="message_id_import_otp_saved" xml:space="preserve">
+    <value>OTP secret is saved</value>
+  </data>
+  <data name="entry_id_evernote" xml:space="preserve">
+    <value>Evernote</value>
+  </data>
+  <data name="entry_id_nutstore" xml:space="preserve">
+    <value>坚果云</value>
+  </data>
+  <data name="entry_id_huawei" xml:space="preserve">
+    <value>Huawei</value>
+  </data>
+  <data name="entry_id_xiaomi" xml:space="preserve">
+    <value>Xiaomi</value>
+  </data>
+  <data name="entry_id_box" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="action_id_properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="item_prop_cloud_type" xml:space="preserve">
+    <value>Cloud Storage Type</value>
+  </data>
+  <data name="item_prop_icon_name" xml:space="preserve">
+    <value>Icon Name</value>
+  </data>
+  <data name="field_id_camera" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="field_id_gallery" xml:space="preserve">
+    <value>Gallery</value>
+  </data>
+  <data name="message_id_attachment_options" xml:space="preserve">
+    <value>Please add attachments from</value>
+  </data>
+  <data name="action_id_change_icon" xml:space="preserve">
+    <value>Change icon</value>
+  </data>
+  <data name="action_id_update_template" xml:space="preserve">
+    <value>Reset template</value>
+  </data>
+  <data name="message_id_update_template" xml:space="preserve">
+    <value>Template has been updated.</value>
+  </data>
+  <data name="action_id_move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="action_id_add_icon" xml:space="preserve">
+    <value>Add icon</value>
+  </data>
+  <data name="label_id_custom_icon" xml:space="preserve">
+    <value>Custom icon</value>
+  </data>
+  <data name="message_id_icon_size" xml:space="preserve">
+    <value>Cannot save this icon. Icon size should be larger than 96 pixels.</value>
+  </data>
+  <data name="message_id_import_failure" xml:space="preserve">
+    <value>Failed to import </value>
+  </data>
+  <data name="action_id_hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="item_subtype_pxentry" xml:space="preserve">
+    <value>PxEntry</value>
+  </data>
+  <data name="ph_id_key" xml:space="preserve">
+    <value>Enter field name here</value>
+  </data>
+  <data name="ph_id_value" xml:space="preserve">
+    <value>Enter field value here</value>
+  </data>
+  <data name="SiguUpMessage" xml:space="preserve">
+    <value>Successfully created a new user</value>
+  </data>
+  <data name="settings_keyFileField_Value3" xml:space="preserve">
+    <value>Device Lock</value>
+  </data>
+  <data name="action_id_export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="export_error1" xml:space="preserve">
+    <value>Please select a user first.</value>
+  </data>
+  <data name="import_message1" xml:space="preserve">
+    <value>Please select a KeePass or PassXYZ data file</value>
+  </data>
+  <data name="import_data_file" xml:space="preserve">
+    <value>Data file</value>
+  </data>
+  <data name="import_data_file_ex" xml:space="preserve">
+    <value>Data file (with key file)</value>
+  </data>
+  <data name="import_keyfile" xml:space="preserve">
+    <value>Import key file</value>
+  </data>
+  <data name="import_error_msg" xml:space="preserve">
+    <value>Cannot import this file!</value>
+  </data>
+  <data name="import_keyfile_scan" xml:space="preserve">
+    <value>Scan key file QR code</value>
+  </data>
+  <data name="menu_id_users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="message_id_edit_binary" xml:space="preserve">
+    <value>Cannot edit binary</value>
+    <comment>Warning message</comment>
+  </data>
+  <data name="action_id_scan" xml:space="preserve">
+    <value>Scan</value>
+  </data>
+  <data name="privacy_notice" xml:space="preserve">
+    <value># Privacy Notice
+
+
+This privacy notice discloses the privacy practices for PassXYZ application and our websites:
+- PassXYZ, PassXYZ Cloud and PassXYZ.Vault
+- https://passxyz.github.io
+- https://github.com/passxyz
+
+## Information Collection, Use, and Sharing 
+
+This website is built using the services provided by GitHub. It is a static website and does not collect any information. Please refer to the GitHub Privacy Statement about the agreement before you use GitHub services.
+
+PassXYZ application is an application to store your personal information on your own devices and encrypted in the KeePass database format. PassXYZ application may access network to retrieve resources such as font or icon etc.
+
+## Notification of Changes
+You can always go to PassXYZ website to find the latest Privacy Notice.</value>
+  </data>
+  <data name="error_message_privacy_notice" xml:space="preserve">
+    <value>Please accept privacy notice to use this app.</value>
+  </data>
+  <data name="action_id_cloud_config" xml:space="preserve">
+    <value>Cloud Config</value>
+  </data>
+  <data name="error_message_config1" xml:space="preserve">
+    <value>Configuration is not correct.</value>
+  </data>
+  <data name="error_message_config2" xml:space="preserve">
+    <value>Please fill in the correct configuration.</value>
+  </data>
+  <data name="field_id_hostname" xml:space="preserve">
+    <value>Hostname, such as sftp.passxyz.com</value>
+  </data>
+  <data name="field_id_remote_folder" xml:space="preserve">
+    <value>Remote folder, such as /home/tester/pxvault/</value>
+  </data>
+  <data name="message_id_cloud_config" xml:space="preserve">
+    <value>Please fill in cloud storage configuration.</value>
+  </data>
+  <data name="title_cloud_config" xml:space="preserve">
+    <value>Cloud storage configuration</value>
+  </data>
+  <data name="field_id_port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="action_id_recover" xml:space="preserve">
+    <value>Recover</value>
+  </data>
+  <data name="message_id_recover_datafile" xml:space="preserve">
+    <value>Data file can be recovered from backup file. If cannot work, please try to recover from cloud file.
+
+- **Local Data** can be recovered from remote data or backup data
+- **Remote Data** can be recovered using local data</value>
+  </data>
+  <data name="field_id_backup_data" xml:space="preserve">
+    <value>Backup Data</value>
+  </data>
+  <data name="field_id_local_data" xml:space="preserve">
+    <value>Local Data</value>
+  </data>
+  <data name="field_id_remote_data" xml:space="preserve">
+    <value>Remote Data</value>
+  </data>
+  <data name="menu_id_data_recovery" xml:space="preserve">
+    <value>Data Recovery</value>
+  </data>
+</root>

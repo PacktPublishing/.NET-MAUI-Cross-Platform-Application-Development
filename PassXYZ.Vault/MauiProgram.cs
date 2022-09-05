@@ -1,4 +1,7 @@
-﻿namespace PassXYZ.Vault;
+﻿using KPCLib;
+using PassXYZLib;
+using PassXYZ.Vault.Services; 
+namespace PassXYZ.Vault;
 
 public static class MauiProgram
 {
@@ -9,9 +12,21 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
 			{
+				fonts.AddFont("fa-regular-400.ttf", "FontAwesomeRegular");
+				fonts.AddFont("fa-solid-900.ttf", "FontAwesomeSolid");
+				fonts.AddFont("fa-brands-400.ttf", "FontAwesomeBrands");
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
 			});
 
-		return builder.Build();
+        builder.Services.AddMauiBlazorWebView();
+#if DEBUG
+        builder.Services.AddBlazorWebViewDeveloperTools();
+#endif
+        builder.Services.AddSingleton<IDataStore<Item>, DataStore>();
+        builder.Services.AddSingleton<IUserService<User>, UserService>();
+        builder.Services.AddSingleton<LoginUser, LoginUser>();
+
+        return builder.Build();
 	}
 }

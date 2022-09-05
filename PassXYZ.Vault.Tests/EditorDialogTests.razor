@@ -1,0 +1,74 @@
+﻿@using System.Diagnostics
+@using KPCLib
+@using PassXYZLib
+@inherits TestContext
+
+<h3>EditorDialogTests</h3>
+
+@code {
+    bool _isOnCloseClicked = false;
+    string _key = string.Empty;
+    string _value = string.Empty;
+    string updated_key = "key updated";
+    string updated_value = "value udpated";
+
+    void OnSaveClicked(string key, string value)
+    {
+        _key = key;
+        _value = value;
+
+        Debug.WriteLine($"EditorDialogTests: OnSaveClicked(key={_key}, value={_value})");
+    }
+
+    void OnCloseHandler()
+    {
+        _isOnCloseClicked = true;
+        Debug.WriteLine($"EditorDialogTests: OnCloseClicked({_isOnCloseClicked})");
+    }
+
+    [Fact]
+    public void EditorDialog_Init_WithoutArgument()
+    {
+        var cut = Render(@<EditorDialog></EditorDialog>);
+        Assert.Empty(cut.Find("h5").TextContent);
+    }
+
+    [Fact]
+    public void Edit_OnClose_Clicked()
+    {
+        var cut = Render(
+        @<EditorDialog Key="@_key" Value="@_value" OnSave=@OnSaveClicked OnClose=@OnCloseHandler>
+        </EditorDialog>);
+        cut.Find("button[class='btn btn-secondary']").Click();
+        Assert.True(_isOnCloseClicked);
+
+    }
+
+    [Fact]
+    public void Edit_With_KeyEditingEnabled()
+    {
+        var cut = Render(
+        @<EditorDialog Key="@_key" Value="@_value" IsKeyEditingEnable="true" OnSave=@OnSaveClicked>
+        </EditorDialog>);
+
+        cut.Find("input").Change(updated_key);
+        cut.Find("textarea").Change(updated_value);
+        cut.Find("button[type=submit]").Click();
+        Assert.Equal(_key, updated_key);
+        Assert.Equal(_value, updated_value);
+    }
+
+    [Fact]
+    public void Edit_With_KeyEditingDisabled()
+    {
+        var cut = Render(
+        @<EditorDialog Key="@_key" Value="@_value" OnSave=@OnSaveClicked>
+        </EditorDialog>);
+
+        var ex = Assert.Throws<ElementNotFoundException>(() => cut.Find("input").Change(updated_key));
+        Assert.Equal("No elements were found that matches the selector 'input'", ex.Message);
+        cut.Find("textarea").Change(updated_value);
+        cut.Find("button[type=submit]").Click();
+        Assert.Equal(_value, updated_value);
+    }
+}
