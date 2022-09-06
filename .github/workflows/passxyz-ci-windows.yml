@@ -19,6 +19,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
   DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
   DOTNETVERSION: 6.0.400
+  PROJECT_NAME: PassXYZ.Vault
 
 jobs:
 # MAUI Android Build
@@ -31,16 +32,16 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Restore Dependencies
-        run: dotnet restore PassXYZ.Vault/PassXYZ.Vault.csproj
+        run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
 
       - name: Build MAUI Android
-        run: dotnet publish PassXYZ.Vault/PassXYZ.Vault.csproj -c Release -f net6.0-android --no-restore
+        run: dotnet publish ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-android --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v3
         with:
           name: passxyz-android-ci-build
-          path: PassXYZ.Vault/bin/Release/net6.0-android/*Signed.a*
+          path: ${{env.PROJECT_NAME}}/bin/Release/net6.0-android/*Signed.a*
 
 # MAUI Windows Build
   build-windows:
@@ -52,14 +53,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Restore Dependencies
-        run: dotnet restore PassXYZ.Vault/PassXYZ.Vault.csproj
+        run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
 
       - name: Build MAUI Windows
-        run: dotnet publish PassXYZ.Vault/PassXYZ.Vault.csproj -c Release -f net6.0-windows10.0.19041.0 --no-restore
+        run: dotnet publish ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-windows10.0.19041.0 --no-restore
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v3
         with:
           name: passxyz-windows-ci-build
-          path: PassXYZ.Vault/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/PassXYZ.Vault*/PassXYZ.Vault*.msix
+          path: ${{env.PROJECT_NAME}}/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/${{env.PROJECT_NAME}}*/${{env.PROJECT_NAME}}*.msix
 
