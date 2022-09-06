@@ -1,4 +1,4 @@
-name: PassXYZ.Vault CI Build
+name: PassXYZ.Vault CI Build (Windows)
 
 on:
   push:
