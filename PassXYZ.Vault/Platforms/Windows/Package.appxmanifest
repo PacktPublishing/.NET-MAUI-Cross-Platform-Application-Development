@@ -9,7 +9,7 @@
   <Identity
     Name="8606B3B5-C03C-41D7-825F-B33718CF791C"
     Publisher="CN=Roger Ye (叶树杲)"
-    Version="0.3.1.0" />
+    Version="0.3.3.0" />
 
   <Properties>
     <DisplayName>PassXYZ.Vault2</DisplayName>
