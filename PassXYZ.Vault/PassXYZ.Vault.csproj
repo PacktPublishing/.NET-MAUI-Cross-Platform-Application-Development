@@ -148,13 +148,12 @@
 
   <PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Release'">
     <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-    <!-- Only needed when you have a need for entitlements -->
-    <!-- <CodesignEntitlement>Entitlements.plist</CodesignEntitlement> -->
     <CodesignKey>iPhone Distribution: Shugao Ye (W9WL9WPD24)</CodesignKey>
     <CodesignProvision>passxyz_2022</CodesignProvision>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(TargetFramework.Contains('-maccatalyst')) and '$(Configuration)' == 'Release'">
+    <CodesignEntitlement>Entitlements.plist</CodesignEntitlement>
     <CodesignKey>3rd Party Mac Developer Application: Shugao Ye (W9WL9WPD24)</CodesignKey>
     <CodesignProvision>passxyz.maccatalyst</CodesignProvision>
   </PropertyGroup>
