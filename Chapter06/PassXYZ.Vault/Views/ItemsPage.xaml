@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
+             x:Class="PassXYZ.Vault.Views.ItemsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"  
+             xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
+             x:DataType="local:ItemsViewModel"
+             x:Name="BrowseItemsPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_add}" Command="{Binding AddItemCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeSolid"
+			        Glyph="{x:Static styles:FontAwesomeSolid.Plus}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ListView x:Name="ItemsListView" 
+                  ItemsSource="{Binding Items}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="False"
+                  RowHeight="84"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RetainElement"
+                  ItemSelected="OnItemSelected">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Clicked="OnMenuEdit" CommandParameter="{Binding .}" 
+                                      Text="{x:Static resources:Resources.action_id_edit}" />
+                            <MenuItem Clicked="OnMenuDeleteAsync" CommandParameter="{Binding .}"
+                                      Text="{x:Static resources:Resources.action_id_delete}" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+
+                        <Grid Padding="10" x:DataType="model:Item" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32" />
+                                <RowDefinition Height="32" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.RowSpan="2" Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                            </Grid>
+                            <Label Text="{Binding Name}"  Grid.Column="1"
+                                LineBreakMode="NoWrap" 
+                                MaxLines="1"
+                                Style="{DynamicResource ListItemTextStyle}"
+                                FontAttributes="Bold"
+                                FontSize="Small" />
+                            <Label Text="{Binding Description}"  Grid.Row="1" Grid.Column="1"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                Style="{DynamicResource ListItemDetailTextStyle}"
+                                FontSize="Small" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+    
+</ContentPage>
