@@ -1,0 +1,40 @@
+﻿@using System.Diagnostics
+@using KPCLib
+
+<EditorDialog Id=@id IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
+    Key=@testItem.Name Value=@testItem.Notes Title="Creating a new Item">
+    @if (IsNewItem)
+    {
+        <select @bind="testItem.ItemType" class="form-select" aria-label="Group">
+            <option selected value="Group">Group</option>
+            <option value="Entry">Entry</option>
+            <option value="PxEntry">PxEntry</option>
+            <option value="Notes">Notes</option>
+        </select>
+    }
+</EditorDialog>
+
+<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@id">Edit with key</button>
+
+@code {
+    string id = "NewItemDialog";
+    [Parameter]
+    public bool IsNewItem { get; set; } = false;
+    [Parameter]
+    public string NewKey { get; set; } = "GitHub";
+    [Parameter]
+    public TestItem testItem { get; set; }
+
+    public ItemNew() 
+    {
+        testItem = new();
+    }
+
+    void OnSaveClicked(string key, string value)
+    {
+        testItem.Name = key;
+        testItem.Notes = value;
+        
+        Debug.WriteLine($"ItemNew: OnSaveClicked(key={testItem.Name}, value={testItem.Notes}, type={testItem.ItemType})");
+    }
+}

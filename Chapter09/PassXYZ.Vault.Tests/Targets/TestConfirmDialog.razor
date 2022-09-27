@@ -1,0 +1,25 @@
+﻿@using System.Diagnostics
+@using KPCLib
+
+<ModalDialog Id=@Id Title="Please confirm" OnSaveAsync=@OnSave
+    SaveButtonText="Save" CloseButtonText="Close">
+    Do you want to delete this testing Key?
+</ModalDialog>
+
+<button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#@Id">Please confirm</button>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = "confirmDialog";
+
+    public TestConfirmDialog()
+    {
+        Id = "ConfirmDialog";
+    }
+
+    async Task<bool> OnSave() 
+    {
+        Debug.WriteLine("ConfirmDialog.OnSave");
+        return true;
+    }
+}

@@ -1,0 +1,22 @@
+﻿@using System.Diagnostics
+
+<ModalDialog Title=@($"Deleting {Title}") OnSaveAsync=@OnSave
+    SaveButtonText="Confirm" CloseButtonText="Cancel">
+    Please confirm to delete @Title?
+</ModalDialog>
+
+@code {
+    [CascadingParameter(Name = "Id")]
+    public string Id { get; set; } = default!;
+    [Parameter]
+    public string? Title { get; set; }
+    [Parameter]
+    public Action? OnConfirmClick { get; set; }
+
+    async Task<bool> OnSave() 
+    {
+        Debug.WriteLine($"ConfirmDialog: DialogId={Id} confirm clicked");
+        OnConfirmClick?.Invoke();
+        return true;
+    }
+}
