@@ -1,0 +1,49 @@
+﻿@page "/group"
+@page "/group/{SelectedItemId}"
+@using System.Diagnostics
+@using PassXYZLib
+
+<!-- Back button and title -->
+<Navbar ParentLink="@selectedItem?.GetParentLink()" Title="@Title" DialogId="@_dialogEditId"
+        OnAddClick="@(() => {_isNewItem=true;currentItem.Data=listGroupItem=_newItem;_newItem.Name="";_newItem.Notes="";})" />
+
+<!-- List view with context menu -->
+<ListView Items="items">
+    <Row Context="item">
+        <img src="@item.GetIcon()" alt="twbs" width="32" height="32"
+                class="rounded-circle flex-shrink-0 float-start">
+        <a href="@item.GetActionLink()" class="list-group-item list-group-item-action border-0 gap-1 py-2">
+            <div class="d-flex">
+                <div>
+                    <h6 class="mb-0">@item.Name</h6>
+                    <p class="mb-0 opacity-75">@item.Description</p>
+                </div>
+            </div>
+        </a>
+        <Dropdown OnClick="@(() => currentItem.Data=listGroupItem=item)">
+            <MenuItem Id="@_dialogEditId" OnClick="@(() => _isNewItem=false)">Edit</MenuItem>
+            <MenuItem Id="@_dialogDeleteId">Delete</MenuItem>
+        </Dropdown>
+    </Row>
+</ListView>
+
+<!-- Editing Modal -->
+<EditFormDialog Id="@_dialogEditId" ModelData="@currentItem" IsKeyEditingEnable="true"
+                OnSaveAsync="UpdateItemAsync" KeyPlaceHolder="Item name" ValuePlaceHolder="Pleae provide a description">
+    @if (_isNewItem)
+    {
+        <InputSelect @bind-Value="_newItem.SubType" class="form-select">
+            <option selected value=@ItemSubType.Group>@ItemSubType.Group</option>
+            <option value=@ItemSubType.Entry>@ItemSubType.Entry</option>
+            <option value=@ItemSubType.PxEntry>@ItemSubType.PxEntry</option>
+            <option value=@ItemSubType.Notes>@ItemSubType.Notes</option>
+        </InputSelect>
+    }
+</EditFormDialog>
+
+<!-- Deleting Modal -->
+<CascadingValue Value="@_dialogDeleteId" Name="Id">
+    <ConfirmDialog Title=@listGroupItem.Name OnConfirmClick="DeleteItemAsync" />
+</CascadingValue>
+
+
