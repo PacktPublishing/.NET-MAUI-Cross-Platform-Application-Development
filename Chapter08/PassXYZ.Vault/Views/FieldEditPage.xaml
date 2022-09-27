@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
+             x:Class="PassXYZ.Vault.Views.FieldEditPage"
+             Title="Field Edit">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_cancel}" Clicked="OnCancelClicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeRegular"
+			        Glyph="{x:Static styles:FontAwesomeRegular.WindowClose}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Text="{x:Static resources:Resources.action_id_save}" Clicked="OnSaveClicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FontAwesomeRegular"
+			        Glyph="{x:Static styles:FontAwesomeRegular.Save}"
+			        Color="{DynamicResource SecondaryColor}"
+			        Size="16" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+            <StackLayout Padding="5, 5, 5, 5">
+                <!-- Name -->
+                <Entry x:Name="keyField" 
+                       VerticalOptions="Center" 
+                       Placeholder="{x:Static resources:Resources.ph_id_title}" 
+                       HorizontalOptions="FillAndExpand"></Entry>
+                <StackLayout x:Name="optionGroup" Orientation="Horizontal">
+                    <Label Text="{x:Static resources:Resources.field_id_password}" />
+                    <CheckBox x:Name="pwCheckBox" Color="{StaticResource Primary}" CheckedChanged="OnPasswordCheckBoxChanged" />
+                </StackLayout>
+                <!-- Notes -->
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Editor x:Name="valueField"
+                        Placeholder="{x:Static resources:Resources.ph_id_value}"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="true"
+                        VerticalOptions="FillAndExpand" 
+                        HorizontalOptions="FillAndExpand">
+                            <Editor.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Courier New" />
+                                    <On Platform="Android" Value="monospace" />
+                                    <On Platform="UWP" Value="Courier New" />
+                                </OnPlatform>
+                            </Editor.FontFamily>
+                        </Editor>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
