@@ -1,0 +1,40 @@
+﻿@using System.Diagnostics
+@using KPCLib
+@using PassXYZLib
+@inherits TestContext
+
+<h3>ConfirmDialogTests</h3>
+
+@code {
+    string _dialogDeleteId = "ConfirmDialogId";
+    bool _isConfirmed = false;
+
+    private void ConfirmButtonClicked()
+    {
+        _isConfirmed = true;
+    }
+
+    [Fact]
+    public void ConfirmDialog_Created()
+    {
+        var cut = Render(
+        @<CascadingValue Value = "@_dialogDeleteId" Name = "Id" >
+            <ConfirmDialog Title="@_dialogDeleteId" OnConfirmClick="ConfirmButtonClicked" />
+        </CascadingValue>);
+
+        cut.Find("h5").TextContent.MarkupMatches($"Deleting {_dialogDeleteId}");
+    }
+
+    [Fact]
+    public void Confirm_Button_Clicked()
+    {
+        var cut = Render(
+        @<CascadingValue Value="@_dialogDeleteId" Name="Id">
+            <ConfirmDialog Title="test02" OnConfirmClick="ConfirmButtonClicked" />
+        </CascadingValue>);
+
+        cut.Find("button[type=submit]").Click();
+        Assert.True(_isConfirmed);
+    }
+
+}

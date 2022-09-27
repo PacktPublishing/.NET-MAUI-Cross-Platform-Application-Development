@@ -1,0 +1,41 @@
+﻿@page "/about"
+@layout PageLayout
+@using System.Diagnostics
+
+<div class="text-center">
+    <main class="form-signin">
+        <form>
+            <img id="first" class="mb-4" src="passxyz-blue.svg" alt="" width="96" height="96">
+            <h1 class="h3 mb-3 fw-normal">PassXYZ.Vault</h1>
+            Version 2.0.0<br>
+            Your personal information management system
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Database Name</td>
+                        <td>My password data</td>
+                    </tr>
+                    <tr>
+                        <td>Last Modified Date</td>
+                        <td>June 14, 2022</td>
+                    </tr>
+                    <tr>
+                        <td>Last Modified Time</td>
+                        <td>1:25:09 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>PassXYZ.Vault is licensed under GNU General Public License v3.0</p>
+            <p class="mt-5 mb-3 text-muted">&copy; 2021–2022</p>
+        </form>
+    </main>
+</div>
+
+
+@code {
+    private void IncrementCount()
+    {
+        Debug.WriteLine("You are in About page.");
+    }
+}

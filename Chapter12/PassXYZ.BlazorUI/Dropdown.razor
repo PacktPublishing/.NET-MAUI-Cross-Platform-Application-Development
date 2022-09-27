@@ -1,0 +1,10 @@
+﻿@namespace PassXYZ.BlazorUI
+
+<button class="opacity-50 btn btn-light dropdown-toggle" type="button"
+        id="itemDetailContextMenu" data-bs-toggle="dropdown" aria-expanded="false"
+        @onclick="OnClick">
+    <span class="oi oi-menu" aria-hidden="true"></span>
+</button>
+<ul class="dropdown-menu" aria-labelledby="itemDetailContextMenu">
+    @ChildContent
+</ul>

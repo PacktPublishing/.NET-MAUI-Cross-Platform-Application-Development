@@ -1,0 +1,24 @@
+﻿@namespace PassXYZ.BlazorUI
+@typeparam TItem
+
+<div class="list-group">
+    @if (Header != null)
+    {
+        @Header
+    }
+
+    @if (Row != null && Items != null)
+    {
+        @foreach (var item in Items)
+        {
+            <div class="dropdown list-group-item list-group-item-action d-flex gap-1 py-2" style="border: none" aria-current="true">
+                @Row.Invoke(item)
+            </div>
+        }
+    }
+
+    @if (Footer != null)
+    {
+        <div class="container"><article>@Footer</article></div>
+    }
+</div>

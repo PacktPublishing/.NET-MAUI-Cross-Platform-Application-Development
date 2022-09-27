@@ -1,0 +1,1033 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Appname" xml:space="preserve">
+    <value>PassXYZ.Vault</value>
+  </data>
+  <data name="LoginErrorMessage" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="LoginPageTitle" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="LoginPageWelcomeMessage" xml:space="preserve">
+    <value>请使用用户名和密码登陆PassXYZ。</value>
+  </data>
+  <data name="field_id_password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="SignUpErrorMessage" xml:space="preserve">
+    <value>注册失败，请检查用户名或密码格式是否正确。</value>
+  </data>
+  <data name="SignUpPageMessage" xml:space="preserve">
+    <value>通过建立一个用户来生成新数据库或导入已有的KeePass数据库。</value>
+  </data>
+  <data name="SignUpPageTitle" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="action_id_add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="action_id_logout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="field_id_username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="SignUpErrorMessage1" xml:space="preserve">
+    <value>用户名已经存在，请尝试登录。</value>
+  </data>
+  <data name="SignUpErrorMessage2" xml:space="preserve">
+    <value>密码和密码确认不完全匹配。</value>
+  </data>
+  <data name="action_id_switchusers" xml:space="preserve">
+    <value>切换用户</value>
+  </data>
+  <data name="action_id_cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="pt_id_switchusers" xml:space="preserve">
+    <value>选择一个用户</value>
+  </data>
+  <data name="field_id_email" xml:space="preserve">
+    <value>邮件地址</value>
+  </data>
+  <data name="field_id_mobile" xml:space="preserve">
+    <value>手机号码</value>
+  </data>
+  <data name="field_id_notes" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="field_id_title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="field_id_url" xml:space="preserve">
+    <value>链接地址</value>
+  </data>
+  <data name="action_id_browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="action_id_copy" xml:space="preserve">
+    <value>拷贝</value>
+  </data>
+  <data name="action_id_generatebarcode" xml:space="preserve">
+    <value>生成条形码</value>
+  </data>
+  <data name="action_id_generateqrcode" xml:space="preserve">
+    <value>生成二维码</value>
+  </data>
+  <data name="action_id_sendemail" xml:space="preserve">
+    <value>发邮件</value>
+  </data>
+  <data name="action_id_show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="action_id_save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="action_id_search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="action_id_edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="field_id_name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="action_id_delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="alert_id_no" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="alert_id_remove" xml:space="preserve">
+    <value>请确认删除</value>
+  </data>
+  <data name="alert_id_yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="group_id_recyclebin" xml:space="preserve">
+    <value>回收站</value>
+  </data>
+  <data name="ph_id_password" xml:space="preserve">
+    <value>请输入您的密码</value>
+  </data>
+  <data name="ph_id_title" xml:space="preserve">
+    <value>请输入您的标题</value>
+  </data>
+  <data name="pt_id_choosetemplate" xml:space="preserve">
+    <value>请选择一个要创建的类型： </value>
+  </data>
+  <data name="message_id_import_confirmation" xml:space="preserve">
+    <value>导入后当前用户会被logout，请确认导入</value>
+  </data>
+  <data name="action_id_import" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="message_id_importData" xml:space="preserve">
+    <value>导入文件后，请使用原主密码登录。请新建一个用户名，将要导入文件是：</value>
+  </data>
+  <data name="group_id_search" xml:space="preserve">
+    <value>搜索结果</value>
+  </data>
+  <data name="alert_id_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="menu_id_help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="menu_id_settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="menu_id_template" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="menu_id_user" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="message_id_import_login_request" xml:space="preserve">
+    <value>请先登录再导入</value>
+  </data>
+  <data name="item_subtype_entry" xml:space="preserve">
+    <value>条目</value>
+  </data>
+  <data name="item_subtype_group" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="item_subtype_notes" xml:space="preserve">
+    <value>便签</value>
+  </data>
+  <data name="item_subtype_template" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="action_id_cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="action_id_paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="message_id_importDataSuccess" xml:space="preserve">
+    <value>您已经成功的导入了数据文件</value>
+  </data>
+  <data name="item_subtype_using_template" xml:space="preserve">
+    <value>从模板中选择</value>
+  </data>
+  <data name="field_name_switch_label_isProtected" xml:space="preserve">
+    <value>受保护的字段</value>
+  </data>
+  <data name="settings_fingerprint_remark" xml:space="preserve">
+    <value>使用指纹解锁</value>
+  </data>
+  <data name="settings_fingerprint_title" xml:space="preserve">
+    <value>指纹设置</value>
+  </data>
+  <data name="settings_manage_db_remark" xml:space="preserve">
+    <value>更改主密码以及数据库名称等</value>
+  </data>
+  <data name="settings_manage_db_title" xml:space="preserve">
+    <value>数据库管理</value>
+  </data>
+  <data name="settings_manage_users_remark" xml:space="preserve">
+    <value>添加或删除用户</value>
+  </data>
+  <data name="settings_manage_users_title" xml:space="preserve">
+    <value>用户管理</value>
+  </data>
+  <data name="settings_template_remark" xml:space="preserve">
+    <value>建立，导入或删除模板</value>
+  </data>
+  <data name="settings_template_title" xml:space="preserve">
+    <value>模板管理</value>
+  </data>
+  <data name="action_id_login" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="message_id_alert_removing_current_user" xml:space="preserve">
+    <value>不能删除当前用户</value>
+  </data>
+  <data name="action_id_update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="settings_deleting_users" xml:space="preserve">
+    <value>删除用户</value>
+  </data>
+  <data name="settings_empty_password" xml:space="preserve">
+    <value>您设置的主密码不能为空。</value>
+  </data>
+  <data name="settings_manage_users_reset_password" xml:space="preserve">
+    <value>重置主密码</value>
+  </data>
+  <data name="settings_updated_password" xml:space="preserve">
+    <value>成功的更新了密码。</value>
+  </data>
+  <data name="settings_updating_password" xml:space="preserve">
+    <value>正在更新密码...</value>
+  </data>
+  <data name="settings_fingerprint_disabled" xml:space="preserve">
+    <value>该设备不支持指纹</value>
+  </data>
+  <data name="fingerprint_login_message" xml:space="preserve">
+    <value>请使用指纹登录</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="about_learn_more" xml:space="preserve">
+    <value>了解更多</value>
+  </data>
+  <data name="about_passxyz_copyright" xml:space="preserve">
+    <value>Copyright 2022, 叶树杲 All rights reserved.</value>
+  </data>
+  <data name="about_passxyz_license" xml:space="preserve">
+    <value>PassXYZ.Vault使用GNU通用公共许可证v3.0。如果您使用该软件，表示您同意Apache版权协议中的条款。您可以在下列网站获得Apache 2.0版权协议。</value>
+  </data>
+  <data name="about_passxyz_web" xml:space="preserve">
+    <value>您可以通过下面的PassXYZ网站提交问题报告和了解使用说明。</value>
+  </data>
+  <data name="about_slogan" xml:space="preserve">
+    <value>您的个人信息管家</value>
+  </data>
+  <data name="about_wechat_info" xml:space="preserve">
+    <value>您也可以通过关注PassXYZ的微信公众号提供关于使用的反馈。PassXYZ的微信公众号是passxyz_kpclib。您也可以通过扫描下面的二维码关注。</value>
+  </data>
+  <data name="error_message_invalid_url" xml:space="preserve">
+    <value>URL格式错误。</value>
+  </data>
+  <data name="settings_timer_remark" xml:space="preserve">
+    <value>应用程序处于非活动时锁定数据库</value>
+  </data>
+  <data name="settings_timer_title" xml:space="preserve">
+    <value>锁定计时设置</value>
+  </data>
+  <data name="settings_timer_unit_hour" xml:space="preserve">
+    <value>小时</value>
+  </data>
+  <data name="settings_timer_unit_minutes" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="settings_timer_unit_seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="action_id_attach" xml:space="preserve">
+    <value>添加附件</value>
+  </data>
+  <data name="label_id_attachment" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="database_modified_time" xml:space="preserve">
+    <value>最近更新时间</value>
+  </data>
+  <data name="database_name" xml:space="preserve">
+    <value>数据库名</value>
+  </data>
+  <data name="database_modified_date" xml:space="preserve">
+    <value>最近更新日期</value>
+  </data>
+  <data name="field_id_file" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="field_id_template" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="entry_id_passxyz_usage" xml:space="preserve">
+    <value>怎么使用PassXYZ？</value>
+  </data>
+  <data name="about_passxyz_usage" xml:space="preserve">
+    <value>这篇文章是写给[PassXYZ](https://passxyz.github.io/)初始用户的简短使用说明。如果您是[KeePass](https://keepass.info/)的资深用户，可以跳过这篇文章去PassXYZ网站阅读另外一篇叫**深入理解PassXYZ**的文章（[PassXYZ](https://passxyz.github.io/)的网站链接请点击**帮助**页面的**了解更多**）。
+
+[PassXYZ](https://passxyz.github.io/)与其他密码管理软件一样，使用其实相当简单，没有太多复杂的使用操作。当安装好[PassXYZ](https://passxyz.github.io/)后，打开的第一个页面是建立一个用户名和设置一个主密码。这里需要提醒一下的是，这个主密码非常重要，一旦忘记，就没有人能打开这个数据库了。
+
+设置好用户名和主密码后，进入的将是一个可以记录您所有个人信息的管理系统。那么如何开始使用呢？屏幕右上角有三个图标，根据图标标识，您一定能认出来它们是**搜索**，**添加**和**退出**吧？
+
+现在，您就可以开始添加您想让[PassXYZ](https://passxyz.github.io/)帮您记住的任何个人信息了，比如说银行卡、身份证、护照、社保卡、各类证书、常用网站账号等等。以**身份证**为例吧：点击加号图标+，您可以看到屏幕会显示**目录**，**条目**，**便签**和**从模板中选择**共四个选项。没发现**身份证**选项啊？没关系，您可以先去**从模板中选择**里找找。很多常用的添加项目[PassXYZ](https://passxyz.github.io/)都有特制的固定模板，即便模板里没有您需要的添加项目，您也有三个输入办法：第一，懒人的办法，所有找不到的添加项目都可以使用通用选项**条目**，然后自行逐项输入您所需要记录的信息，最后保存即可。这个是原来KeePass自带的。第二，到[PassXYZ](https://passxyz.github.io/)网站上找找，那儿有更多模板。第三，如果都不满意，您还可以自己在模板中创建一个新的。当您开始创建模板时，您已经是[PassXYZ](https://passxyz.github.io/)达人了！
+
+上面介绍了**条目**和**从模板中选择**。您这会儿可能会问，那**目录**和**便签**又是什么？**目录**其实就是文件夹，例如您可以首先建立一个叫**银行**的目录，然后进入此目录，再选用**条目**形式分别输入您各个银行账户的信息，这样，您所有的银行信息都可以整齐地存放在**银行**目录下，方便您日后翻阅查找。再说**便签**吧，它就是一个您可以用来记录任何东西的地方，比如说这篇文章，也就是一个**便签**。[PassXYZ](https://passxyz.github.io/)中的**便签**是支持Markdown格式的，所以您可以用Markdown语法来美化**便签**。
+
+话说回来，身份证这项，在[PassXYZ](https://passxyz.github.io/)自带模板里是可以找到的。在模板里选择**身份证**，然后填上相关信息并保存就好了。除了证件上的信息，您还可以把证件的照片或扫描件作为附件加上。这样，当您下次在外办事遇到紧急情况需要证件复印件时，直接打开[PassXYZ](https://passxyz.github.io/)用微信分享一下就可以了。
+[PassXYZ](https://passxyz.github.io/)的基本使用其实就是这么简单，想了解更多，欢迎您关注[PassXYZ](https://passxyz.github.io/)网站。
+
+### 可能碰到的问题：
+
+**支持指纹登录吗？**
+支持，去**设置**中打开就可以了。
+
+**可以导出数据吗？**
+可以，去**设置**中导出。
+
+**可以同步吗？**
+没问题，上一步导出后，在其他设备上导入，然后在**设置**中同步即可。
+
+**PassXYZ自带的模板可以在这里下载：**
+
+1. [英文模板](/passxyz_template/passxyz_en-us.t4xyz)
+2. [中文简体模板](/passxyz_template/passxyz_zh-hans.t4xyz)
+3. [中文繁体模板](/passxyz_template/passxyz_zh-hant.t4xyz)</value>
+  </data>
+  <data name="message_id_sync_failure" xml:space="preserve">
+    <value>无法同步文件</value>
+  </data>
+  <data name="message_id_sync_success" xml:space="preserve">
+    <value>您已经成功的同步了文件</value>
+  </data>
+  <data name="settings_export_remark" xml:space="preserve">
+    <value>导出数据到其它设备或云存储</value>
+  </data>
+  <data name="settings_export_title" xml:space="preserve">
+    <value>导出数据</value>
+  </data>
+  <data name="settings_sync_remark" xml:space="preserve">
+    <value>通过即时通讯应用同步数据</value>
+  </data>
+  <data name="settings_sync_title" xml:space="preserve">
+    <value>同步数据</value>
+  </data>
+  <data name="import_error_user_exits" xml:space="preserve">
+    <value>导入错误，用户已经存在。</value>
+  </data>
+  <data name="action_id_share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="action_id_close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="file_name_template" xml:space="preserve">
+    <value>PassXYZ.Resx.passxyz_zh-hans.t4xyz</value>
+  </data>
+  <data name="entry_id_bank_account" xml:space="preserve">
+    <value>银行账户</value>
+  </data>
+  <data name="entry_id_cert_of_marriage" xml:space="preserve">
+    <value>结婚证</value>
+  </data>
+  <data name="entry_id_credit_card" xml:space="preserve">
+    <value>信用卡</value>
+  </data>
+  <data name="entry_id_driving_license" xml:space="preserve">
+    <value>驾驶证</value>
+  </data>
+  <data name="entry_id_idcard" xml:space="preserve">
+    <value>身份证</value>
+  </data>
+  <data name="entry_id_passport" xml:space="preserve">
+    <value>护照</value>
+  </data>
+  <data name="entry_id_vehicle_license" xml:space="preserve">
+    <value>行驶证</value>
+  </data>
+  <data name="group_id_bank" xml:space="preserve">
+    <value>银行</value>
+  </data>
+  <data name="group_id_document" xml:space="preserve">
+    <value>证件</value>
+  </data>
+  <data name="field_id_atm_pin" xml:space="preserve">
+    <value>取款密码</value>
+  </data>
+  <data name="field_id_cvv" xml:space="preserve">
+    <value>CVV</value>
+  </data>
+  <data name="field_id_internet_banking_p" xml:space="preserve">
+    <value>网银密码</value>
+  </data>
+  <data name="field_id_phone_banking_pin" xml:space="preserve">
+    <value>电话银行PIN</value>
+  </data>
+  <data name="field_id_pin" xml:space="preserve">
+    <value>PIN</value>
+  </data>
+  <data name="field_id_query_pin" xml:space="preserve">
+    <value>查询密码</value>
+  </data>
+  <data name="field_id_u_key_pin" xml:space="preserve">
+    <value>U盾密码</value>
+  </data>
+  <data name="about_acknowledgement" xml:space="preserve">
+    <value>鸣谢</value>
+  </data>
+  <data name="about_keepass" xml:space="preserve">
+    <value>PassXYZ.Vault是基于KPCLib开发的。KPCLib是对KeePassLib在Xamarin上的扩展，使之可以运行在 .NET MAUI或 Xamarin环境中。KeePassLib是开源项目KeePass的一部分。KeePass由Dominik Reichl开发。KeePass的官方网站是：</value>
+  </data>
+  <data name="about_kpclib" xml:space="preserve">
+    <value>关于KPCLib的信息和源代码可以在下面网站获得：</value>
+  </data>
+  <data name="entry_id_cmb" xml:space="preserve">
+    <value>招商银行</value>
+  </data>
+  <data name="field_id_all_in_one_net_p" xml:space="preserve">
+    <value>一网通密码</value>
+  </data>
+  <data name="entry_id_icbc" xml:space="preserve">
+    <value>工商银行</value>
+  </data>
+  <data name="field_id_internet_banking_u" xml:space="preserve">
+    <value>网银用户名</value>
+  </data>
+  <data name="entry_id_boc" xml:space="preserve">
+    <value>中国银行</value>
+  </data>
+  <data name="entry_id_ccb" xml:space="preserve">
+    <value>建设银行</value>
+  </data>
+  <data name="entry_id_abc" xml:space="preserve">
+    <value>农业银行</value>
+  </data>
+  <data name="entry_id_pingan" xml:space="preserve">
+    <value>平安银行</value>
+  </data>
+  <data name="entry_id_qq" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="entry_id_wechat" xml:space="preserve">
+    <value>微信</value>
+  </data>
+  <data name="group_id_primary_services" xml:space="preserve">
+    <value>常用网络账号</value>
+  </data>
+  <data name="entry_id_alipay" xml:space="preserve">
+    <value>支付宝</value>
+  </data>
+  <data name="entry_id_baidu" xml:space="preserve">
+    <value>百度</value>
+  </data>
+  <data name="entry_id_jingdong" xml:space="preserve">
+    <value>京东</value>
+  </data>
+  <data name="entry_id_netease" xml:space="preserve">
+    <value>网易</value>
+  </data>
+  <data name="entry_id_taobao" xml:space="preserve">
+    <value>淘宝网</value>
+  </data>
+  <data name="entry_id_weibo" xml:space="preserve">
+    <value>微博</value>
+  </data>
+  <data name="entry_id_12306" xml:space="preserve">
+    <value>铁路12306</value>
+  </data>
+  <data name="entry_id_chsi" xml:space="preserve">
+    <value>学信网</value>
+  </data>
+  <data name="entry_id_csi" xml:space="preserve">
+    <value>社保</value>
+  </data>
+  <data name="entry_id_csi_sz" xml:space="preserve">
+    <value>社会统一用户基础平台</value>
+  </data>
+  <data name="entry_id_c_mobile" xml:space="preserve">
+    <value>中国移动</value>
+  </data>
+  <data name="entry_id_c_telecom" xml:space="preserve">
+    <value>中国电信</value>
+  </data>
+  <data name="entry_id_c_unicom" xml:space="preserve">
+    <value>中国联通</value>
+  </data>
+  <data name="entry_id_hk_txz" xml:space="preserve">
+    <value>港澳通行证</value>
+  </data>
+  <data name="entry_id_picc" xml:space="preserve">
+    <value>PICC人保</value>
+  </data>
+  <data name="entry_id_szlt" xml:space="preserve">
+    <value>深圳市地方税务局</value>
+  </data>
+  <data name="entry_id_szrq" xml:space="preserve">
+    <value>深圳燃气</value>
+  </data>
+  <data name="entry_id_sz_hpf" xml:space="preserve">
+    <value>深圳住房公积金</value>
+  </data>
+  <data name="entry_id_ytc" xml:space="preserve">
+    <value>宜停车</value>
+  </data>
+  <data name="field_id_alipay" xml:space="preserve">
+    <value>支付宝生活号</value>
+  </data>
+  <data name="field_id_service_password" xml:space="preserve">
+    <value>服务密码</value>
+  </data>
+  <data name="field_id_wechat" xml:space="preserve">
+    <value>微信公众号</value>
+  </data>
+  <data name="entry_id_abc_cc" xml:space="preserve">
+    <value>农业银行信用卡</value>
+  </data>
+  <data name="entry_id_amazon" xml:space="preserve">
+    <value>Amazon</value>
+  </data>
+  <data name="entry_id_apple" xml:space="preserve">
+    <value>Apple ID</value>
+  </data>
+  <data name="entry_id_boc_cc" xml:space="preserve">
+    <value>中国银行信用卡</value>
+  </data>
+  <data name="entry_id_ccb_cc" xml:space="preserve">
+    <value>建设银行信用卡</value>
+  </data>
+  <data name="entry_id_cmb_cc" xml:space="preserve">
+    <value>招商银行信用卡</value>
+  </data>
+  <data name="entry_id_cms" xml:space="preserve">
+    <value>招商证券</value>
+  </data>
+  <data name="entry_id_csdc" xml:space="preserve">
+    <value>证券登记结算</value>
+  </data>
+  <data name="entry_id_dbs" xml:space="preserve">
+    <value>DBS</value>
+  </data>
+  <data name="entry_id_dbs_vickers" xml:space="preserve">
+    <value>DBS Vickers</value>
+  </data>
+  <data name="entry_id_docker" xml:space="preserve">
+    <value>DockerHub</value>
+  </data>
+  <data name="entry_id_dropbox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="entry_id_facebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="entry_id_github" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="entry_id_google" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="entry_id_icbc_cc" xml:space="preserve">
+    <value>工商银行信用卡</value>
+  </data>
+  <data name="entry_id_limtan" xml:space="preserve">
+    <value>Lim &amp; Tan</value>
+  </data>
+  <data name="entry_id_linkedin" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="entry_id_microsoft" xml:space="preserve">
+    <value>Microsoft</value>
+  </data>
+  <data name="entry_id_nuget" xml:space="preserve">
+    <value>NuGet</value>
+  </data>
+  <data name="entry_id_ocbc" xml:space="preserve">
+    <value>OCBC</value>
+  </data>
+  <data name="entry_id_onekey" xml:space="preserve">
+    <value>OneKey</value>
+  </data>
+  <data name="entry_id_paypal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="entry_id_pingan_cc" xml:space="preserve">
+    <value>平安银行信用卡</value>
+  </data>
+  <data name="entry_id_sgx" xml:space="preserve">
+    <value>CDP</value>
+  </data>
+  <data name="entry_id_singpass" xml:space="preserve">
+    <value>SingPass</value>
+  </data>
+  <data name="entry_id_skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="entry_id_spgroup" xml:space="preserve">
+    <value>SP Services</value>
+  </data>
+  <data name="entry_id_sywg" xml:space="preserve">
+    <value>申万宏源</value>
+  </data>
+  <data name="entry_id_twitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="entry_id_uob" xml:space="preserve">
+    <value>UOB</value>
+  </data>
+  <data name="entry_id_yahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="about_url" xml:space="preserve">
+    <value>https://passxyz.github.io/categories/%E5%B8%AE%E5%8A%A9/</value>
+  </data>
+  <data name="entry_id_dbs_cc" xml:space="preserve">
+    <value>DBS Credit Card</value>
+  </data>
+  <data name="entry_id_ocbc_cc" xml:space="preserve">
+    <value>OCBC Credit Card</value>
+  </data>
+  <data name="entry_id_uob_cc" xml:space="preserve">
+    <value>UOB Credit Card</value>
+  </data>
+  <data name="field_id_hotline" xml:space="preserve">
+    <value>客服热线</value>
+  </data>
+  <data name="field_id_payment_password" xml:space="preserve">
+    <value>支付密码</value>
+  </data>
+  <data name="field_id_trading_pin" xml:space="preserve">
+    <value>交易密码</value>
+  </data>
+  <data name="message_id_alert_saving" xml:space="preserve">
+    <value>您需要保存更改的内容吗？</value>
+  </data>
+  <data name="about_problem_report" xml:space="preserve">
+    <value>如果在使用过程中发现任何问题，您可以将问题报告发送至PassXYZ的微信公众号或邮件地址passxyz@foxmail.com.</value>
+  </data>
+  <data name="about_problem_report_send" xml:space="preserve">
+    <value>发送问题报告</value>
+  </data>
+  <data name="about_problem_report_not_found" xml:space="preserve">
+    <value>没有发现问题报告。</value>
+  </data>
+  <data name="message_id_alert_removing_system_group" xml:space="preserve">
+    <value>是系统目录。不可以删除系统目录。</value>
+  </data>
+  <data name="settings_onedrive_remark" xml:space="preserve">
+    <value>登录使用OneDrive同步数据</value>
+  </data>
+  <data name="settings_onedrive_title" xml:space="preserve">
+    <value>使用OneDrive同步当前数据库</value>
+  </data>
+  <data name="settings_onedrive_status" xml:space="preserve">
+    <value>OneDrive的用户名是</value>
+  </data>
+  <data name="user_id_cloud" xml:space="preserve">
+    <value>云端文件</value>
+  </data>
+  <data name="user_id_local" xml:space="preserve">
+    <value>本地文件</value>
+  </data>
+  <data name="user_id_synced" xml:space="preserve">
+    <value>已经与云端同步</value>
+  </data>
+  <data name="user_id_syncing" xml:space="preserve">
+    <value>正在同步中 ...</value>
+  </data>
+  <data name="user_id_disabled" xml:space="preserve">
+    <value>禁用云同步</value>
+  </data>
+  <data name="action_id_disable_sync" xml:space="preserve">
+    <value>禁用云同步</value>
+  </data>
+  <data name="action_id_enable_sync" xml:space="preserve">
+    <value>启用云同步</value>
+  </data>
+  <data name="message_id_alert_logout_disable" xml:space="preserve">
+    <value>现在不能退出，</value>
+  </data>
+  <data name="settings_merge_method_remark" xml:space="preserve">
+    <value>选择一个适合的合并方法</value>
+  </data>
+  <data name="settings_merge_method_title" xml:space="preserve">
+    <value>合并方法: </value>
+  </data>
+  <data name="settings_keyFileField_Key" xml:space="preserve">
+    <value>安全设置</value>
+  </data>
+  <data name="settings_keyFileField_Value1" xml:space="preserve">
+    <value>已启用设备锁。可以导出设备锁匙</value>
+  </data>
+  <data name="settings_keyFileField_Value2" xml:space="preserve">
+    <value>未启用设备锁</value>
+  </data>
+  <data name="settings_security_DeviceLockKey" xml:space="preserve">
+    <value>设备锁匙</value>
+  </data>
+  <data name="settings_security_generate_QRCode" xml:space="preserve">
+    <value>设备锁匙二维码</value>
+  </data>
+  <data name="settings_security_share_keyfile" xml:space="preserve">
+    <value>导出设备锁匙文件</value>
+  </data>
+  <data name="settings_security_DLK_Created_failure" xml:space="preserve">
+    <value>无法生成设备锁匙</value>
+  </data>
+  <data name="settings_security_DLK_Created_success" xml:space="preserve">
+    <value>成功生成了设备锁匙</value>
+  </data>
+  <data name="settings_security_DLK_Wrong_Format" xml:space="preserve">
+    <value>不是PassXYZ设备锁匙的二维码</value>
+  </data>
+  <data name="settings_security_DLK_Wrong_User" xml:space="preserve">
+    <value>错误设备锁匙。它属于用户</value>
+  </data>
+  <data name="settings_security_permission" xml:space="preserve">
+    <value>权限</value>
+  </data>
+  <data name="settings_security_permission_desc" xml:space="preserve">
+    <value>权限是使用本应用所需要的</value>
+  </data>
+  <data name="settings_security_permission_negative" xml:space="preserve">
+    <value>或许以后</value>
+  </data>
+  <data name="settings_security_scan_result" xml:space="preserve">
+    <value>扫描的二维码</value>
+  </data>
+  <data name="settings_security_UsingDeviceLock" xml:space="preserve">
+    <value>使用设备锁</value>
+  </data>
+  <data name="settings_security_DLK_message1" xml:space="preserve">
+    <value>需要设备锁匙以登陆用户 </value>
+  </data>
+  <data name="message_id_import_device_lock_desc" xml:space="preserve">
+    <value>将生成一个开启设备锁的新数据库。请给新数据库起个用户名。</value>
+  </data>
+  <data name="message_id_import_otp_failure" xml:space="preserve">
+    <value>无法导入OTP密钥</value>
+  </data>
+  <data name="message_id_import_otp_overwrite" xml:space="preserve">
+    <value>是否要替换已有的OTP密钥？</value>
+  </data>
+  <data name="message_id_import_otp_saved" xml:space="preserve">
+    <value>密钥已保存</value>
+  </data>
+  <data name="entry_id_evernote" xml:space="preserve">
+    <value>Evernote</value>
+  </data>
+  <data name="entry_id_nutstore" xml:space="preserve">
+    <value>坚果云</value>
+  </data>
+  <data name="entry_id_huawei" xml:space="preserve">
+    <value>华为</value>
+  </data>
+  <data name="entry_id_xiaomi" xml:space="preserve">
+    <value>小米</value>
+  </data>
+  <data name="entry_id_box" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="action_id_properties" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="item_prop_cloud_type" xml:space="preserve">
+    <value>云存储类型</value>
+  </data>
+  <data name="item_prop_icon_name" xml:space="preserve">
+    <value>图标名称</value>
+  </data>
+  <data name="field_id_camera" xml:space="preserve">
+    <value>相机</value>
+  </data>
+  <data name="field_id_gallery" xml:space="preserve">
+    <value>相册</value>
+  </data>
+  <data name="message_id_attachment_options" xml:space="preserve">
+    <value>选择添加附件方式</value>
+  </data>
+  <data name="action_id_change_icon" xml:space="preserve">
+    <value>更换图标</value>
+  </data>
+  <data name="action_id_update_template" xml:space="preserve">
+    <value>重置模板</value>
+  </data>
+  <data name="message_id_update_template" xml:space="preserve">
+    <value>模板已更新。</value>
+  </data>
+  <data name="action_id_move" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="action_id_add_icon" xml:space="preserve">
+    <value>添加图标</value>
+  </data>
+  <data name="label_id_custom_icon" xml:space="preserve">
+    <value>自定义图标</value>
+  </data>
+  <data name="message_id_icon_size" xml:space="preserve">
+    <value>无法添加图标。图标要大于96像素。</value>
+  </data>
+  <data name="message_id_import_failure" xml:space="preserve">
+    <value>无法导入</value>
+  </data>
+  <data name="action_id_hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="item_subtype_pxentry" xml:space="preserve">
+    <value>条目 (PxEntry)</value>
+  </data>
+  <data name="ph_id_key" xml:space="preserve">
+    <value>请输入您的域名</value>
+  </data>
+  <data name="ph_id_value" xml:space="preserve">
+    <value>请输入您的域值</value>
+  </data>
+  <data name="SiguUpMessage" xml:space="preserve">
+    <value>成功的创建了新用户</value>
+  </data>
+  <data name="settings_keyFileField_Value3" xml:space="preserve">
+    <value>设备锁</value>
+  </data>
+  <data name="action_id_export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="export_error1" xml:space="preserve">
+    <value>请选择一个用户</value>
+  </data>
+  <data name="import_message1" xml:space="preserve">
+    <value>请选择一个KeePass或PassXYZ数据文件</value>
+  </data>
+  <data name="import_data_file" xml:space="preserve">
+    <value>数据文件</value>
+  </data>
+  <data name="import_data_file_ex" xml:space="preserve">
+    <value>数据文件(有密钥文件)</value>
+  </data>
+  <data name="import_keyfile" xml:space="preserve">
+    <value>导入密钥文件</value>
+  </data>
+  <data name="import_error_msg" xml:space="preserve">
+    <value>无法导入文件！</value>
+  </data>
+  <data name="import_keyfile_scan" xml:space="preserve">
+    <value>扫描密钥文件二维码</value>
+  </data>
+  <data name="menu_id_users" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="message_id_edit_binary" xml:space="preserve">
+    <value>附件只能添加或删除，不可以更改</value>
+  </data>
+  <data name="action_id_scan" xml:space="preserve">
+    <value>扫描</value>
+  </data>
+  <data name="privacy_notice" xml:space="preserve">
+    <value># 隐私声明
+
+隐私保护声明适用范围包括PassXYZ应用及相关的网站。
+- PassXYZ, PassXYZ Cloud和PassXYZ.Vault
+- https://passxyz.github.io
+- https://github.com/passxyz
+
+本隐私声明阐述了 PassXYZ 处理的个人数据的方式和目的。
+
+## 信息的收集，使用和分享
+本网站是一个静态网站使用GitHub提供的服务。静态网站没有任何信息收集的能力。关于GitHub服务的使用，请参考GitHub的隐私保护声明。
+
+PassXYZ应用帮助存储您的个人数据在本地设备并使用KeePass 加密格式。应用本身并不会通过网络收集任何个人数据。PassXYZ的部分字体和图标是从网络下载的。
+
+## 隐私声明的更新
+您可以通过本网站获取最新的隐私保护声明。</value>
+  </data>
+  <data name="error_message_privacy_notice" xml:space="preserve">
+    <value>您需要接受隐私保护声明以使用本应用。</value>
+  </data>
+  <data name="action_id_cloud_config" xml:space="preserve">
+    <value>云设置</value>
+  </data>
+  <data name="error_message_config1" xml:space="preserve">
+    <value>配置信息不正确。</value>
+  </data>
+  <data name="error_message_config2" xml:space="preserve">
+    <value>请填写正确的配置信息。</value>
+  </data>
+  <data name="field_id_hostname" xml:space="preserve">
+    <value>主机名，例如 sftp.passxyz.com</value>
+  </data>
+  <data name="field_id_remote_folder" xml:space="preserve">
+    <value>云端目录，例如 /home/tester/pxvault/</value>
+  </data>
+  <data name="message_id_cloud_config" xml:space="preserve">
+    <value>请填写云存储配置。</value>
+  </data>
+  <data name="title_cloud_config" xml:space="preserve">
+    <value>云存储配置</value>
+  </data>
+  <data name="field_id_port" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="action_id_recover" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="message_id_recover_datafile" xml:space="preserve">
+    <value>**数据文件**可以从备份文件恢复。如果仍有问题，可尝试从云文件恢复。**云文件**可以从数据文件恢复。</value>
+  </data>
+  <data name="field_id_backup_data" xml:space="preserve">
+    <value>备份数据</value>
+  </data>
+  <data name="field_id_local_data" xml:space="preserve">
+    <value>本地数据</value>
+  </data>
+  <data name="field_id_remote_data" xml:space="preserve">
+    <value>云数据</value>
+  </data>
+  <data name="menu_id_data_recovery" xml:space="preserve">
+    <value>数据恢复</value>
+  </data>
+</root>

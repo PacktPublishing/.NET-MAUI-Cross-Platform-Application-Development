@@ -1,0 +1,26 @@
+﻿@using KPCLib
+@using PassXYZLib
+@using PassXYZ.BlazorUI
+@inherits TestContext
+@namespace PassXYZ.Vault.Tests
+
+<h3>ItemEditTests</h3>
+
+@code {
+    private RenderFragment _editorDialog => __builder =>
+    {        
+    <CascadingValue Value="@_dialogId" Name="Id">
+        <EditorDialog IsKeyEditingEnable=@isNewItem OnSave=@OnSaveClicked
+                  Key=@testItem.Name Value=@testItem.Notes>
+            @if (isNewItem) {
+                <select id="itemType" @bind="testItem.ItemType" class="form-select" aria-label="Group">
+                    <option selected value="Group">Group</option>
+                    <option value="Entry">Entry</option>
+                    <option value="PxEntry">PxEntry</option>
+                    <option value="Notes">Notes</option>
+                </select>
+            }
+        </EditorDialog>
+    </CascadingValue>
+    };
+}

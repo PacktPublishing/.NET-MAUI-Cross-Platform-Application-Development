@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PassXYZ.Vault.Views.AboutPage"
+             xmlns:resources="clr-namespace:PassXYZ.Vault.Properties"
+             Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="20">
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="96" />
+                </Grid.RowDefinitions>
+                <Image Grid.Column="0" Source="passxyz_logo.png" Aspect="AspectFit" />
+            </Grid>
+            <StackLayout Padding="10" >
+                <Label HorizontalOptions="Center" Text="{x:Static resources:Resources.Appname}" FontAttributes="Bold" FontSize="22" />
+                <Label x:Name="AppVersion" HorizontalOptions="Center" FontSize="Small" />
+
+                <Grid HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!-- Row 1 (Slogon) -->
+                    <Label HorizontalOptions="Center"  FontSize="Small" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="{x:Static resources:Resources.about_slogan}" />
+                                    <Span Text="" />
+                                    <Span Text="" />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <!-- Row 2 (Database Name) -->
+                    <Label HorizontalOptions="End" FontSize="Small" Text="{x:Static resources:Resources.database_name}" FontAttributes="Bold" Grid.Row="2" Grid.Column="0"/>
+                    <Label HorizontalOptions="Start" Padding="10,0,0,0" FontSize="Small" x:Name="DatabaseName" Grid.Row="2" Grid.Column="1" />
+                    <!-- Row 4 (Last Modified Date) -->
+                    <Label HorizontalOptions="End" FontSize="Small" Text="{x:Static resources:Resources.database_modified_date}" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" />
+                    <Label HorizontalOptions="Start" Padding="10,0,0,0" FontSize="Small" x:Name="LastModifiedDate" Grid.Row="3" Grid.Column="1" />
+                    <!-- Row 4 (Last Modified Time) -->
+                    <Label HorizontalOptions="End" FontSize="Small" Text="{x:Static resources:Resources.database_modified_time}" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" />
+                    <Label HorizontalOptions="Start" Padding="10,0,0,0" FontSize="Small" x:Name="LastModifiedTime" Grid.Row="4" Grid.Column="1" />
+                </Grid>
+
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label></Label>
+                        <!-- Row 2 (Website info) -->
+                        <StackLayout Spacing="10" Grid.Row="1">
+                            <Label Text="{x:Static resources:Resources.about_passxyz_web}"/>
+                            <Button Margin="0,10,0,10" Text="{x:Static resources:Resources.about_learn_more}" 
+                                    Command="{Binding OpenWebCommand}" 
+                                    BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                        </StackLayout>
+                        <!-- Row 3 (Problem report)
+                        <StackLayout Spacing="10" Grid.Row="2">
+                            <Label Text="{x:Static resources:Resources.about_problem_report}"/>
+                            <Button Margin="0,10,0,0" Text="{x:Static resources:Resources.about_problem_report_send}" 
+                                    Clicked="OnProblemReportSendClicked" 
+                                    BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                        </StackLayout -->
+                        <!-- Row 4 -->
+                        <!-- Row 5 (Copyright) -->
+                        <StackLayout Spacing="10" Grid.Row="4">
+                            <Label x:Name="copyright" Text="{x:Static resources:Resources.about_passxyz_copyright}" />
+                            <Label x:Name="license" Text="{x:Static resources:Resources.about_passxyz_license}" />
+                            <Label x:Name="url" Text="https://www.gnu.org/licenses/gpl-3.0.en.html" />
+                            <Label Text="{x:Static resources:Resources.about_acknowledgement}" FontAttributes="Bold" />
+                            <Label Text="{x:Static resources:Resources.about_keepass}" />
+                            <Label Text="https://keepass.info/" />
+                            <Label Text="{x:Static resources:Resources.about_kpclib}" />
+                            <Label Text="https://github.com/passxyz/KPCLib" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
