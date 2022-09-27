@@ -1,0 +1,29 @@
+﻿@namespace PassXYZ.Vault.Pages
+
+<div>
+    <main class="form-signin">
+        <form>
+            <img id="first" class="mb-4" src="https://bit.ly/3OvP7Dl" alt="" width="96" height="96">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <label for="floatingInput">Username</label>
+                <input type="text" @bind="@currentUser.Username" class="form-control" id="floatingInput" placeholder="Username">
+            </div>
+            <div class="form-floating">
+                <label for="floatingPassword">Password</label>
+                <input type="password" @bind="@currentUser.Password" class="form-control" id="floatingPassword" placeholder="Password">
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" @onclick="OnLogin">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2021–2022</p>
+        </form>
+    </main>
+</div>
+
+
