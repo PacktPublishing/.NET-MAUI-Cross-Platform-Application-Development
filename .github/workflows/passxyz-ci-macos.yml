@@ -30,7 +30,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-
+        with:
+          ref: master
       - name: Install .NET MAUI
         shell: pwsh
         run: |
@@ -58,7 +59,8 @@ jobs:
     
       - name: Checkout
         uses: actions/checkout@v3
-
+        with:
+          ref: master
       - name: Install .NET MAUI
         shell: pwsh
         run: |
