@@ -2,13 +2,13 @@ name: PassXYZ.Vault CI Build (Windows)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ chapter12 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ chapter12 ]
   workflow_dispatch:
 
 permissions:
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: chapter12
 
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
@@ -54,7 +54,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: chapter12
 
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
