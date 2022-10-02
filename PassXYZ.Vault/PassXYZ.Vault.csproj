@@ -17,7 +17,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.passxyz.vault2</ApplicationId>
-		<ApplicationId Condition="$(TargetFramework.Contains('-windows'))">8606B3B5-C03C-41D7-825F-B33718CF791C</ApplicationId>
+    <ApplicationIdGuid>8606B3B5-C03C-41D7-825F-B33718CF791C</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
