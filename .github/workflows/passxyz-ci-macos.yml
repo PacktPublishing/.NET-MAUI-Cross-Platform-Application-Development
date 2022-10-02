@@ -2,13 +2,13 @@ name: PassXYZ.Vault CI Build (MacOS)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ chapter12 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ chapter12 ]
   workflow_dispatch:
 
 permissions:
@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: chapter12
       - name: Install .NET MAUI
         shell: pwsh
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: chapter12
       - name: Install .NET MAUI
         shell: pwsh
         run: |
