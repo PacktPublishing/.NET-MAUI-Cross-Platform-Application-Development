@@ -10,14 +10,14 @@ namespace PassXYZ.Vault.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
+        private string name;
         private string description;
         public string Id { get; set; }
 
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
         public string Description
@@ -45,7 +45,7 @@ namespace PassXYZ.Vault.ViewModels
             {
                 var item = await DataStore.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
+                Name = item.Name;
                 Description = item.Description;
             }
             catch (Exception)
