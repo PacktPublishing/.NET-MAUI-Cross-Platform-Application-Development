@@ -36,7 +36,7 @@ namespace PassXYZ.Vault.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
-                    Debug.WriteLine($"ItemsViewModel: {item.Text}, {item.Description}");
+                    Debug.WriteLine($"ItemsViewModel: {item.Name}, {item.Description}");
                 }
             }
             catch (Exception ex)

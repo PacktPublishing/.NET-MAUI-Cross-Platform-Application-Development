@@ -42,7 +42,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0" Source="passxyz_logo.png" HorizontalOptions="Fill" VerticalOptions="Fill" />
                             </Grid>
-                            <Label Text="{Binding Text}"  Grid.Column="1"
+                            <Label Text="{Binding Name}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemTextStyle}"

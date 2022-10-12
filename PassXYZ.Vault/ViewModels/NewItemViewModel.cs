@@ -9,7 +9,7 @@ namespace PassXYZ.Vault.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
+        private string name;
         private string description;
 
         public NewItemViewModel()
@@ -22,14 +22,14 @@ namespace PassXYZ.Vault.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
+            return !String.IsNullOrWhiteSpace(name)
                 && !String.IsNullOrWhiteSpace(description);
         }
 
-        public string Text
+        public string Name
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
         public string Description
@@ -52,7 +52,7 @@ namespace PassXYZ.Vault.ViewModels
             Item newItem = new Item()
             {
                 Id = Guid.NewGuid().ToString(),
-                Text = Text,
+                Name = Name,
                 Description = Description
             };
 
