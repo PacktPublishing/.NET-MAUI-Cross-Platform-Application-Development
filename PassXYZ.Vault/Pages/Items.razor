@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-12">
             <h1>
-                @if (selectedItem!.GetParentLink() != null)
+                @if (selectedItem?.GetParentLink() != null)
                 {
-                    <a class="btn btn-outline-dark" href="@selectedItem!.GetParentLink()">
+                    <a class="btn btn-outline-dark" href="@selectedItem?.GetParentLink()">
                         <span class="oi oi-chevron-left" aria-hidden="true"></span></a>
                 }
                 @(" " + Title)
                 <button type="button" class="btn btn-outline-dark float-end" 
-                        data-bs-toggle="modal" data-bs-target="#editModel"
+                        data-bs-toggle="modal" data-bs-target="#@_dialogEditId"
                         @onclick="@(() => _isNewItem=true)">
                     <span class="oi oi-plus" aria-hidden="true"></span></button>
             </h1>
