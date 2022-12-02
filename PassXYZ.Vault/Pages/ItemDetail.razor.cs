@@ -89,7 +89,7 @@ namespace PassXYZ.Vault.Pages
 
         private async Task<bool> UpdateFieldAsync(string key, string value)
         {
-            if (selectedItem == null)
+            if (selectedItem == null || listGroupField == null)
             {
                 throw new NullReferenceException("Selected item is null");
             }
@@ -97,7 +97,7 @@ namespace PassXYZ.Vault.Pages
             listGroupField.Key = key;
             listGroupField.Value = value;
 
-            if (listGroupField == null || _isNewField)
+            if (_isNewField)
             {
                 // Add a new field
                 Field newField = selectedItem.AddField(listGroupField.Key, 
