@@ -64,19 +64,17 @@ public partial class Items
                 Debug.WriteLine($"Items: Item cannot be found.");
                 throw new ArgumentNullException("SelectedItemId");
             }
-            else 
+
+            if (selectedItem.IsGroup)
             {
-                if (selectedItem.IsGroup)
-                {
-                    // Case 2: set to the current group
-                    await LoadGroup(selectedItem);
-                }
-                else
-                {
-                    // Case 3: it is an entry
-                    Debug.WriteLine($"Items: Selected entry is {selectedItem.Name}");
-                    throw new InvalidOperationException("Items: Selected item must be group here.");
-                }
+                // Case 2: set to the current group
+                await LoadGroup(selectedItem);
+            }
+            else
+            {
+                // Case 3: it is an entry
+                Debug.WriteLine($"Items: Selected entry is {selectedItem.Name}");
+                throw new InvalidOperationException("Items: Selected item must be group here.");
             }
         }
         else 
