@@ -37,36 +37,33 @@ namespace PassXYZ.Vault.Pages
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
-            if (SelectedItemId != null)
-            {
-                selectedItem = DataStore.GetItem(SelectedItemId, true);
-                if (selectedItem == null)
-                {
-                    throw new InvalidOperationException("ItemDetail: entry cannot be found with SelectedItemId");
-                }
-                else 
-                {
-                    if (selectedItem.IsGroup) 
-                    {
-                        throw new InvalidOperationException("ItemDetail: SelectedItemId should not be group here.");
-                    }
-                    else 
-                    {
-                        fields.Clear();
-                        List<Field> tmpFields = selectedItem.GetFields();
-                        foreach (Field field in tmpFields)
-                        {
-                            fields.Add(field);
-                            //field.ImgSource = field.SetAvatar("Icon", "file");
-                        }
-                        notes = selectedItem.GetNotesInHtml();
-                        Debug.WriteLine($"ItemDetail: Item name is {selectedItem.Name}.");
-                    }
-                }
-            }
-            else 
+
+            if (SelectedItemId == null)
             {
                 throw new InvalidOperationException("ItemDetail: SelectedItemId is null");
+            }
+
+            selectedItem = DataStore.GetItem(SelectedItemId, true);
+            if (selectedItem == null)
+            {
+                throw new InvalidOperationException("ItemDetail: entry cannot be found with SelectedItemId");
+            }
+            else
+            {
+                if (selectedItem.IsGroup)
+                {
+                    throw new InvalidOperationException("ItemDetail: SelectedItemId should not be group here.");
+                }
+
+                fields.Clear();
+                List<Field> tmpFields = selectedItem.GetFields();
+                foreach (Field field in tmpFields)
+                {
+                    fields.Add(field);
+                    //field.ImgSource = field.SetAvatar("Icon", "file");
+                }
+                notes = selectedItem.GetNotesInHtml();
+                Debug.WriteLine($"ItemDetail: Item name is {selectedItem.Name}.");
             }
         }
 
