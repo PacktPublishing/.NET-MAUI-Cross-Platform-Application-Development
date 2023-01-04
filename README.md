@@ -1,4 +1,4 @@
-# Modern Cross Platform Application Development with .NET MAUI
+# .NET MAUI Cross-Platform Application Development	
 Modern Cross-Platform Application Development with .NET MAUI, published by Packt
 
 The source code can be cloned from `main` branch or downloaded from release area.
