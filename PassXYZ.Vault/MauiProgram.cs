@@ -1,4 +1,6 @@
-﻿namespace PassXYZ.Vault;
+﻿using Microsoft.Extensions.Logging;
+
+namespace PassXYZ.Vault;
 
 public static class MauiProgram
 {
@@ -15,6 +17,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
 			});
+
+#if DEBUG
+		builder.Logging.AddDebug();
+#endif
 
 		return builder.Build();
 	}

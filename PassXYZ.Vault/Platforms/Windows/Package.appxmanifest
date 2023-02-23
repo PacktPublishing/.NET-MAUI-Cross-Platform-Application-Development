@@ -3,6 +3,7 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
@@ -10,6 +11,7 @@
     Name="8606B3B5-C03C-41D7-825F-B33718CF791C"
     Publisher="CN=Roger Ye (叶树杲)"
     Version="0.3.1.0" />
+  <mp:PhoneIdentity PhoneProductId="74832D54-DC81-40D7-A436-EE13D19C3125" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>PassXYZ.Vault2</DisplayName>
