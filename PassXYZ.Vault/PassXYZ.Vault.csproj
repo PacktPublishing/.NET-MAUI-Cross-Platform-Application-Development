@@ -15,7 +15,7 @@
 		<ApplicationTitle>PassXYZ.Vault</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.passxyz.vault</ApplicationId>
+		<ApplicationId>com.passxyz.vault</ApplicationId>
 		<ApplicationIdGuid>69FF7F2F-D404-47A2-BC88-AC9713560B02</ApplicationIdGuid>
 
 		<!-- Versions -->
