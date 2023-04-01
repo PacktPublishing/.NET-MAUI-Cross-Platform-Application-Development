@@ -25,30 +25,48 @@ namespace PassXYZ.Vault.Services
 
         public async Task<bool> AddItemAsync(Item item)
         {
+            if (item == null) { throw new ArgumentNullException(nameof(item)); }
             items.Add(item);
-
             return await Task.FromResult(true);
         }
 
         public async Task<bool> UpdateItemAsync(Item item)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
+            if (item == null) { throw new ArgumentNullException(nameof(item)); }
 
-            return await Task.FromResult(true);
+            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            if (oldItem != null) 
+            {
+                items.Remove(oldItem);
+                items.Add(item);
+                return await Task.FromResult(true);
+            }
+            else
+            {
+                return await Task.FromResult(false);
+            }
         }
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
+            if (id == null) { throw new ArgumentNullException(nameof(id)); }
 
-            return await Task.FromResult(true);
+            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
+            if (oldItem != null) 
+            {
+                items.Remove(oldItem);
+                return await Task.FromResult(true);
+            }
+            else
+            {
+                return await Task.FromResult(false);
+            }
         }
 
-        public async Task<Item> GetItemAsync(string id)
+        public async Task<Item?> GetItemAsync(string id)
         {
+            if(id == null) { throw new ArgumentNullException(nameof(id)); }
+
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 

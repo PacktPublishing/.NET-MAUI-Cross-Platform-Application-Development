@@ -11,7 +11,6 @@ public partial class App : Application
 		Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
 		Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
-		DependencyService.Register<MockDataStore>();
 		MainPage = new AppShell();
 	}
 	private async void OnMenuItemClicked(System.Object sender, System.EventArgs e)

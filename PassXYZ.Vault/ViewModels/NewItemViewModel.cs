@@ -1,65 +1,53 @@
-﻿using PassXYZ.Vault.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PassXYZ.Vault.Models;
+using PassXYZ.Vault.Services;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public partial class NewItemViewModel : ObservableObject
     {
-        private string name;
-        private string description;
+        readonly IDataStore<Item>? dataStore;
 
-        public NewItemViewModel()
+        public NewItemViewModel(IDataStore<Item> dataStore)
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
+            if (dataStore != null) { throw new ArgumentNullException(nameof(dataStore)); }
+            this.dataStore = dataStore;
         }
 
-        private bool ValidateSave()
-        {
-            return !String.IsNullOrWhiteSpace(name)
-                && !String.IsNullOrWhiteSpace(description);
-        }
+        [ObservableProperty]
+        private string? name;
 
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
-        }
+        [ObservableProperty]
+        private string? description;
 
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-
-        private async void OnCancel()
+        [RelayCommand]
+        private async void Cancel()
         {
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
 
-        private async void OnSave()
+        [RelayCommand(CanExecute = nameof(ValidateSave))]
+        private async void Save()
         {
-            Item newItem = new Item()
+            Item newItem = new()
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = Name,
                 Description = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            _ = await dataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
+        }
+
+        private bool ValidateSave()
+        {
+            return !String.IsNullOrWhiteSpace(Name)
+                && !String.IsNullOrWhiteSpace(Description);
         }
     }
 }

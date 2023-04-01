@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public partial class AboutViewModel : ObservableObject
     {
-        public AboutViewModel()
-        {
-            Title = "About";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
-        }
+        [ObservableProperty]
+        private string? title = "About";
 
-        public ICommand OpenWebCommand { get; }
+        [RelayCommand]
+        private async Task OpenWeb()
+        {
+            await Browser.OpenAsync("https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-7.0");
+        }
     }
 }

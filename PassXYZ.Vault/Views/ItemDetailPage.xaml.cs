@@ -7,10 +7,10 @@ namespace PassXYZ.Vault.Views
 {
     public partial class ItemDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public ItemDetailPage(ItemDetailViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = viewModel;
         }
     }
 }

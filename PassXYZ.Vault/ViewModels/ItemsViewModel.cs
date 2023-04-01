@@ -1,38 +1,51 @@
-﻿using PassXYZ.Vault.Models;
-using PassXYZ.Vault.Views;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PassXYZ.Vault.Models;
+using PassXYZ.Vault.Services;
+using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public partial class ItemsViewModel : ObservableObject
     {
+        readonly IDataStore<Item> dataStore;
         private Item? _selectedItem = default;
 
         public ObservableCollection<Item> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public ItemsViewModel(IDataStore<Item> dataStore)
         {
+            this.dataStore = dataStore;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<Item>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
         }
 
-        public async Task ExecuteLoadItemsCommand()
+        [ObservableProperty]
+        private string? title;
+
+        [ObservableProperty]
+        private bool isBusy;
+
+        [RelayCommand]
+        private async void OnAddItem(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+
+        [RelayCommand]
+        private async Task LoadItems()
         {
             IsBusy = true;
 
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await dataStore.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -53,7 +66,7 @@ namespace PassXYZ.Vault.ViewModels
         {
             IsBusy = true;
             SelectedItem = null;
-            await ExecuteLoadItemsCommand();
+            await LoadItems();
         }
 
         public Item? SelectedItem
@@ -67,11 +80,6 @@ namespace PassXYZ.Vault.ViewModels
                     OnItemSelected(value);
                 }
             }
-        }
-
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
         public async void OnItemSelected(Item item)

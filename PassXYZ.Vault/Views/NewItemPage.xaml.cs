@@ -10,12 +10,11 @@ namespace PassXYZ.Vault.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
-
-        public NewItemPage()
+        public NewItemPage(NewItemViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = new NewItemViewModel();
+            if(viewModel != null ) { throw new ArgumentNullException(nameof(viewModel)); }
+            BindingContext = viewModel;
         }
     }
 }
