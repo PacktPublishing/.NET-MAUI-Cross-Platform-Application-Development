@@ -11,7 +11,7 @@ namespace PassXYZ.Vault.ViewModels
 
         public NewItemViewModel(IDataStore<Item> dataStore)
         {
-            if (dataStore != null) { throw new ArgumentNullException(nameof(dataStore)); }
+            if (dataStore == null) { throw new ArgumentNullException(nameof(dataStore)); }
             this.dataStore = dataStore;
         }
 
