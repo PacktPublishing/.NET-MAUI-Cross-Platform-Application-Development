@@ -11,6 +11,7 @@ using Moq;
 using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
+using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.Tests.ViewModels
 {
@@ -21,7 +22,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         NewItemViewModel viewModel;
         string itemName = "Item Name";
         string itemDescription = "Item Description";
-        Shell shell;
+        TestShell shell;
         public NewItemViewModelTests() 
         {
             dataStore = new MockDataStore();
@@ -32,7 +33,9 @@ namespace PassXYZ.Vault.Tests.ViewModels
             Routing.RegisterRoute("RelativeGoTo_Page1", typeof(ContentPage));
             Routing.RegisterRoute("RelativeGoTo_Page2", typeof(ContentPage));
 
-            shell = new Shell();
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+
+            shell = new TestShell();
 
             var one = new ShellItem { Route = "one" };
             var two = new ShellItem { Route = "two" };
@@ -70,7 +73,6 @@ namespace PassXYZ.Vault.Tests.ViewModels
             await shell.GoToAsync("//two/tab21/");
             viewModel.CancelCommand.Execute(null);
             Assert.Equal("//two/tab21/content", Shell.Current.CurrentState.Location.ToString());
-            Debug.WriteLine($"{Shell.Current.CurrentState.Location}");
         }
 
         [Fact]
@@ -79,7 +81,6 @@ namespace PassXYZ.Vault.Tests.ViewModels
             await shell.GoToAsync("//two/tab21/");
             viewModel.SaveCommand.Execute(null);
             Assert.Equal("//two/tab21/content", Shell.Current.CurrentState.Location.ToString());
-            Debug.WriteLine($"{Shell.Current.CurrentState.Location}");
         }
 
         [Fact]

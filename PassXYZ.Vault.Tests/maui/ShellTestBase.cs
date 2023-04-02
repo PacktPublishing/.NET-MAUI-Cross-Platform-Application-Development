@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Maui.ApplicationModel;
@@ -384,6 +385,11 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
                 LastShellNavigatingEventArgs = args;
                 base.OnNavigating(args);
                 OnNavigatingCount++;
+
+                if (args.Current != null)
+                {
+                    Debug.WriteLine($"TestShell: source={args.Current.Location}, target={args.Target.Location}");
+                }
             }
 
             public void TestNavigationArgs(ShellNavigationSource source, string from, string to)
