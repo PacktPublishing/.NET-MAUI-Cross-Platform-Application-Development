@@ -14,12 +14,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{DynamicResource PageBackgroundColor}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="passxyz_logo.png" VerticalOptions="Center" HeightRequest="64" />
-                </ContentView>
-            </StackLayout>
+        <StackLayout BackgroundColor="{DynamicResource PageBackgroundColor}" 
+                     Margin="50"
+                     VerticalOptions="FillAndExpand" 
+                     HorizontalOptions="CenterAndExpand">
+            <Label FontFamily="FontAwesomeSolid" Text="&#xf00f;" FontSize="128" TextColor="{StaticResource Primary}"/>
         </StackLayout>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">

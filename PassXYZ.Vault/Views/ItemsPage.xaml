@@ -5,6 +5,7 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"  
              xmlns:model="clr-namespace:PassXYZ.Vault.Models"  
+             xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
              x:DataType="local:ItemsViewModel"
              x:Name="BrowseItemsPage">
 
@@ -40,7 +41,13 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="32" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="passxyz_logo.png" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                                <Image Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                    <Image.Source>
+                                        <FontImageSource Glyph="{x:Static style:FontAwesomeSolid.PencilAlt}"
+                                                         Color="{StaticResource Primary}"
+                                            FontFamily="FontAwesomeSolid" Size="32" />
+                                    </Image.Source>
+                                </Image>
                             </Grid>
                             <Label Text="{Binding Name}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 
