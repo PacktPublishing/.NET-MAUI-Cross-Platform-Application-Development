@@ -6,7 +6,7 @@
        Title="PassXYZ.Vault"
        x:Class="PassXYZ.Vault.AppShell" 
        FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
-        Glyph={x:Static style:FontAwesomeSolid.Home}}"
+        Glyph={x:Static style:FontAwesomeSolid.Bars}}"
        FlyoutBackgroundColor="{StaticResource LightGray}">
 
     <TabBar>

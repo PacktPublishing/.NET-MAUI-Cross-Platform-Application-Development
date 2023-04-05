@@ -1,9 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls;
 using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Services;
 
@@ -33,8 +29,16 @@ namespace PassXYZ.Vault.ViewModels
         [ObservableProperty]
         private string? description;
 
-        [ObservableProperty]
         private string? itemId;
+        public string ItemId
+        {
+            get => itemId;
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
 
         public async void LoadItemId(string itemId)
         {

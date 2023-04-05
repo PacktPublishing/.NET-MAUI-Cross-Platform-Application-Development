@@ -14,57 +14,48 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
-        <ListView x:Name="ItemsListView" 
-                  ItemsSource="{Binding Items}"
-                  VerticalOptions="FillAndExpand"
-                  HasUnevenRows="False"
-                  RowHeight="84"
-                  RefreshCommand="{Binding LoadItemsCommand}"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  CachingStrategy="RetainElement"
-                  ItemSelected="OnItemSelected">
-
-            <ListView.ItemTemplate>
+        <CollectionView ItemsSource="{Binding Items}"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding ItemSelectionChangedCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10" x:DataType="model:Item" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
-                                <RowDefinition Height="32" />
-                            </Grid.RowDefinitions>
+                    <Grid Padding="10" x:DataType="model:Item" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="32" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.RowSpan="2" Padding="10">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="32" />
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.RowSpan="2" Padding="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
-                                    <Image.Source>
-                                        <FontImageSource Glyph="{x:Static style:FontAwesomeSolid.PencilAlt}"
+                            <Image Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                <Image.Source>
+                                    <FontImageSource Glyph="{x:Static style:FontAwesomeSolid.PencilAlt}"
                                                          Color="{StaticResource Primary}"
                                             FontFamily="FontAwesomeSolid" Size="32" />
-                                    </Image.Source>
-                                </Image>
-                            </Grid>
-                            <Label Text="{Binding Name}"  Grid.Column="1"
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                        <Label Text="{Binding Name}"  Grid.Column="1"
                                 LineBreakMode="NoWrap" 
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontAttributes="Bold"
                                 FontSize="Small" />
-                            <Label Text="{Binding Description}"  Grid.Row="1" Grid.Column="1"
+                        <Label Text="{Binding Description}"  Grid.Row="1" Grid.Column="1"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="Small" />
-                        </Grid>
-                    </ViewCell>
+                    </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
     
 </ContentPage>

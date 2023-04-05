@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
@@ -11,19 +11,21 @@ namespace PassXYZ.Vault.ViewModels
     public partial class ItemsViewModel : ObservableObject
     {
         readonly IDataStore<Item> dataStore;
-        private Item? _selectedItem = default;
+        ILogger<ItemsViewModel> logger;
 
         public ObservableCollection<Item> Items { get; }
-        public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel(IDataStore<Item> dataStore)
+        public ItemsViewModel(IDataStore<Item> dataStore, ILogger<ItemsViewModel> logger)
         {
             this.dataStore = dataStore;
+            this.logger = logger;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-
-            ItemTapped = new Command<Item>(OnItemSelected);
+            IsBusy = false;
         }
+
+        [ObservableProperty]
+        private Item? selectedItem = default;
 
         [ObservableProperty]
         private string? title;
@@ -38,8 +40,23 @@ namespace PassXYZ.Vault.ViewModels
         }
 
         [RelayCommand]
+        private async void ItemSelectionChanged(object sender)
+        {
+            Item? item = sender as Item;
+            if (item == null)
+            {
+                logger.LogWarning("item is null.");
+                return;
+            }
+            logger.LogDebug($"item is {item.Name}");
+            // This will push the ItemDetailPage onto the navigation stack
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+
+        [RelayCommand]
         private async Task LoadItems()
         {
+            if (IsBusy) { return; }
             IsBusy = true;
 
             try
@@ -49,12 +66,12 @@ namespace PassXYZ.Vault.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
-                    Debug.WriteLine($"ItemsViewModel: {item.Name}, {item.Description}");
+                    logger.LogDebug($"{item.Name}, {item.Description}");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                logger.LogError("{ex}", ex);
             }
             finally
             {
@@ -64,31 +81,8 @@ namespace PassXYZ.Vault.ViewModels
 
         async public void OnAppearing()
         {
-            IsBusy = true;
             SelectedItem = null;
             await LoadItems();
-        }
-
-        public Item? SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                if(value != null) 
-                {
-                    OnItemSelected(value);
-                }
-            }
-        }
-
-        public async void OnItemSelected(Item item)
-        {
-            if (item == null)
-                return;
-
-            // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }
