@@ -56,8 +56,7 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand]
         private async Task LoadItems()
         {
-            if (IsBusy) { return; }
-            IsBusy = true;
+            logger.LogDebug($"IsBusy={IsBusy}");
 
             try
             {
@@ -76,6 +75,7 @@ namespace PassXYZ.Vault.ViewModels
             finally
             {
                 IsBusy = false;
+                logger.LogDebug("Set IsBusy to false");
             }
         }
 

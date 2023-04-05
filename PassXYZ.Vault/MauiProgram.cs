@@ -24,6 +24,7 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+		builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
         builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
         builder.Services.AddScoped<ItemsViewModel>();
