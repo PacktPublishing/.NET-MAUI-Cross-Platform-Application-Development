@@ -13,7 +13,7 @@ namespace PassXYZ.Vault.Views
         public NewItemPage(NewItemViewModel viewModel)
         {
             InitializeComponent();
-            if(viewModel != null ) { throw new ArgumentNullException(nameof(viewModel)); }
+            if(viewModel == null ) { throw new ArgumentNullException(nameof(viewModel)); }
             BindingContext = viewModel;
         }
     }
