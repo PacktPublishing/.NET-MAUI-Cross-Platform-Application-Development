@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Services;
-using static ABI.System.Windows.Input.ICommand_Delegates;
 
 namespace PassXYZ.Vault.ViewModels
 {
