@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Core.UnitTests;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
@@ -18,6 +19,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
     public class NewItemViewModelTests : ShellTestBase
     {
         Microsoft.Maui.Controls.Application app;
+        ILogger<NewItemViewModel> logger;
         readonly IDataStore<Item> dataStore;
         NewItemViewModel viewModel;
         string itemName = "Item Name";
@@ -25,8 +27,9 @@ namespace PassXYZ.Vault.Tests.ViewModels
         TestShell shell;
         public NewItemViewModelTests() 
         {
+            logger = LoggerFactory.Create(options => { }).CreateLogger<NewItemViewModel>();
             dataStore = new MockDataStore();
-            viewModel = new(dataStore);
+            viewModel = new(dataStore, logger);
             viewModel.Name = itemName;
             viewModel.Description = itemDescription;
 
@@ -95,7 +98,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         {
             IDataStore<Item> dataStore = null;
             NewItemViewModel viewModel1;
-            var ex = Assert.Throws<ArgumentNullException>(() => viewModel1 = new NewItemViewModel(dataStore));
+            var ex = Assert.Throws<ArgumentNullException>(() => viewModel1 = new NewItemViewModel(dataStore, logger));
             Assert.Equal("Value cannot be null. (Parameter 'dataStore')", ex.Message);
         }
     }
