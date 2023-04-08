@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Core.UnitTests;
-using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-using Moq;
+using NSubstitute;
 using PassXYZ.Vault.Models;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
@@ -21,76 +13,79 @@ namespace PassXYZ.Vault.Tests.ViewModels
         Microsoft.Maui.Controls.Application app;
         ILogger<NewItemViewModel> logger;
         readonly IDataStore<Item> dataStore;
-        NewItemViewModel viewModel;
-        string itemName = "Item Name";
-        string itemDescription = "Item Description";
         TestShell shell;
+
         public NewItemViewModelTests() 
         {
-            logger = LoggerFactory.Create(options => { }).CreateLogger<NewItemViewModel>();
+            using ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            logger = loggerFactory.CreateLogger<NewItemViewModel>();
             dataStore = new MockDataStore();
-            viewModel = new(dataStore, logger);
-            viewModel.Name = itemName;
-            viewModel.Description = itemDescription;
 
-            Routing.RegisterRoute("RelativeGoTo_Page1", typeof(ContentPage));
-            Routing.RegisterRoute("RelativeGoTo_Page2", typeof(ContentPage));
-
+            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ContentPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-
             shell = new TestShell();
+            var aboutPage = new ShellItem { Route = "About" };
+            var page = MakeSimpleShellSection("Maui", "content");
+            aboutPage.Items.Add(page);
+            shell.Items.Add(aboutPage);
 
-            var one = new ShellItem { Route = "one" };
-            var two = new ShellItem { Route = "two" };
-
-            var tab11 = MakeSimpleShellSection("tab11", "content");
-            var tab21 = MakeSimpleShellSection("tab21", "content");
-
-            one.Items.Add(tab11);
-            two.Items.Add(tab21);
-
-            shell.Items.Add(one);
-            shell.Items.Add(two);
-
-            var mockApp = new Mock<Microsoft.Maui.Controls.Application>();
-            app = mockApp.Object;
+            app = Substitute.For<Microsoft.Maui.Controls.Application>();
             app.MainPage = shell;
         }
 
         [Fact]
         public void CannotAddNewItem() 
         {
-            viewModel.Name = null;
-            Assert.False(viewModel.SaveCommand.CanExecute(null));
+            NewItemViewModel vm = new(dataStore, logger);
+            Assert.False(vm.SaveCommand.CanExecute(null));
         }
 
         [Fact]
         public void CanAddNewItem()
         {
-            Assert.True(viewModel.SaveCommand.CanExecute(null));
+            NewItemViewModel vm = new(dataStore, logger);
+            vm.Name = "New item";
+            vm.Description = "Can add new item";
+            Assert.True(vm.SaveCommand.CanExecute(null));
         }
 
         [Fact]
         public async void CancelNewItem() 
         {
-            await shell.GoToAsync("//two/tab21/");
-            viewModel.CancelCommand.Execute(null);
-            Assert.Equal("//two/tab21/content", Shell.Current.CurrentState.Location.ToString());
+            NewItemViewModel vm = new(dataStore, logger);
+            await shell.GoToAsync("//About/Maui/");
+            vm.CancelCommand.Execute(null);
+            Assert.Equal("//About/Maui/content", Shell.Current.CurrentState.Location.ToString());
         }
 
         [Fact]
         public async void SaveNewItem()
         {
-            await shell.GoToAsync("//two/tab21/");
-            viewModel.SaveCommand.Execute(null);
-            Assert.Equal("//two/tab21/content", Shell.Current.CurrentState.Location.ToString());
+            // Arrange
+            await shell.GoToAsync("//About/Maui/");
+            var items = await dataStore.GetItemsAsync(true);
+            int Count1 = items.Count();
+            NewItemViewModel vm = new(dataStore, logger);
+            vm.Name = "New item";
+            vm.Description = "Testing save command";
+            // Act
+            vm.SaveCommand.Execute(null);
+            items = await dataStore.GetItemsAsync(true);
+            int Count2 = items.Count();
+            // Assert
+            Assert.Equal(Count1+1, Count2);
         }
 
         [Fact]
         public void CreateNewItemViewModelSuccessTest()
         {
-            Assert.Equal(itemName, viewModel.Name);
-            Assert.Equal(itemDescription, viewModel.Description);
+            // Arrange and Act
+            NewItemViewModel vm = new(dataStore, logger);
+            vm.Name = "New item";
+            vm.Description = "This is a new item";
+            // Assert
+            Assert.Equal("New item", vm.Name);
+            Assert.Equal("This is a new item", vm.Description);
         }
 
         [Fact]

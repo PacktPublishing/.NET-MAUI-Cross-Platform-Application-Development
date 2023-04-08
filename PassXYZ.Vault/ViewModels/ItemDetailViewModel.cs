@@ -40,21 +40,14 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async Task LoadItemId(string itemId)
         {
             if (itemId == null) { throw new ArgumentNullException(nameof(itemId)); }
-            try
-            {
-                var item = await dataStore.GetItemAsync(itemId);
-                if (item == null) { logger.LogDebug("cannot find {itemId}", itemId); return; }
-                Id = item.Id;
-                Name = item.Name;
-                Description = item.Description;
-            }
-            catch (Exception)
-            {
-                logger.LogError("Failed to Load Item");
-            }
+            var item = await dataStore.GetItemAsync(itemId);
+            if (item == null) { logger.LogDebug("cannot find {itemId}", itemId); return; }
+            Id = item.Id;
+            Name = item.Name;
+            Description = item.Description;
         }
     }
 }
