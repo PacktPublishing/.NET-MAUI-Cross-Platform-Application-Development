@@ -1,21 +1,13 @@
-﻿using PassXYZ.Vault.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public partial class LoginViewModel : ObservableObject
     {
-        public Command LoginCommand { get; }
-
-        public LoginViewModel()
-        {
-            LoginCommand = new Command(OnLoginClicked);
-        }
-
-        private async void OnLoginClicked(object obj)
+        [RelayCommand]
+        private async void Login(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");

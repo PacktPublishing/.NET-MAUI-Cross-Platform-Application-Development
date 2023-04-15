@@ -1,86 +1,88 @@
-﻿using PassXYZ.Vault.Models;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
+using PassXYZ.Vault.Models;
+using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public partial class ItemsViewModel : ObservableObject
     {
-        private Item? _selectedItem = default;
+        readonly IDataStore<Item> dataStore;
+        ILogger<ItemsViewModel> logger;
 
         public ObservableCollection<Item> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public ItemsViewModel(IDataStore<Item> dataStore, ILogger<ItemsViewModel> logger)
         {
+            this.dataStore = dataStore;
+            this.logger = logger;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            ItemTapped = new Command<Item>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
+            IsBusy = false;
         }
 
-        public async Task ExecuteLoadItemsCommand()
-        {
-            IsBusy = true;
+        [ObservableProperty]
+        private Item? selectedItem = default;
 
-            try
-            {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                    Debug.WriteLine($"ItemsViewModel: {item.Name}, {item.Description}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        [ObservableProperty]
+        private string? title;
 
-        async public void OnAppearing()
-        {
-            IsBusy = true;
-            SelectedItem = null;
-            await ExecuteLoadItemsCommand();
-        }
+        [ObservableProperty]
+        private bool isBusy;
 
-        public Item? SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                if(value != null) 
-                {
-                    OnItemSelected(value);
-                }
-            }
-        }
-
+        [RelayCommand]
         private async void OnAddItem(object obj)
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        public async void OnItemSelected(Item item)
+        [RelayCommand]
+        private async void ItemSelectionChanged(object sender)
         {
+            Item? item = sender as Item;
             if (item == null)
+            {
+                logger.LogWarning("item is null.");
                 return;
-
+            }
+            logger.LogDebug($"item is {item.Name}");
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+
+        [RelayCommand]
+        private async Task LoadItems()
+        {
+            logger.LogDebug($"IsBusy={IsBusy}");
+
+            try
+            {
+                Items.Clear();
+                var items = await dataStore.GetItemsAsync(true);
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                    logger.LogDebug($"{item.Name}, {item.Description}");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("{ex}", ex);
+            }
+            finally
+            {
+                IsBusy = false;
+                logger.LogDebug("Set IsBusy to false");
+            }
+        }
+
+        async public void OnAppearing()
+        {
+            SelectedItem = null;
+            await LoadItems();
         }
     }
 }

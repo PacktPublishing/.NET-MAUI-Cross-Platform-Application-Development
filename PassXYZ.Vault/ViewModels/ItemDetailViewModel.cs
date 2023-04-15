@@ -1,37 +1,38 @@
-﻿using PassXYZ.Vault.Models;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
+using PassXYZ.Vault.Models;
+using PassXYZ.Vault.Services;
 
 namespace PassXYZ.Vault.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public partial class ItemDetailViewModel : ObservableObject
     {
-        private string itemId;
-        private string name;
-        private string description;
-        public string Id { get; set; }
+        readonly IDataStore<Item> dataStore;
+        ILogger<ItemDetailViewModel> logger;
 
-        public string Name
+        public ItemDetailViewModel(IDataStore<Item> dataStore, ILogger<ItemDetailViewModel> logger)
         {
-            get => name;
-            set => SetProperty(ref name, value);
+            this.dataStore = dataStore;
+            this.logger = logger;
         }
 
-        public string Description
-        {
-            get => description;
-            set => SetProperty(ref description, value);
-        }
+        [ObservableProperty]
+        private string? title;
 
+        [ObservableProperty]
+        private string? id;
+
+        [ObservableProperty]
+        private string? name;
+
+        [ObservableProperty]
+        private string? description;
+
+        private string? itemId;
         public string ItemId
         {
-            get
-            {
-                return itemId;
-            }
+            get => itemId;
             set
             {
                 itemId = value;
@@ -39,19 +40,14 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public async void LoadItemId(string itemId)
+        public async Task LoadItemId(string itemId)
         {
-            try
-            {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Name = item.Name;
-                Description = item.Description;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
+            if (itemId == null) { throw new ArgumentNullException(nameof(itemId)); }
+            var item = await dataStore.GetItemAsync(itemId);
+            if (item == null) { logger.LogDebug("cannot find {itemId}", itemId); return; }
+            Id = item.Id;
+            Name = item.Name;
+            Description = item.Description;
         }
     }
 }

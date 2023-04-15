@@ -4,71 +4,29 @@
        xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
        xmlns:app="clr-namespace:PassXYZ.Vault"
        Title="PassXYZ.Vault"
-       x:Class="PassXYZ.Vault.AppShell">
-
-    <Shell.Resources>
-        <ResourceDictionary>
-            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
-
-            <!--
-            Default Styles for all Flyout Items
-            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
-            -->
-            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="{StaticResource White}"></Setter>
-            </Style>
-            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Selected">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-
-            <!--
-            Custom Style you can apply to any Flyout Item
-            -->
-            <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-        </ResourceDictionary>
-    </Shell.Resources>
+       x:Class="PassXYZ.Vault.AppShell" 
+       FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+        Glyph={x:Static style:FontAwesomeSolid.Bars}}"
+       FlyoutBackgroundColor="{StaticResource LightGray}">
 
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
 
-    <FlyoutItem Title="About" Icon="tab_favorites.png" >
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+    <FlyoutItem Title="About" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+        Glyph={x:Static style:FontAwesomeSolid.Question}}">
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}">
+        </ShellContent>
     </FlyoutItem>
-    <FlyoutItem x:Name="RootItem" Title="Browse" Icon="tab_home.png">
-        <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+    <FlyoutItem x:Name="RootItem" Title="Browse" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+        Glyph={x:Static style:FontAwesomeSolid.Home}}">
+        <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}">
+        </ShellContent>
     </FlyoutItem>
 
-    <MenuItem Text="Logout" Clicked="OnMenuItemClicked">
+    <MenuItem Text="Logout" Clicked="OnMenuItemClicked" 
+              IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+        Glyph={x:Static style:FontAwesomeSolid.SignOutAlt}}">
     </MenuItem>
-
 
 </Shell>
