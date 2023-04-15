@@ -4,13 +4,16 @@
              x:Class="PassXYZ.Vault.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
+             xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
              xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:model="clr-namespace:PassXYZ.Vault.Models"  
              x:DataType="local:ItemsViewModel"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" 
+                     IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+                     Glyph={x:Static style:FontAwesomeSolid.PlusCircle}}"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout>
