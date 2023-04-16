@@ -1,33 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
+using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.Logging;
 using KPCLib;
 using KeePassLib;
 using PassXYZLib;
+using PassXYZ.Vault.Services;
 
 namespace PassXYZ.Vault.ViewModels;
 
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
-public class ItemDetailViewModel : BaseViewModel
+public partial class ItemDetailViewModel : ObservableObject
 {
-    private string itemId;
-    private string description;
-    public string Id { get; set; }
+    readonly IDataStore<Item> dataStore;
+    ILogger<ItemDetailViewModel> logger;
     public ObservableCollection<Field> Fields { get; set; }
 
-    public string Description
+    public ItemDetailViewModel(IDataStore<Item> dataStore, ILogger<ItemDetailViewModel> logger)
     {
-        get => description;
-        set => SetProperty(ref description, value);
+        this.dataStore = dataStore;
+        this.logger = logger;
+        Fields = new ObservableCollection<Field>();
     }
 
+    [ObservableProperty]
+    private string? title;
+
+    [ObservableProperty]
+    private string? id;
+
+    [ObservableProperty]
+    private string? description;
+
+    [ObservableProperty]
+    private bool isBusy;
+
+    private string? itemId;
     public string ItemId
     {
-        get
-        {
-            return itemId;
-        }
+        get => itemId;
         set
         {
             itemId = value;
@@ -35,35 +47,25 @@ public class ItemDetailViewModel : BaseViewModel
         }
     }
 
-    public ItemDetailViewModel()
+    public async Task LoadItemId(string itemId)
     {
-        Fields = new ObservableCollection<Field>();
-    }
+        if (itemId == null) { throw new ArgumentNullException(nameof(itemId)); }
+        var item = await dataStore.GetItemAsync(itemId);
+        if (item == null) { throw new NullReferenceException(itemId); }
+        Id = item.Id;
+        Title = item.Name;
+        Description = item.Description;
 
-    public async void LoadItemId(string itemId)
-    {
-        try
+        if (!item.IsGroup)
         {
-            var item = await DataStore.GetItemAsync(itemId);
-            Id = item.Id;
-            Title = item.Name;
-            Description = item.Description;
-
-            if (!item.IsGroup) 
+            PwEntry dataEntry = (PwEntry)item;
+            Fields.Clear();
+            List<Field> fields = dataEntry.GetFields(GetImage: FieldIcons.GetImage);
+            foreach (Field field in fields)
             {
-                PwEntry dataEntry = (PwEntry)item;
-                Fields.Clear();
-                List<Field> fields = dataEntry.GetFields(GetImage: FieldIcons.GetImage);
-                foreach (Field field in fields)
-                {
-                    Fields.Add(field);
-                }
-                Debug.WriteLine($"ItemDetailViewModel: Name={dataEntry.Name}, IsBusy={IsBusy}.");
+                Fields.Add(field);
             }
-        }
-        catch (Exception)
-        {
-            Debug.WriteLine("Failed to Load Item");
+            logger.LogDebug($"ItemDetailViewModel: Name={dataEntry.Name}.");
         }
     }
 }

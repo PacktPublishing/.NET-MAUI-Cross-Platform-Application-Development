@@ -1,86 +1,82 @@
-﻿using PassXYZ.Vault.Views;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using KPCLib;
 
-namespace PassXYZ.Vault.ViewModels;
+using PassXYZ.Vault.Services;
+using PassXYZ.Vault.Views;
 
-public class ItemsViewModel : BaseViewModel
+namespace PassXYZ.Vault.ViewModels
 {
-    private Item? _selectedItem = default;
-
-    public ObservableCollection<Item> Items { get; }
-    public Command LoadItemsCommand { get; }
-    public Command AddItemCommand { get; }
-    public Command<Item> ItemTapped { get; }
-
-    public ItemsViewModel()
+    public partial class ItemsViewModel : ObservableObject
     {
-        Title = "Browse";
-        Items = new ObservableCollection<Item>();
-        LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+        readonly IDataStore<Item> dataStore;
+        ILogger<ItemsViewModel> logger;
 
-        ItemTapped = new Command<Item>(OnItemSelected);
+        public ObservableCollection<Item> Items { get; }
 
-        AddItemCommand = new Command(OnAddItem);
-    }
-
-    public async Task ExecuteLoadItemsCommand()
-    {
-        IsBusy = true;
-
-        try
+        public ItemsViewModel(IDataStore<Item> dataStore, ILogger<ItemsViewModel> logger)
         {
-            Items.Clear();
-            var items = await DataStore.GetItemsAsync(true);
-            foreach (var item in items)
-            {
-                Items.Add(item);
-                Debug.WriteLine($"ItemsViewModel: {item.Name}, {item.Description}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex);
-        }
-        finally
-        {
+            this.dataStore = dataStore;
+            this.logger = logger;
+            Title = "Browse";
+            Items = new ObservableCollection<Item>();
             IsBusy = false;
+            LoadItems();
         }
-    }
 
-    async public void OnAppearing()
-    {
-        IsBusy = true;
-        SelectedItem = null;
-        await ExecuteLoadItemsCommand();
-    }
+        [ObservableProperty]
+        private Item? selectedItem = default;
 
-    public Item? SelectedItem
-    {
-        get => _selectedItem;
-        set
+        [ObservableProperty]
+        private string? title;
+
+        [ObservableProperty]
+        private bool isBusy;
+
+        [RelayCommand]
+        private async void OnAddItem(object obj)
         {
-            SetProperty(ref _selectedItem, value);
-            if(value != null) 
+            await Shell.Current.GoToAsync(nameof(NewItemPage));
+        }
+
+        [RelayCommand]
+        private async void ItemSelectionChanged(Item? item)
+        {
+            if (item == null)
             {
-                OnItemSelected(value);
+                logger.LogWarning("item is null.");
+                return;
+            }
+            logger.LogDebug($"Selected item is {item.Name}");
+            SelectedItem = item;
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+
+        [RelayCommand]
+        private async Task LoadItems()
+        {
+            logger.LogDebug($"IsBusy={IsBusy}");
+
+            try
+            {
+                Items.Clear();
+                var items = await dataStore.GetItemsAsync(true);
+                foreach (var item in items)
+                {
+                    Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("{ex}", ex);
+            }
+            finally
+            {
+                IsBusy = false;
+                logger.LogDebug("Set IsBusy to false");
             }
         }
-    }
-
-    private async void OnAddItem(object obj)
-    {
-        await Shell.Current.GoToAsync(nameof(NewItemPage));
-    }
-
-    public async void OnItemSelected(Item item)
-    {
-        if (item == null)
-            return;
-
-        // This will push the ItemDetailPage onto the navigation stack
-        await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
     }
 }

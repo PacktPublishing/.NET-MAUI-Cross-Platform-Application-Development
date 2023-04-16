@@ -6,29 +6,17 @@ namespace PassXYZ.Vault.Views;
 
 public partial class ItemsPage : ContentPage
 {
-    ItemsViewModel _viewModel;
+    ItemsViewModel viewModel;
 
-    public ItemsPage()
+    public ItemsPage(ItemsViewModel viewModel)
     {
         InitializeComponent();
 
-        BindingContext = _viewModel = new ItemsViewModel();
+        BindingContext = this.viewModel = viewModel;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel.OnAppearing();
-    }
-
-    void OnItemSelected(object sender, SelectedItemChangedEventArgs args) 
-    {
-        var item = args.SelectedItem as Item;
-        if (item == null)
-        {
-            Debug.WriteLine("OnItemSelected: item is null.");
-            return;
-        }
-        _viewModel.OnItemSelected(item);
     }
 }

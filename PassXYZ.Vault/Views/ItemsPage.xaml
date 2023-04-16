@@ -3,58 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PassXYZ.Vault.Views.ItemsPage"
              Title="{Binding Title}"
-             xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"  
+             xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
+             xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
+             xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemsViewModel"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" 
+                     IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+                     Glyph={x:Static style:FontAwesomeSolid.PlusCircle}}"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout>
-        <ListView x:Name="ItemsListView" 
+        <ListView x:Name="itemsListView"
                   ItemsSource="{Binding Items}"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="False"
                   RowHeight="84"
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  CachingStrategy="RetainElement"
-                  ItemSelected="OnItemSelected">
-
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10" x:DataType="model:Item" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
-                                <RowDefinition Height="32" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.RowSpan="2" Padding="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
-                            </Grid>
-                            <Label Text="{Binding Name}"  Grid.Column="1"
-                                LineBreakMode="NoWrap" 
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemTextStyle}"
-                                FontAttributes="Bold"
-                                FontSize="Small" />
-                            <Label Text="{Binding Description}"  Grid.Row="1" Grid.Column="1"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="Small" />
-                        </Grid>
-                    </ViewCell>
+                    <template:KeyValueView/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

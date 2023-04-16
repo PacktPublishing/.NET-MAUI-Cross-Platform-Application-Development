@@ -15,8 +15,7 @@
                   RowHeight="84"
                   IsPullToRefreshEnabled="true"
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  CachingStrategy="RetainElement"
-                  ItemSelected="OnFieldSelected">
+                  CachingStrategy="RetainElement">
 
             <ListView.ItemTemplate>
                 <DataTemplate>

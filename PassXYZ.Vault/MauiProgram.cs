@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using KPCLib;
+using PassXYZ.Vault.Services;
+using PassXYZ.Vault.Views;
+using PassXYZ.Vault.ViewModels;
 
 namespace PassXYZ.Vault;
 
@@ -20,8 +24,16 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+		builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
+        builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
+        builder.Services.AddScoped<ItemsViewModel>();
+        builder.Services.AddScoped<ItemsPage>();
+        builder.Services.AddScoped<ItemDetailViewModel>();
+        builder.Services.AddScoped<ItemDetailPage>();
+        builder.Services.AddScoped<NewItemViewModel>();
+        builder.Services.AddScoped<NewItemPage>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

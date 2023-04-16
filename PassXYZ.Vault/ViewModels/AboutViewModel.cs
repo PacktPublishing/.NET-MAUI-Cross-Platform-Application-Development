@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
 
 using PassXYZ.Vault.Properties;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public partial class AboutViewModel : ObservableObject
     {
-        public AboutViewModel()
-        {
-            Title = Properties.Resources.About;
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync(Properties.Resources.about_url));
-        }
+        [ObservableProperty]
+        private string? title = Properties.Resources.About;
 
-        public ICommand OpenWebCommand { get; }
+        [RelayCommand]
+        private async Task OpenWeb()
+        {
+            await Browser.OpenAsync("Properties.Resources.about_url");
+        }
 
         public string GetStoreName()
         {

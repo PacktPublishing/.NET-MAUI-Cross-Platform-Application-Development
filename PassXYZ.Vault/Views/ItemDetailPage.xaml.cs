@@ -2,23 +2,14 @@
 using KPCLib;
 using PassXYZ.Vault.ViewModels;
 
-namespace PassXYZ.Vault.Views;
-
-public partial class ItemDetailPage : ContentPage
+namespace PassXYZ.Vault.Views
 {
-    public ItemDetailPage()
+    public partial class ItemDetailPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = new ItemDetailViewModel();
-    }
-
-    void OnFieldSelected(object sender, SelectedItemChangedEventArgs args)
-    {
-        var field = args.SelectedItem as Field;
-        if (field == null)
+        public ItemDetailPage(ItemDetailViewModel viewModel)
         {
-            Debug.WriteLine("OnFieldSelected: Field is null.");
-            return;
+            InitializeComponent();
+            BindingContext = viewModel;
         }
     }
 }
