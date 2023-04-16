@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
-             x:Class="PassXYZ.Vault.Views.Templates.KeyValueView">
-    <Grid Padding="10">
+<ViewCell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
+          xmlns:model="clr-namespace:PassXYZ.Vault.Models"
+          xmlns:vm="clr-namespace:PassXYZ.Vault.ViewModels"
+          x:Class="PassXYZ.Vault.Views.Templates.KeyValueView">
+
+    <Grid Padding="10" VerticalOptions="FillAndExpand" x:DataType="model:Item" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="32" />
-            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -19,21 +22,30 @@
             <Image Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
                 <Image.Source>
                     <FontImageSource Glyph="{x:Static style:FontAwesomeSolid.PencilAlt}"
-                                                         Color="{StaticResource Primary}"
-                                            FontFamily="FontAwesomeSolid" Size="32" />
+                                     Color="{StaticResource Primary}"
+                                     FontFamily="FontAwesomeSolid" Size="32" />
                 </Image.Source>
             </Image>
         </Grid>
-        <Label Text="{Binding Name}"  Grid.Column="1"
-                                LineBreakMode="NoWrap" 
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemTextStyle}"
-                                FontAttributes="Bold"
-                                FontSize="Small" />
-        <Label Text="{Binding Description}"  Grid.Row="1" Grid.Column="1"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="Small" />
+        <Label Text="{Binding Name}"  
+               Grid.Column="1"
+               LineBreakMode="NoWrap" 
+               MaxLines="1"
+               Style="{DynamicResource ListItemTextStyle}"
+               FontAttributes="Bold"
+               FontSize="Small" />
+        <Label Text="{Binding Description}"  
+               Grid.Row="1" Grid.Column="1"
+               LineBreakMode="TailTruncation"
+               MaxLines="1"
+               Style="{DynamicResource ListItemDetailTextStyle}"
+               FontSize="Small" />
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer 
+                NumberOfTapsRequired="1"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ItemSelectionChangedCommand}"
+                CommandParameter="{Binding .}">
+            </TapGestureRecognizer>
+        </Grid.GestureRecognizers>
     </Grid>
-</ContentView>
+</ViewCell>

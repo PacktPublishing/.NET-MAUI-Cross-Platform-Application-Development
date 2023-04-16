@@ -22,6 +22,7 @@ namespace PassXYZ.Vault.ViewModels
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             IsBusy = false;
+            LoadItems();
         }
 
         [ObservableProperty]
@@ -48,8 +49,8 @@ namespace PassXYZ.Vault.ViewModels
                 logger.LogWarning("item is null.");
                 return;
             }
-            logger.LogDebug($"item is {item.Name}");
-            // This will push the ItemDetailPage onto the navigation stack
+            logger.LogDebug($"Selected item is {item.Name}");
+            SelectedItem = item;
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
 
@@ -65,7 +66,6 @@ namespace PassXYZ.Vault.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
-                    logger.LogDebug($"{item.Name}, {item.Description}");
                 }
             }
             catch (Exception ex)
@@ -77,12 +77,6 @@ namespace PassXYZ.Vault.ViewModels
                 IsBusy = false;
                 logger.LogDebug("Set IsBusy to false");
             }
-        }
-
-        async public void OnAppearing()
-        {
-            SelectedItem = null;
-            await LoadItems();
         }
     }
 }

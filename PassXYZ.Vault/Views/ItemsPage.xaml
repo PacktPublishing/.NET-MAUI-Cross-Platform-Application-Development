@@ -17,19 +17,20 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
-        <RefreshView IsRefreshing="{Binding IsBusy}"
-             Command="{Binding LoadItemsCommand}">
-            <CollectionView ItemsSource="{Binding Items}"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding ItemSelectionChangedCommand}"
-                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <template:KeyValueView />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+        <ListView x:Name="itemsListView"
+                  ItemsSource="{Binding Items}"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="False"
+                  RowHeight="84"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <template:KeyValueView/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
     
 </ContentPage>
