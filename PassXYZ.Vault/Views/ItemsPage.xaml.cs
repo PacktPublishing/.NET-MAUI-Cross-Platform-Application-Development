@@ -18,5 +18,6 @@ public partial class ItemsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        viewModel.OnAppearing();
     }
 }
