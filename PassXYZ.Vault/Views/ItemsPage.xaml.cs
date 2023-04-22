@@ -8,19 +8,18 @@ namespace PassXYZ.Vault.Views
 
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        ItemsViewModel viewModel;
 
         public ItemsPage(ItemsViewModel viewModel)
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = viewModel;
+            BindingContext = this.viewModel = viewModel;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
         }
     }
 }
