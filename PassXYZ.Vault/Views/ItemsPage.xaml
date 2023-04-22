@@ -26,8 +26,8 @@
                   IsPullToRefreshEnabled="true"
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <template:KeyValueView/>
+                <DataTemplate x:DataType="model:Item">
+                    <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

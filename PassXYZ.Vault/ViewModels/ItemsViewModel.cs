@@ -78,5 +78,11 @@ namespace PassXYZ.Vault.ViewModels
                 logger.LogDebug("Set IsBusy to false");
             }
         }
+
+        public async void OnAppearing()
+        {
+            SelectedItem = null;
+            await LoadItems();
+        }
     }
 }
