@@ -16,4 +16,45 @@ public partial class KeyValueView : ViewCell
 	{
 		InitializeComponent();
 	}
+
+    public static readonly BindableProperty KeyProperty =
+        BindableProperty.Create(nameof(Key), typeof(string), typeof(KeyValueView), string.Empty,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var control = bindable as KeyValueView;
+                var changingFrom = oldValue as string;
+                var changingTo = newValue as string;
+                control.Key = changingTo;
+            });
+
+    public string Key
+    {
+        get { return (string)GetValue(KeyProperty); }
+        set
+        {
+            keyField.Text = value;
+            SetValue(KeyProperty, value);
+        }
+    }
+
+    public static readonly BindableProperty ValueProperty =
+        BindableProperty.Create(nameof(Value), typeof(string), typeof(KeyValueView), string.Empty,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var control = bindable as KeyValueView;
+                var changingFrom = oldValue as string;
+                var changingTo = newValue as string;
+                control.Value = changingTo;
+            });
+
+    public string Value
+    {
+        get { return (string)GetValue(ValueProperty); }
+        set
+        {
+            valueField.Text = value;
+            SetValue(ValueProperty, value);
+        }
+    }
+
 }

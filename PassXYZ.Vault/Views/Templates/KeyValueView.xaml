@@ -6,7 +6,7 @@
           xmlns:vm="clr-namespace:PassXYZ.Vault.ViewModels"
           x:Class="PassXYZ.Vault.Views.Templates.KeyValueView">
 
-    <Grid Padding="10" VerticalOptions="FillAndExpand" x:DataType="model:Item" >
+    <Grid Padding="10" VerticalOptions="FillAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -27,14 +27,14 @@
                 </Image.Source>
             </Image>
         </Grid>
-        <Label Text="{Binding Name}"  
+        <Label x:Name="keyField" Text=""  
                Grid.Column="1"
                LineBreakMode="NoWrap" 
                MaxLines="1"
                Style="{DynamicResource ListItemTextStyle}"
                FontAttributes="Bold"
                FontSize="Small" />
-        <Label Text="{Binding Description}"  
+        <Label x:Name="valueField" Text=""
                Grid.Row="1" Grid.Column="1"
                LineBreakMode="TailTruncation"
                MaxLines="1"
