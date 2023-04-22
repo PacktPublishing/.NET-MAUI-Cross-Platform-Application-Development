@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PassXYZ.Vault.Views.ItemDetailPage"
+             xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemDetailViewModel"
@@ -18,36 +19,8 @@
                   CachingStrategy="RetainElement">
 
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10" x:DataType="model:Field" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="32" />
-                                <RowDefinition Height="32" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.RowSpan="2" Padding="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="32" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding ImgSource}" HorizontalOptions="Fill" VerticalOptions="Fill" />
-                            </Grid>
-                            <Label Text="{Binding Key}"  Grid.Column="1"
-                                LineBreakMode="NoWrap" 
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemTextStyle}"
-                                FontAttributes="Bold"
-                                FontSize="Small" />
-                            <Label Text="{Binding Value}"  Grid.Row="1" Grid.Column="1"
-                                LineBreakMode="TailTruncation"
-                                MaxLines="1"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="Small" />
-                        </Grid>
-                    </ViewCell>
+                <DataTemplate x:DataType="model:Field">
+                    <template:KeyValueView Key="{Binding Key}" Value="{Binding Value}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.Footer>

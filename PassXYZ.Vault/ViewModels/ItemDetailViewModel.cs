@@ -11,7 +11,7 @@ using PassXYZ.Vault.Services;
 namespace PassXYZ.Vault.ViewModels;
 
 [QueryProperty(nameof(ItemId), nameof(ItemId))]
-public partial class ItemDetailViewModel : ObservableObject
+public partial class ItemDetailViewModel : BaseViewModel
 {
     readonly IDataStore<Item> dataStore;
     ILogger<ItemDetailViewModel> logger;
@@ -45,6 +45,11 @@ public partial class ItemDetailViewModel : ObservableObject
             itemId = value;
             LoadItemId(value);
         }
+    }
+
+    public override async void OnItemSelecteion(object sender) 
+    {
+        logger.LogDebug("OnItemSelecteion is invoked.");
     }
 
     public async Task LoadItemId(string itemId)
