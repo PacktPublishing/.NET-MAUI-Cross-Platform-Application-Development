@@ -43,7 +43,7 @@
         <Grid.GestureRecognizers>
             <TapGestureRecognizer 
                 NumberOfTapsRequired="1"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ItemsViewModel}}, Path=ItemSelectionChangedCommand}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BaseViewModel}}, Path=ItemSelectionChangedCommand}"
                 CommandParameter="{Binding .}">
             </TapGestureRecognizer>
         </Grid.GestureRecognizers>
