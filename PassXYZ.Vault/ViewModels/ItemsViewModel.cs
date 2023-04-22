@@ -9,7 +9,7 @@ using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.ViewModels
 {
-    public partial class ItemsViewModel : ObservableObject
+    public partial class ItemsViewModel : BaseViewModel
     {
         readonly IDataStore<Item> dataStore;
         ILogger<ItemsViewModel> logger;
@@ -41,9 +41,9 @@ namespace PassXYZ.Vault.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        [RelayCommand]
-        private async void ItemSelectionChanged(Item? item)
+        public override async void OnItemSelecteion(object sender)
         {
+            Item? item = sender as Item;
             if (item == null)
             {
                 logger.LogWarning("item is null.");
