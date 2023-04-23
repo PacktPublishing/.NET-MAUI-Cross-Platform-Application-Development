@@ -19,7 +19,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="32" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
+            <Image x:Name="imageField" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Fill">
                 <Image.Source>
                     <FontImageSource Glyph="{x:Static style:FontAwesomeSolid.PencilAlt}"
                                      Color="{StaticResource Primary}"

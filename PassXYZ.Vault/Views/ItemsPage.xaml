@@ -27,7 +27,7 @@
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Item">
-                    <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}"/>
+                    <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}" Source="{Binding ImgSource}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

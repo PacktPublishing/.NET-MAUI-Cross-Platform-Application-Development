@@ -20,7 +20,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Field">
-                    <template:KeyValueView Key="{Binding Key}" Value="{Binding Value}"/>
+                    <template:KeyValueView Key="{Binding Key}" Value="{Binding Value}" Source="{Binding ImgSource}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.Footer>

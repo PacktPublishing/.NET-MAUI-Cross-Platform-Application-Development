@@ -57,4 +57,22 @@ public partial class KeyValueView : ViewCell
         }
     }
 
+    public static readonly BindableProperty SourceProperty =
+        BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(KeyValueView), default!,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var control = bindable as KeyValueView;
+                var changingFrom = oldValue as ImageSource;
+                var changingTo = newValue as ImageSource;
+                control.Source = changingTo;
+            });
+    public ImageSource Source 
+    {
+        get { return (ImageSource)GetValue(SourceProperty); }
+        set
+        {
+            imageField.Source = value;
+            SetValue(SourceProperty, value);
+        }
+    }
 }
