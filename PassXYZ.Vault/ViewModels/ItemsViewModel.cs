@@ -22,7 +22,6 @@ namespace PassXYZ.Vault.ViewModels
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             IsBusy = false;
-            LoadItems();
         }
 
         [ObservableProperty]
@@ -78,10 +77,10 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public async void OnAppearing()
+        public void OnAppearing()
         {
+            IsBusy = true;
             SelectedItem = null;
-            await LoadItems();
         }
     }
 }

@@ -16,21 +16,17 @@
                      Glyph={x:Static style:FontAwesomeSolid.PlusCircle}}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
+    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <ListView x:Name="itemsListView"
                   ItemsSource="{Binding Items}"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="False"
-                  RowHeight="84"
-                  RefreshCommand="{Binding LoadItemsCommand}"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+                  RowHeight="84">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Item">
                     <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
-    
+    </RefreshView>
 </ContentPage>
