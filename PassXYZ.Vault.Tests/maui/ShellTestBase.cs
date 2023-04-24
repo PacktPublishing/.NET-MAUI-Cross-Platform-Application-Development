@@ -386,6 +386,11 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
                 base.OnNavigating(args);
                 OnNavigatingCount++;
 
+                if(args.Target.Location.ToString() == "NewItemPage") 
+                {
+                    args.Cancel();
+                }
+
                 if (args.Current != null)
                 {
                     Debug.WriteLine($"TestShell: source={args.Current.Location}, target={args.Target.Location}");

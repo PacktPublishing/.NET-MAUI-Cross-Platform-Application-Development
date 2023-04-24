@@ -62,6 +62,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
             vm.ItemSelectionChangedCommand.Execute(newItem);
             // Assert
             Assert.NotNull(vm.SelectedItem);
+            Assert.Equal(vm.SelectedItem.Name, newItem.Name);
         }
 
         [Fact]
@@ -75,12 +76,12 @@ namespace PassXYZ.Vault.Tests.ViewModels
             Assert.NotEmpty(vm.Items);
         }
 
-        //[Fact]
-        //public async void OnAddItemCommandTest()
-        //{
-        //    ItemsViewModel vm = new(dataStore, logger);
-        //    await shell.GoToAsync("//About/Readme/");
-        //    vm.AddItemCommand.Execute(null);
-        //}
+        [Fact]
+        public async void OnAddItemCommandTest()
+        {
+            ItemsViewModel vm = new(dataStore, logger);
+            await shell.GoToAsync("//About/Readme/");
+            vm.AddItemCommand.Execute(null);
+        }
     }
 }

@@ -37,6 +37,21 @@ namespace PassXYZ.Vault.Tests.ViewModels
         }
 
         [Fact]
+        public async void SetItemIdTests()
+        {
+            // Arrange
+            ItemDetailViewModel vm = new(dataStore, logger);
+            var items = await dataStore.GetItemsAsync(true);
+            foreach (var item in items)
+            {
+                // Act
+                vm.ItemId = item.Id;
+                // Assert
+                Assert.Equal(item.Name, vm.Title);
+            }
+        }
+
+        [Fact]
         public async void LoadItemIdFailureTest() 
         {
             ItemDetailViewModel vm = new(dataStore, logger);
