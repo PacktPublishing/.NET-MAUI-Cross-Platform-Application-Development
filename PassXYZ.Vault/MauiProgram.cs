@@ -3,6 +3,7 @@ using KPCLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
 using PassXYZ.Vault.ViewModels;
+using User = PassXYZLib.User;
 
 namespace PassXYZ.Vault;
 
@@ -27,12 +28,13 @@ public static class MauiProgram
 		builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
         builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
-        builder.Services.AddScoped<ItemsViewModel>();
-        builder.Services.AddScoped<ItemsPage>();
-        builder.Services.AddScoped<ItemDetailViewModel>();
-        builder.Services.AddScoped<ItemDetailPage>();
-        builder.Services.AddScoped<NewItemViewModel>();
-        builder.Services.AddScoped<NewItemPage>();
+        builder.Services.AddSingleton<IUserService<User>, UserService>();
+        builder.Services.AddSingleton<ItemsViewModel>();
+        builder.Services.AddSingleton<ItemsPage>();
+        builder.Services.AddSingleton<ItemDetailViewModel>();
+        builder.Services.AddSingleton<ItemDetailPage>();
+        builder.Services.AddSingleton<NewItemViewModel>();
+        builder.Services.AddSingleton<NewItemPage>();
 
         return builder.Build();
 	}
