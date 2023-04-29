@@ -11,15 +11,14 @@ namespace PassXYZ.Vault.Views
 {
     public partial class AboutPage : ContentPage
     {
-        AboutViewModel viewModel;
-        public AboutPage()
+        AboutViewModel _viewModel;
+        public AboutPage(AboutViewModel viewModel)
         {
             InitializeComponent();
-            viewModel = new AboutViewModel();
-            BindingContext = viewModel;
-            DatabaseName.Text = viewModel.GetStoreName();
+            BindingContext = _viewModel = viewModel;
+            DatabaseName.Text = _viewModel.GetStoreName();
 
-            DateTime localTime = viewModel.GetStoreModifiedTime().ToLocalTime();
+            DateTime localTime = _viewModel.GetStoreModifiedTime().ToLocalTime();
             LastModifiedDate.Text = localTime.ToLongDateString();
             LastModifiedTime.Text = localTime.ToLongTimeString();
 

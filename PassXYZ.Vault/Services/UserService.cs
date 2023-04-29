@@ -55,7 +55,7 @@ public class UserService : IUserService<User>
 
     public void Logout() 
     {
-        throw new NotImplementedException();
+        logger.LogDebug("Logout");
     }
 
 }

@@ -1,18 +1,20 @@
-﻿using Microsoft.Maui.Controls;
-using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NSubstitute;
 using Microsoft.Maui.Controls.Core.UnitTests;
+using Microsoft.Extensions.Logging;
+
+using KPCLib;
+using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
+using Microsoft.Maui.Controls;
 
 namespace PassXYZ.Vault.Tests.ViewModels
 {
     public class LoginViewModelTests : ShellTestBase
     {
         Microsoft.Maui.Controls.Application app;
+        ILogger<LoginViewModel> loginViewModelLogger;
+        readonly IDataStore<Item> dataStore;
+        UserService userService;
 
         public LoginViewModelTests() 
         {
@@ -23,13 +25,24 @@ namespace PassXYZ.Vault.Tests.ViewModels
             shell.Items.Add(abougPage);
             app = Substitute.For<Microsoft.Maui.Controls.Application>();
             app.MainPage = shell;
+
+            using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+                builder.AddDebug()
+                .AddConsole()
+                .SetMinimumLevel(LogLevel.Debug));
+            var logger = loggerFactory.CreateLogger<UserService>();
+            loginViewModelLogger = loggerFactory.CreateLogger<LoginViewModel>();
+            dataStore = new MockDataStore();
+            userService = new UserService(dataStore, logger);
         }
 
         [Fact]
         public void LoginCommandTest() 
         {
-            LoginViewModel vm = new();
-            vm.LoginCommand.Execute(null);
+            var loginservice = new LoginService(userService);
+            LoginViewModel vm = new(loginservice, loginViewModelLogger);
+            //vm.Password = "passowrd";
+            //vm.LoginCommand.Execute(null);
         }
     }
 }

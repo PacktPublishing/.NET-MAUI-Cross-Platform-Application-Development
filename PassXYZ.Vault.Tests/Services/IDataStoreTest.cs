@@ -17,13 +17,26 @@ namespace PassXYZ.Vault.Tests.Services
         }
 
         [Fact]
-        public async void AddItemAsyncTest()
+        public async void AddGroupAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            Item newItem = new NewItem()
+            Item newItem = new PxGroup()
             {
-                Name = "New item 1",
-                Notes = "This is a new item."
+                Name = "New Group 1",
+                Notes = "This is a new group."
+            };
+            var result = await dataStore.AddItemAsync(newItem);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async void AddEntryAsyncTest()
+        {
+            IDataStore<Item> dataStore = new MockDataStore();
+            Item newItem = new PxEntry()
+            {
+                Name = "New Entry 1",
+                Notes = "This is a new entry."
             };
             var result = await dataStore.AddItemAsync(newItem);
             Assert.True(result);
@@ -42,7 +55,7 @@ namespace PassXYZ.Vault.Tests.Services
         public async void UpdateItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            Item newItem = new NewItem()
+            Item newItem = new PxEntry()
             {
                 Name = "New item 1",
                 Notes = "This is a new item."
@@ -80,7 +93,7 @@ namespace PassXYZ.Vault.Tests.Services
         public async void DeleteItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            Item newItem = new NewItem()
+            Item newItem = new PxEntry()
             {
                 Name = "New item 1",
                 Notes = "Please delete it."
@@ -104,7 +117,7 @@ namespace PassXYZ.Vault.Tests.Services
         public async void DeleteNoExistItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            Item newItem = new NewItem()
+            Item newItem = new PxEntry()
             {
                 Name = "No item 1",
                 Notes = "You cannot find this item."
@@ -117,7 +130,7 @@ namespace PassXYZ.Vault.Tests.Services
         public async void GetItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            Item newItem = new NewItem()
+            Item newItem = new PxEntry()
             {
                 Name = "New item 1",
                 Notes = "This is a new item."

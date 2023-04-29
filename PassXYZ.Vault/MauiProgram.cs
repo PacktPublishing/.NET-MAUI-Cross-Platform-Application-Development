@@ -29,12 +29,17 @@ public static class MauiProgram
 #endif
         builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
         builder.Services.AddSingleton<IUserService<User>, UserService>();
+        builder.Services.AddSingleton<LoginService>();
+        builder.Services.AddSingleton<LoginViewModel>();
+        builder.Services.AddSingleton<LoginPage>();
         builder.Services.AddSingleton<ItemsViewModel>();
         builder.Services.AddSingleton<ItemsPage>();
         builder.Services.AddSingleton<ItemDetailViewModel>();
         builder.Services.AddSingleton<ItemDetailPage>();
         builder.Services.AddSingleton<NewItemViewModel>();
         builder.Services.AddSingleton<NewItemPage>();
+        builder.Services.AddSingleton<AboutViewModel>();
+        builder.Services.AddSingleton<AboutPage>();
 
         return builder.Build();
 	}

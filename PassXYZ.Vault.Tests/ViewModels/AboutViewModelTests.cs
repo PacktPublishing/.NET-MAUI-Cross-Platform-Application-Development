@@ -1,19 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KPCLib;
+using Microsoft.Extensions.Logging;
+
+using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
 
 namespace PassXYZ.Vault.Tests.ViewModels
 {
     public class AboutViewModelTests
     {
+        ILogger<AboutViewModel> aboutViewModelLogger;
+        readonly IDataStore<Item> dataStore;
+        UserService userService;
+
+        public AboutViewModelTests()
+        {
+            using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+                builder.AddDebug()
+                .AddConsole()
+                .SetMinimumLevel(LogLevel.Debug));
+            var logger = loggerFactory.CreateLogger<UserService>();
+            aboutViewModelLogger = loggerFactory.CreateLogger<AboutViewModel>();
+            dataStore = new MockDataStore();
+            userService = new UserService(dataStore, logger);
+        }
+
         [Fact]
         public void SetTitleTest()
         {
             string AboutTitle = "AboutTest";
-            AboutViewModel viewModel = new();
+            var loginservice = new LoginService(userService);
+            AboutViewModel viewModel = new(loginservice, aboutViewModelLogger);
             viewModel.Title = AboutTitle;
             Assert.Equal(AboutTitle, viewModel.Title);
         }
