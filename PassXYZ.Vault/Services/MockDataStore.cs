@@ -12,6 +12,7 @@ using KeePassLib.Serialization;
 using PassXYZLib;
 
 using PassXYZ.Vault.Properties;
+using Newtonsoft.Json.Linq;
 
 namespace PassXYZ.Vault.Services;
 
@@ -111,92 +112,69 @@ public static class PwDatabaseEx
 
 public class MockDataStore : IDataStore<Item>
 {
+    private readonly PasswordDb _db = default!;
+    private PwGroup? _currentGroup = null;
+    private bool _isBusy = false;
     public MockDataStore()
     {
-        db = PasswordDb.Instance;
-        PwDatabaseEx.CreateTestDb(db);
-        db.LastSelectedGroup = db.RootGroup.Uuid;
-        currentGroup = db.RootGroup;
+        _db = PasswordDb.Instance;
+        PwDatabaseEx.CreateTestDb(_db);
+        _db.LastSelectedGroup = _db.RootGroup.Uuid;
+        _currentGroup = _db.RootGroup;
         Debug.WriteLine("MockDataStore: db created.");
     }
 
-    private readonly PasswordDb db = default!;
-    private bool _isBusy = false;
+    public List<Item> Items => _currentGroup!.GetItems();
 
-    public bool IsOpen => db != null && db.IsOpen;
-
-    public Item RootGroup
+    /// <summary>
+    /// Set the current group.
+    /// If the group is null, set to root group.
+    /// </summary>
+    /// <param name="group">an instance of <c>PwGroup</c></param>
+    /// <returns>Returns the current group name</returns>
+    public string SetCurrentGroup(Item? item = default)
     {
-        get => db.RootGroup;
-    }
+        if(item == default) 
+        { 
+            _currentGroup = _db.RootGroup;
+            return _db.RootGroup.Name;
+        }
 
-    public string CurrentPath => db.CurrentPath;
-
-    public List<Item> Items => currentGroup!.GetItems();
-
-    private PwGroup? currentGroup = null;
-    public Item CurrentGroup
-    {
-        get
+        if (item is PwGroup group)
         {
-            if (db.RootGroup != null)
+            _db.LastSelectedGroup = group.Uuid;
+            if (_db.RootGroup.Uuid == _db.LastSelectedGroup || _db.LastSelectedGroup.Equals(PwUuid.Zero))
             {
-                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
-                {
-                    db.LastSelectedGroup = db.RootGroup.Uuid;
-                    currentGroup = db.RootGroup;
-                }
-
-                if (currentGroup == null)
-                {
-                    if (!db.LastSelectedGroup.Equals(PwUuid.Zero)) { currentGroup = db.RootGroup.FindGroup(db.LastSelectedGroup, true); }
-                }
+                _db.LastSelectedGroup = _db.RootGroup.Uuid;
+                _currentGroup = _db.RootGroup;
             }
-            return currentGroup;
+            else
+                _currentGroup = group;
+            return _currentGroup.Name;
         }
-
-        set
+        else 
         {
-            if (value == null) { Debug.Assert(false); throw new ArgumentNullException("value"); }
-            if (value is PwGroup group)
-            {
-                db.LastSelectedGroup = group.Uuid;
-                if (db.RootGroup.Uuid == db.LastSelectedGroup || db.LastSelectedGroup.Equals(PwUuid.Zero))
-                {
-                    db.LastSelectedGroup = db.RootGroup.Uuid;
-                    currentGroup = db.RootGroup;
-                }
-                else
-                    currentGroup = group;
-            }
+            throw new ArgumentException("Item must be a group", nameof(item));
         }
     }
 
-    public void SetCurrentToParent()
-    {
-        if (!CurrentGroup.GetUuid().Equals(RootGroup.GetUuid()))
-        {
-            CurrentGroup = db.CurrentGroup.ParentGroup;
-        }
-    }
-
-    public async Task SaveAsync()
+    private async Task SaveAsync()
     {
         Debug.WriteLine($"DataStore: SaveAsync _isBusy={_isBusy}");
-        _ = await GetItemsAsync();
+        await Task.FromResult(true);
     }
 
     public async Task<bool> AddItemAsync(Item item)
     {
-        if (item == null || currentGroup == null) { throw new ArgumentNullException(nameof(item)); }
+        if (item == null || _currentGroup == null) { throw new ArgumentNullException(nameof(item)); }
         //Items.Add(item);
         if (item.IsGroup)
         {
-            currentGroup.AddGroup(item as PwGroup, true);
+            _currentGroup.AddGroup(item as PwGroup, true);
         }
         else
         {
-            currentGroup.AddEntry(item as PwEntry, true);
+            _currentGroup.AddEntry(item as PwEntry, true);
         }
         await SaveAsync();
         return await Task.FromResult(true);
@@ -227,6 +205,7 @@ public class MockDataStore : IDataStore<Item>
         if (oldItem != null)
         {
             Items.Remove(oldItem);
+            await SaveAsync();
             return await Task.FromResult(true);
         }
         else
@@ -235,162 +214,28 @@ public class MockDataStore : IDataStore<Item>
         }
     }
 
-    public async Task<Item> GetItemFromCurrentGroupAsync(string id)
+    public Item? GetItem(string id)
     {
-        return await Task.FromResult(Items.FirstOrDefault(s => s.Id == id));
-    }
+        if (id == null) { throw new ArgumentNullException(nameof(id)); }
 
-    public Item GetItemFromCurrentGroup(string id)
-    {
-        return Items.FirstOrDefault(s => s.Id == id);
-    }
-
-    public Item FindGroup(string id)
-    {
-        return db.RootGroup.FindGroup(id, true);
-    }
-
-    public async Task<Item?> FindEntryByIdAsync(string id)
-    {
-        return await Task.Run(() => { return db.FindEntryById(id); });
-    }
-
-    public Item? FindEntryById(string id)
-    {
-        return db.FindEntryById(id);
-    }
-
-    public Item? GetItem(string id, bool SearchRecursive = false)
-    {
         var item = Items.FirstOrDefault(s => s.Id == id);
         if (item != null) { return item; }
 
-        if (SearchRecursive)
+        item = _db.FindEntryById(id);
+        if (item != null) { return item; }
+        else
         {
-            item = db.FindEntryById(id);
-            if (item != null) { return item; }
-            else
-            {
-                return FindGroup(id);
-            }
+            return _db.RootGroup.FindGroup(id, true);
         }
-        return item;
-    }
-
-    public async Task<Item?> GetItemAsync(string id)
-    {
-        if (id == null) { throw new ArgumentNullException(nameof(id)); }
-        return await Task.FromResult(GetItem(id));
     }
 
     public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
     {
-        if (currentGroup == null)
+        if (_currentGroup == null)
         {
             Debug.WriteLine($"MockDataStore: CurrentGroup is null!");
             return Enumerable.Empty<Item>();
         }
         return await Task.FromResult(Items);
-    }
-
-    /// <summary>
-    /// Search entries with a keyword
-    /// </summary>
-    /// <param name="strSearch">keyword to be searched</param>
-    /// <param name="itemGroup">If it is not null, this group is searched</param>
-    /// <returns>a list of entries</returns>
-    public async Task<IEnumerable<Item>> SearchEntriesAsync(string strSearch, Item itemGroup = null)
-    {
-        return await Task.Run(() => { return db.SearchEntries(strSearch, itemGroup); });
-    }
-
-    public async Task<IEnumerable<Item>> GetOtpEntryListAsync()
-    {
-        return await Task.Run(() => { return db.GetOtpEntryList(); });
-    }
-
-    public string GetStoreName()
-    {
-        return db.Name;
-    }
-
-    public DateTime GetStoreModifiedTime()
-    {
-        return db.DescriptionChanged;
-    }
-
-    /// <summary>
-    /// Get the list of custom icons.
-    /// </summary>
-    /// <returns>list of custom icons</returns>
-    public ObservableCollection<PxIcon> GetCustomIcons(string? searchText = null)
-    {
-        ObservableCollection<PxIcon> icons = new();
-        foreach (PwCustomIcon pwci in db.CustomIcons)
-        {
-            if ((searchText == null) || pwci.Name.Contains(searchText))
-            {
-                PxIcon icon = new PxIcon
-                {
-                    IconType = PxIconType.PxEmbeddedIcon,
-                    Uuid = pwci.Uuid,
-                    Name = pwci.Name,
-                };
-                icon.ImgSource = GetBuiltInImage(icon);
-                icons.Add(icon);
-            }
-        }
-
-        return icons;
-    }
-
-    /// <summary>
-    /// Delete a custom icon by uuid.
-    /// </summary>
-    /// <param name="icon">the custom icon</param>
-    /// <returns>success or failure</returns>
-    public async Task<bool> DeleteCustomIconAsync(PxIcon icon)
-    {
-        List<PwUuid> vUuidsToDelete = new List<PwUuid>();
-
-        if (icon.Uuid == null) { return false; }
-        vUuidsToDelete.Add(icon.Uuid);
-        bool result = db.DeleteCustomIcons(vUuidsToDelete);
-        if (result)
-        {
-            // Save the database to take effect
-            await SaveAsync();
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// Get the image source from the custom icon in the database
-    /// </summary>
-    /// <param name="uuid">UUID of custom icon</param>
-    /// <returns>ImageSource or null</returns>
-    public ImageSource GetBuiltInImage(PxIcon icon)
-    {
-        PwCustomIcon customIcon = db.GetPwCustomIcon(icon.Uuid);
-        if (customIcon != null)
-        {
-            byte[] pb = customIcon.ImageDataPng;
-            SKBitmap bitmap = PxItem.LoadImage(pb);
-            return PxItem.GetImageSource(bitmap);
-        }
-        return null;
-    }
-
-    public async Task<bool> MergeAsync(string path)
-    {
-        return await Task.Run(() =>
-        {
-            bool result = false;
-            if (db.IsOpen)
-            {
-                result = db.Merge(path, PwMergeMethod.KeepExisting);
-            }
-            return result;
-        });
     }
 }

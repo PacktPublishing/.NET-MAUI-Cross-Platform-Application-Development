@@ -27,7 +27,7 @@ namespace PassXYZ.Vault.ViewModels
             {
                 IsBusy = true;
 
-                if (string.IsNullOrWhiteSpace(Password))
+                if (string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Username))
                 {
                     await Shell.Current.DisplayAlert("", Properties.Resources.settings_empty_password, Properties.Resources.alert_id_ok);
                     IsBusy = false;
@@ -70,7 +70,6 @@ namespace PassXYZ.Vault.ViewModels
         {
             var canExecute = !String.IsNullOrWhiteSpace(Username)
                 && !String.IsNullOrWhiteSpace(Password);
-            _logger.LogDebug("ValidateLogin: {canExecute}", canExecute);
             return canExecute;
         }
 
@@ -79,11 +78,11 @@ namespace PassXYZ.Vault.ViewModels
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        private string username;
+        private string? username = default;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        private string password;
+        private string? password = default;
 
         public List<string> GetUsersList()
         {

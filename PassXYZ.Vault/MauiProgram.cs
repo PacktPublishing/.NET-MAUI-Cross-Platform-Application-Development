@@ -32,14 +32,14 @@ public static class MauiProgram
         builder.Services.AddSingleton<LoginService>();
         builder.Services.AddSingleton<LoginViewModel>();
         builder.Services.AddSingleton<LoginPage>();
-        builder.Services.AddSingleton<ItemsViewModel>();
-        builder.Services.AddSingleton<ItemsPage>();
         builder.Services.AddSingleton<ItemDetailViewModel>();
         builder.Services.AddSingleton<ItemDetailPage>();
         builder.Services.AddSingleton<NewItemViewModel>();
         builder.Services.AddSingleton<NewItemPage>();
         builder.Services.AddSingleton<AboutViewModel>();
         builder.Services.AddSingleton<AboutPage>();
+        builder.Services.AddTransient<ItemsViewModel>();
+        builder.Services.AddTransient<ItemsPage>();
 
         return builder.Build();
 	}

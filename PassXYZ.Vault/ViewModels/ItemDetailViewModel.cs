@@ -52,10 +52,10 @@ public partial class ItemDetailViewModel : BaseViewModel
         logger.LogDebug("OnItemSelecteion is invoked.");
     }
 
-    public async Task LoadItemId(string itemId)
+    public void LoadItemId(string itemId)
     {
         if (itemId == null) { throw new ArgumentNullException(nameof(itemId)); }
-        var item = await dataStore.GetItemAsync(itemId);
+        var item = dataStore.GetItem(itemId);
         if (item == null) { throw new NullReferenceException(itemId); }
         Id = item.Id;
         Title = item.Name;

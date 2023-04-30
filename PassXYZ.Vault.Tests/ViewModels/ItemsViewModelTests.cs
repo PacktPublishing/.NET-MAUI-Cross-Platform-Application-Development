@@ -48,21 +48,20 @@ namespace PassXYZ.Vault.Tests.ViewModels
         }
 
         [Fact]
-        public async void ItemSelectionChangedTest()
+        public async void SelectEntryTest()
         {
             // Arrange
-            Item newItem = new NewItem()
+            Item newItem = new PxEntry()
             {
                 Name = "New item 1",
-                Notes = "This is a new item."
+                Notes = "This is a new item.",
             };
             ItemsViewModel vm = new(dataStore, logger);
             await shell.GoToAsync("//About/Readme/");
             // Act
             vm.ItemSelectionChangedCommand.Execute(newItem);
             // Assert
-            Assert.NotNull(vm.SelectedItem);
-            Assert.Equal(vm.SelectedItem.Name, newItem.Name);
+            Assert.Null(vm.SelectedItem);
         }
 
         [Fact]

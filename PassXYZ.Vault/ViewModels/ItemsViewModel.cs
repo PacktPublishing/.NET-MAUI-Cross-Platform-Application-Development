@@ -9,6 +9,7 @@ using PassXYZ.Vault.Views;
 
 namespace PassXYZ.Vault.ViewModels
 {
+    [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public partial class ItemsViewModel : BaseViewModel
     {
         readonly IDataStore<Item> dataStore;
@@ -49,15 +50,19 @@ namespace PassXYZ.Vault.ViewModels
                 return;
             }
             logger.LogDebug($"Selected item is {item.Name}");
-            SelectedItem = item;
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            if (item.IsGroup)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ItemsPage)}?{nameof(ItemsViewModel.ItemId)}={item.Id}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            }
         }
 
         [RelayCommand]
         private async Task LoadItems()
         {
-            logger.LogDebug($"IsBusy={IsBusy}");
-
             try
             {
                 Items.Clear();
@@ -66,6 +71,7 @@ namespace PassXYZ.Vault.ViewModels
                 {
                     Items.Add(item);
                 }
+                logger.LogDebug($"IsBusy={IsBusy}, added {Items.Count()} items");
             }
             catch (Exception ex)
             {
@@ -78,10 +84,51 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
+        public string ItemId
+        {
+            get
+            {
+                return selectedItem == null ? string.Empty : selectedItem.Id;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    selectedItem = null;
+                }
+                else
+                {
+                    var item = dataStore.GetItem(value);
+                    if (item != null)
+                    {
+                        selectedItem = item;
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException(nameof(ItemId), "cannot find the selected item");
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// The logic of navigation is implemented here.
+        /// The current group is set here according to the selected item.
+        /// </summary>
         public void OnAppearing()
         {
+            if (SelectedItem == null)
+            {
+                // If SelectedItem is null, this is the root group.
+                Title = dataStore.SetCurrentGroup();
+            }
+            else
+            {
+                Title = dataStore.SetCurrentGroup(selectedItem);
+            }
+            // load items
+            logger.LogDebug($"Loading group {Title}");
             IsBusy = true;
-            SelectedItem = null;
         }
     }
 }

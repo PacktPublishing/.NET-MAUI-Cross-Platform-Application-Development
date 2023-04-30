@@ -137,21 +137,21 @@ namespace PassXYZ.Vault.Tests.Services
             };
             var result = await dataStore.AddItemAsync(newItem);
             Assert.True(result);
-            var item = await dataStore.GetItemAsync(newItem.Id);
+            var item = dataStore.GetItem(newItem.Id);
             Assert.NotNull(item);
             Assert.Equal(newItem.Name, item.Name);
         }
 
         [Fact]
-        public async void GetNullItemAsyncTest()
+        public void GetNullItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
-            var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => await dataStore.GetItemAsync(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => dataStore.GetItem(null));
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);
         }
 
         [Fact]
-        public async void GetNoExistItemAsyncTest()
+        public void GetNoExistItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
             Item newItem = new NewItem()
@@ -159,7 +159,7 @@ namespace PassXYZ.Vault.Tests.Services
                 Name = "No item 1",
                 Notes = "You cannot find this item."
             };
-            var result = await dataStore.GetItemAsync(newItem.Id);
+            var result = dataStore.GetItem(newItem.Id);
             Assert.Null(result);
         }
     }

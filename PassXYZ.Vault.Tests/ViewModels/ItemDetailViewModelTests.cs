@@ -30,7 +30,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
             foreach (var item in items)
             {
                 // Act
-                await vm.LoadItemId(item.Id);
+                vm.LoadItemId(item.Id);
                 // Assert
                 Assert.Equal(item.Name, vm.Title);
             }
@@ -55,7 +55,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         public async void LoadItemIdFailureTest() 
         {
             ItemDetailViewModel vm = new(dataStore, logger);
-            var ex = await Assert.ThrowsAsync<ArgumentNullException>(() => vm.LoadItemId(null));
+            var ex = Assert.Throws<ArgumentNullException>(() => vm.LoadItemId(null));
             Assert.Equal("Value cannot be null. (Parameter 'itemId')", ex.Message);
         }
         [Fact]
@@ -63,7 +63,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         {
             ItemDetailViewModel vm = new(dataStore, logger);
             string uuid = Guid.NewGuid().ToString();
-            var ex = await Assert.ThrowsAsync<NullReferenceException>(() => vm.LoadItemId(uuid));
+            var ex = Assert.Throws<NullReferenceException>(() => vm.LoadItemId(uuid));
             logger.LogDebug(ex.Message);
             Assert.Equal(uuid, ex.Message);
         }
