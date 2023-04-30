@@ -83,7 +83,7 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public override async void OnItemSelecteion(object sender)
+        public override async void OnSelection(object sender)
         {
             Item? item = sender as Item;
             if (item == null)

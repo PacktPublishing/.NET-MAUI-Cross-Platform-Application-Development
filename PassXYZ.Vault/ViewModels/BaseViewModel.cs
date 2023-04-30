@@ -13,9 +13,9 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand]
         private void ItemSelectionChanged(object sender)
         {
-            OnItemSelecteion(sender);
+            OnSelection(sender);
         }
 
-        public abstract void OnItemSelecteion(object sender);
+        public abstract void OnSelection(object sender);
     }
 }
