@@ -28,8 +28,6 @@ public partial class AppShell : Shell
     /// </summary>
     private async void OnMenuItemClicked(object sender, EventArgs e)
     {
-        Debug.WriteLine("AppShell: Logout");
-
         await Current.GoToAsync("//LoginPage");
     }
 
