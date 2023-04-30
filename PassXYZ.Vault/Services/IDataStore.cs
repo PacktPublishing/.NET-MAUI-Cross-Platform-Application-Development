@@ -11,5 +11,6 @@ namespace PassXYZ.Vault.Services
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
         string SetCurrentGroup(T? group = default);
         Task<bool> ConnectAsync(User user);
+        T? CreateNewItem(ItemSubType type);
     }
 }

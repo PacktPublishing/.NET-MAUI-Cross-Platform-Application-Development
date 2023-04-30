@@ -99,16 +99,10 @@ public class DataStore : IDataStore<Item>
         }
     }
 
-    private async Task SaveAsync()
-    {
-        Debug.WriteLine($"DataStore: SaveAsync _isBusy={_isBusy}");
-        await Task.FromResult(true);
-    }
-
     public async Task<bool> AddItemAsync(Item item)
     {
         if (item == null || _currentGroup == null) { throw new ArgumentNullException(nameof(item)); }
-        //Items.Add(item);
+
         if (item.IsGroup)
         {
             _currentGroup.AddGroup(item as PwGroup, true);
@@ -117,7 +111,7 @@ public class DataStore : IDataStore<Item>
         {
             _currentGroup.AddEntry(item as PwEntry, true);
         }
-        await SaveAsync();
+        await _db.SaveAsync();
         return await Task.FromResult(true);
     }
 
@@ -128,7 +122,7 @@ public class DataStore : IDataStore<Item>
         if (oldItem != null) 
         {
             item.LastModificationTime = DateTime.UtcNow;
-            await SaveAsync();
+            await _db.SaveAsync();
             return await Task.FromResult(true);
         }
         else
@@ -146,7 +140,7 @@ public class DataStore : IDataStore<Item>
         if (oldItem != null)
         {
             Items.Remove(oldItem);
-            await SaveAsync();
+            await _db.SaveAsync();
             return await Task.FromResult(true);
         }
         else
@@ -196,5 +190,45 @@ public class DataStore : IDataStore<Item>
             }
             return _db.IsOpen;
         });
+    }
+
+    /// <summary>
+    /// This is a factory method to create a new item.
+    /// </summary>
+    /// <param name="type">type of item</param>
+    /// <returns>an instance of PwEntry or PwGroup</returns>
+    public Item? CreateNewItem(ItemSubType type)
+    {
+        Item? newItem = default;
+
+        if (type == ItemSubType.Group)
+        {
+            newItem = new PwGroup(true, true);
+        }
+        else if (type != ItemSubType.None)
+        {
+            PwEntry entry = new PwEntry(true, true);
+            entry.SetType(type);
+
+            // Init standard field
+            if (type == ItemSubType.Entry)
+            {
+                entry.Strings.Set(PwDefs.UserNameField, new ProtectedString(false, ""));
+                entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, ""));
+                entry.Strings.Set(PwDefs.UrlField, new ProtectedString(false, ""));
+            }
+            else if (type == ItemSubType.PxEntry)
+            {
+                uint idx = 0;
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_username, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_password, idx++), new ProtectedString(true, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_url, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_email, idx++), new ProtectedString(false, ""));
+                entry.Strings.Set(PxDefs.EncodeKey(Properties.Resources.field_id_mobile, idx++), new ProtectedString(false, ""));
+            }
+
+            newItem = entry;
+        }
+        return newItem;
     }
 }

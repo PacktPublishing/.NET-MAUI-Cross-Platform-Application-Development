@@ -2,8 +2,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using KPCLib;
 
+using KPCLib;
+using PassXYZLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
 
@@ -38,7 +39,48 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand]
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            string[] templates = {
+                Properties.Resources.item_subtype_group,
+                Properties.Resources.item_subtype_entry,
+                Properties.Resources.item_subtype_notes,
+                Properties.Resources.item_subtype_pxentry
+            };
+
+            var template = await Shell.Current.DisplayActionSheet(Properties.Resources.pt_id_choosetemplate, Properties.Resources.action_id_cancel, null, templates);
+            ItemSubType type;
+            if (template == Properties.Resources.item_subtype_entry)
+            {
+                type = ItemSubType.Entry;
+            }
+            else if (template == Properties.Resources.item_subtype_pxentry)
+            {
+                type = ItemSubType.PxEntry;
+            }
+            else if (template == Properties.Resources.item_subtype_group)
+            {
+                type = ItemSubType.Group;
+            }
+            else if (template == Properties.Resources.item_subtype_notes)
+            {
+                type = ItemSubType.Notes;
+            }
+            else if (template == Properties.Resources.action_id_cancel)
+            {
+                type = ItemSubType.None;
+            }
+            else
+            {
+                type = ItemSubType.None;
+            }
+
+            if (type != ItemSubType.None)
+            {
+                var itemType = new Dictionary<string, object>
+                {
+                    { "Type", type }
+                };
+                await Shell.Current.GoToAsync(nameof(NewItemPage), itemType);
+            }
         }
 
         public override async void OnItemSelecteion(object sender)
@@ -49,7 +91,7 @@ namespace PassXYZ.Vault.ViewModels
                 logger.LogWarning("item is null.");
                 return;
             }
-            logger.LogDebug($"Selected item is {item.Name}");
+
             if (item.IsGroup)
             {
                 await Shell.Current.GoToAsync($"{nameof(ItemsPage)}?{nameof(ItemsViewModel.ItemId)}={item.Id}");
@@ -127,7 +169,6 @@ namespace PassXYZ.Vault.ViewModels
                 Title = dataStore.SetCurrentGroup(selectedItem);
             }
             // load items
-            logger.LogDebug($"Loading group {Title}");
             IsBusy = true;
         }
     }
