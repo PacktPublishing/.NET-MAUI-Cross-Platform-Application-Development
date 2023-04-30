@@ -27,7 +27,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 		builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
-        builder.Services.AddSingleton<IDataStore<Item>, MockDataStore>();
+        builder.Services.AddSingleton<IDataStore<Item>, DataStore>();
         builder.Services.AddSingleton<IUserService<User>, UserService>();
         builder.Services.AddSingleton<LoginService>();
         builder.Services.AddSingleton<LoginViewModel>();

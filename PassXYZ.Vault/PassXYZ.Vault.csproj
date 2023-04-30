@@ -49,8 +49,32 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="data\icons.zip" />
+    <None Remove="data\ic_passxyz_cloud.png" />
+    <None Remove="data\ic_passxyz_disabled.png" />
+    <None Remove="data\ic_passxyz_local.png" />
+    <None Remove="data\ic_passxyz_sync.png" />
+    <None Remove="data\ic_passxyz_synced.png" />
+    <None Remove="data\pass_d_E8f4pEk.xyz" />
+    <None Remove="data\pass_e_JyHzpRxcopt.xyz" />
+    <None Remove="data\pass_k_JyHzpRxcopt.k4xyz" />
+  </ItemGroup>
 
-	<ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="data\icons.zip" />
+    <EmbeddedResource Include="data\ic_passxyz_cloud.png" />
+    <EmbeddedResource Include="data\ic_passxyz_disabled.png" />
+    <EmbeddedResource Include="data\ic_passxyz_local.png" />
+    <EmbeddedResource Include="data\ic_passxyz_sync.png" />
+    <EmbeddedResource Include="data\ic_passxyz_synced.png" />
+    <EmbeddedResource Include="data\pass_d_E8f4pEk.xyz" />
+    <EmbeddedResource Include="data\pass_e_JyHzpRxcopt.xyz" />
+    <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="PassXYZLib" Version="2.0.2" />
 	</ItemGroup>
 

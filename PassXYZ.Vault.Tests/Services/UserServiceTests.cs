@@ -17,7 +17,7 @@ namespace PassXYZ.Vault.Tests.Services
                 .AddConsole()
                 .SetMinimumLevel(LogLevel.Debug));
             logger = loggerFactory.CreateLogger<UserService>();
-            dataStore = new MockDataStore();
+            dataStore = new DataStore();
         }
 
         [Fact]

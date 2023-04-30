@@ -47,10 +47,10 @@ public class UserService : IUserService<User>
 
     public async Task<bool> LoginAsync(User user)
     {
-        if (user == null) { throw new ArgumentNullException("user"); }
+        if (user == null) { throw new ArgumentNullException(nameof(user), "User cannot be null"); }
         _user = user;
 
-        return true;
+        return await dataStore.ConnectAsync(user);
     }
 
     public void Logout() 

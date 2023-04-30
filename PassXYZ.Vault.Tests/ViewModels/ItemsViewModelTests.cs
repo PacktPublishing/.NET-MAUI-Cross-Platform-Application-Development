@@ -34,7 +34,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
                 builder.AddConsole()
                 .SetMinimumLevel(LogLevel.Debug));
             logger = loggerFactory.CreateLogger<ItemsViewModel>();
-            dataStore = new MockDataStore();
+            dataStore = new DataStore();
         }
 
         [Fact]

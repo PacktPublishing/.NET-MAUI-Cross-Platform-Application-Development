@@ -1,8 +1,4 @@
-﻿using KeePassLib;
-using KPCLib;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using PassXYZLib;
 
 namespace PassXYZ.Vault.Services
 {
@@ -14,5 +10,6 @@ namespace PassXYZ.Vault.Services
         T? GetItem(string id);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
         string SetCurrentGroup(T? group = default);
+        Task<bool> ConnectAsync(User user);
     }
 }

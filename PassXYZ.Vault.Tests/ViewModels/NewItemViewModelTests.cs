@@ -19,7 +19,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         {
             using ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             logger = loggerFactory.CreateLogger<NewItemViewModel>();
-            dataStore = new MockDataStore();
+            dataStore = new DataStore();
 
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ContentPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));

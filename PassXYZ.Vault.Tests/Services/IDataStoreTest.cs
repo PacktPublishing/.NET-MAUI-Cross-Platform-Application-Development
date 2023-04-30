@@ -11,7 +11,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void GetItemsAsyncTest() 
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             var items = await dataStore.GetItemsAsync(true);
             Assert.NotEmpty(items);
         }
@@ -19,7 +19,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void AddGroupAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxGroup()
             {
                 Name = "New Group 1",
@@ -32,7 +32,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void AddEntryAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxEntry()
             {
                 Name = "New Entry 1",
@@ -45,7 +45,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void AddItemAsyncFailureTest() 
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             bool result = false;
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.AddItemAsync(null));
             Assert.Equal("Value cannot be null. (Parameter 'item')", ex.Message);
@@ -54,7 +54,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void UpdateItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxEntry()
             {
                 Name = "New item 1",
@@ -70,7 +70,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void UpdateNullItemAsyncTest() 
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             bool result = false;
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.UpdateItemAsync(null));
             Assert.Equal("Value cannot be null. (Parameter 'item')", ex.Message);
@@ -79,7 +79,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void UpdateNoExistItemAsyncTest() 
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new NewItem()
             {
                 Name = "No item 1",
@@ -92,7 +92,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void DeleteItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxEntry()
             {
                 Name = "New item 1",
@@ -107,7 +107,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void DeleteNullItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             bool result = false;
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.DeleteItemAsync(null));
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);
@@ -116,7 +116,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void DeleteNoExistItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxEntry()
             {
                 Name = "No item 1",
@@ -129,7 +129,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public async void GetItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new PxEntry()
             {
                 Name = "New item 1",
@@ -145,7 +145,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public void GetNullItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             var ex = Assert.Throws<ArgumentNullException>(() => dataStore.GetItem(null));
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);
         }
@@ -153,7 +153,7 @@ namespace PassXYZ.Vault.Tests.Services
         [Fact]
         public void GetNoExistItemAsyncTest()
         {
-            IDataStore<Item> dataStore = new MockDataStore();
+            IDataStore<Item> dataStore = new DataStore();
             Item newItem = new NewItem()
             {
                 Name = "No item 1",

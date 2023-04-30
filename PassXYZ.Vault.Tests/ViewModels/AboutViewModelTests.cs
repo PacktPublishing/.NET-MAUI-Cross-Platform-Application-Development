@@ -20,7 +20,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
                 .SetMinimumLevel(LogLevel.Debug));
             var logger = loggerFactory.CreateLogger<UserService>();
             aboutViewModelLogger = loggerFactory.CreateLogger<AboutViewModel>();
-            dataStore = new MockDataStore();
+            dataStore = new DataStore();
             userService = new UserService(dataStore, logger);
         }
 
