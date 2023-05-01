@@ -102,6 +102,45 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
+        /// <summary>
+        /// Update an item. The item can be a group or an entry.
+        /// </summary>
+        /// <param name="item">an instance of Item</param>
+        public async void Update(Item item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            await Shell.Current.Navigation.PushAsync(new FieldEditPage(async (string k, string v, bool isProtected) => {
+                item.Name = k;
+                item.Notes = v;
+                await dataStore.UpdateItemAsync(item);
+            }, item.Name, item.Notes, true));
+        }
+
+        /// <summary>
+        /// Delete an item.
+        /// </summary>
+        /// <param name="item">an instance of Item</param>
+        public async Task Delete(Item item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            if (Items.Remove(item))
+            {
+                _ = await dataStore.DeleteItemAsync(item.Id);
+            }
+            else
+            {
+                throw new NullReferenceException("Delete item error");
+            }
+        }
+
         [RelayCommand]
         private async Task LoadItems()
         {

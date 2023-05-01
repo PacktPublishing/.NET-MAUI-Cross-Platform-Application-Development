@@ -1,3 +1,6 @@
+using PassXYZ.Vault.Resources.Styles;
+using PassXYZ.Vault.ViewModels;
+
 namespace PassXYZ.Vault.Views.Templates;
 
 /// <summary>
@@ -74,5 +77,95 @@ public partial class KeyValueView : ViewCell
             imageField.Source = value;
             SetValue(SourceProperty, value);
         }
+    }
+
+    public static readonly BindableProperty ParentPageProperty =
+        BindableProperty.Create(nameof(ParentPage), typeof(ContentPage), typeof(KeyValueView), default!,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var control = bindable as KeyValueView;
+            });
+    public ContentPage ParentPage
+    {
+        get { return (ContentPage)GetValue(ParentPageProperty); }
+        set
+        {
+            SetValue(ParentPageProperty, value);
+        }
+    }
+
+    protected void SetContextAction(MenuItem contextAction, EventHandler handler, string? path = default)
+    {
+        contextAction.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
+        if(path == null) 
+        {
+            if(handler == null) { throw new ArgumentNullException(nameof(handler)); }
+            contextAction.Clicked += handler;
+        }
+        else 
+        {
+            contextAction.SetBinding(MenuItem.CommandProperty, new Binding { Source = BindingContext, Path = path });
+        }
+        ContextActions.Add(contextAction);
+    }
+
+    protected static MenuItem GetEditMenu()
+    {
+        return new MenuItem
+        {
+            Text = Properties.Resources.action_id_edit,
+            IconImageSource = new FontImageSource
+            {
+                Glyph = FontAwesomeRegular.Edit,
+                FontFamily = "FontAwesomeRegular",
+                Color = Colors.Black,
+                Size = 32
+            }
+        };
+    }
+
+    protected static MenuItem GetDeleteMenu()
+    {
+        return new MenuItem
+        {
+            Text = Properties.Resources.action_id_delete,
+            IconImageSource = new FontImageSource
+            {
+                Glyph = FontAwesomeRegular.TrashAlt,
+                FontFamily = "FontAwesomeRegular",
+                Color = Colors.Black,
+                Size = 32
+            }
+        };
+    }
+
+    protected static MenuItem GetCopyMenu()
+    {
+        return new MenuItem
+        {
+            Text = Properties.Resources.action_id_copy,
+            IconImageSource = new FontImageSource
+            {
+                Glyph = FontAwesomeRegular.Copy,
+                FontFamily = "FontAwesomeRegular",
+                Color = Colors.Black,
+                Size = 32
+            }
+        };
+    }
+
+    protected static MenuItem GetShowMenu()
+    {
+        return new MenuItem
+        {
+            Text = Properties.Resources.action_id_show,
+            IconImageSource = new FontImageSource
+            {
+                Glyph = FontAwesomeRegular.Eye,
+                FontFamily = "FontAwesomeRegular",
+                Color = Colors.Black,
+                Size = 32
+            }
+        };
     }
 }

@@ -8,7 +8,7 @@
              xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
              x:DataType="local:ItemsViewModel"
-             x:Name="BrowseItemsPage">
+             x:Name="itemsPage">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" 
@@ -24,7 +24,9 @@
                   RowHeight="84">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Item">
-                    <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}" Source="{Binding ImgSource}"/>
+                    <template:ItemViewCell Key="{Binding Name}" 
+                                           Value="{Binding Description}" Source="{Binding ImgSource}"
+                                           ParentPage="{x:Reference itemsPage}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

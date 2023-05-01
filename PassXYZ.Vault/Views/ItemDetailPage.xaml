@@ -6,7 +6,8 @@
              x:Class="PassXYZ.Vault.Views.ItemDetailPage"
              xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
-             xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"  
+             xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"
+             x:Name="itemDetailPage"
              x:DataType="local:ItemDetailViewModel"
              Title="{Binding Title}">
 
@@ -41,7 +42,9 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Field">
-                    <template:KeyValueView Key="{Binding Key}" Value="{Binding Value}" Source="{Binding ImgSource}"/>
+                    <template:FieldViewCell Key="{Binding Key}" 
+                                            Value="{Binding Value}" Source="{Binding ImgSource}" 
+                                            ParentPage="{x:Reference itemDetailPage}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.Footer>
