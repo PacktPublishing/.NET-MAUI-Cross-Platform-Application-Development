@@ -80,7 +80,7 @@ public partial class ItemDetailViewModel : BaseViewModel
         if (item == null) { throw new NullReferenceException(itemId); }
         Id = item.Id;
         Title = item.Name;
-        Description = item.Description;
+        Description = item.GetNotesInHtml();
         _item = item;
 
         if (!item.IsGroup)
