@@ -22,9 +22,9 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-SemiBold.ttf", "OpenSansSemiBold");
 			});
-
+        builder.Services.AddMauiBlazorWebView();
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 		builder.Logging.SetMinimumLevel(LogLevel.Debug);
 #endif
         builder.Services.AddSingleton<IDataStore<Item>, DataStore>();
