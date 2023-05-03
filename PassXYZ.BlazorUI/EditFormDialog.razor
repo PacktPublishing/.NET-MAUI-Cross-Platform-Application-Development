@@ -1,0 +1,45 @@
+﻿@namespace PassXYZ.BlazorUI
+@typeparam TItem
+
+<div class="modal fade" id=@Id tabindex="-1" aria-labelledby="ModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModelLabel">@ModelData.Key</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <EditForm class="row gx-2 gy-3" Model="@ModelData"
+                    OnValidSubmit="@HandleValidSubmit">
+                    <DataAnnotationsValidator />
+
+                    @if (IsKeyEditingEnable)
+                    {
+                        <div class="form-group">
+                            <InputText id="Name" class="form-control" @oninput="KeyHandler" 
+                                placeholder=@KeyPlaceHolder @bind-Value="ModelData.Key" />
+                            <ValidationMessage For="() => ModelData.Key" />
+                        </div>
+                    }
+
+                    @ChildContent
+
+                    <div class="form-group">
+                        <InputTextArea id="Value" class="form-control" @oninput="KeyHandler" 
+                            placeholder=@ValuePlaceHolder @bind-Value="ModelData.Value" />
+                        <ValidationMessage For="() => ModelData.Value" />
+                    </div>
+
+                    <div class="col-12">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @onclick="OnClickClose">@CloseButtonText</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="@dataDismiss"
+                                @onclick="OnClickSave">
+                            @SaveButtonText
+                        </button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
