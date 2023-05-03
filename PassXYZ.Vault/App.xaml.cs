@@ -24,8 +24,12 @@ public partial class App : Application
     public App()
 	{
 		InitializeComponent();
-		MainPage = new AppShell();
-	}
+#if MAUI_BLAZOR
+        MainPage = new MainPage();
+#else
+        MainPage = new AppShell();
+#endif	
+    }
 
     protected override void OnStart()
     {
