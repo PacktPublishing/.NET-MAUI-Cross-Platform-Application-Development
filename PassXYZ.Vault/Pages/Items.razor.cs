@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 using KPCLib;
 using PassXYZLib;
 using PassXYZ.Vault.Services;
-using PassXYZ.Vault.ViewModels;
-using Microsoft.AspNetCore.Components.Web;
-using System.Collections.ObjectModel;
+using PassXYZ.Vault.Shared;
 
 namespace PassXYZ.Vault.Pages;
 
@@ -23,8 +23,16 @@ public partial class Items
     readonly ObservableCollection<Item> items;
     Item? selectedItem = default!;
 
+    NewItem newItem;
+    Item listGroupItem;
+    bool _isNewItem = false;
+    string _dialogEditId = "editModel";
+    string _dialogDeleteId = "deleteModel";
+
     public Items() 
     {
+        listGroupItem = newItem = new();
+
         items = new ObservableCollection<Item>();
     }
 
@@ -77,5 +85,48 @@ public partial class Items
             // Case 1: Set to Root Group
             await LoadGroup(null);
         }
+    }
+
+    private async void UpdateItemAsync(string key, string value)
+    {
+        if (listGroupItem == null) return;
+        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return;
+
+        listGroupItem.Name = key;
+        listGroupItem.Notes = value;
+
+        if (_isNewItem)
+        {
+            // Add new item
+            if (listGroupItem is NewItem aNewItem)
+            {
+                Item? newItem = DataStore.CreateNewItem(aNewItem.SubType);
+                if (newItem != null)
+                {
+                    newItem.Name = aNewItem.Name;
+                    newItem.Notes = aNewItem.Notes;
+                    items.Add(newItem);
+                    await DataStore.AddItemAsync(newItem);
+                }
+                Debug.WriteLine($"Items.AddNewItem: type={aNewItem.ItemType}, name={aNewItem.Name}, Notes={aNewItem.Notes}");
+            }
+        }
+        else 
+        {
+            // Update the current item
+            await DataStore.UpdateItemAsync(listGroupItem);
+            Debug.WriteLine($"Items.UpdateItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
+        }
+    }
+
+    private async void DeleteItemAsync()
+    {
+        if (listGroupItem == null) return;
+
+        if (items.Remove(listGroupItem)) 
+        {
+            _ = await DataStore.DeleteItemAsync(listGroupItem.Id);
+        }
+        Debug.WriteLine($"Items.DeleteItem: name={listGroupItem.Name}, Notes={listGroupItem.Notes}");
     }
 }
