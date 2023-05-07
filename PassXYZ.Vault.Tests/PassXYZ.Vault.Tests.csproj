@@ -41,8 +41,4 @@
     <ProjectReference Include="..\PassXYZ.BlazorUI\PassXYZ.BlazorUI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="BlazorUI\" />
-  </ItemGroup>
-
 </Project>
