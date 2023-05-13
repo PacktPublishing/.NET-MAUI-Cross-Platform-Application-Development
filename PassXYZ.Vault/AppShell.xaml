@@ -7,7 +7,7 @@
        x:Class="PassXYZ.Vault.AppShell" 
        FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
         Glyph={x:Static style:FontAwesomeSolid.Bars}}"
-       FlyoutBackgroundColor="{StaticResource LightGray}">
+       FlyoutBackgroundColor="{StaticResource Secondary}">
 
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
