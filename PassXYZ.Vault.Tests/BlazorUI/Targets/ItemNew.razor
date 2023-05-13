@@ -1,8 +1,8 @@
 ﻿@using System.Diagnostics
 @using KPCLib
 
-<EditorDialog Id=@id IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
-    Key=@testItem.Name Value=@testItem.Notes Title="Creating a new Item">
+<EditorDialog IsKeyEditingEnable=@IsNewItem OnSave=@OnSaveClicked
+    Key=@testItem.Name Value=@testItem.Notes>
     @if (IsNewItem)
     {
         <select @bind="testItem.ItemType" class="form-select" aria-label="Group">
