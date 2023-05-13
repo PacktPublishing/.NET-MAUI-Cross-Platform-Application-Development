@@ -8,9 +8,9 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="8606B3B5-C03C-41D7-825F-B33718CF791C"
-    Publisher="CN=Roger Ye (叶树杲)"
-    Version="0.3.1.0" />
+    Name="13783RogerYe.37906EDB75B0F"
+    Publisher="CN=F81DB40B-AF4A-473E-ADEA-A55EE7432C05"
+    Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="74832D54-DC81-40D7-A436-EE13D19C3125" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
