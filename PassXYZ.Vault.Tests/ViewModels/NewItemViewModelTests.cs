@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls.Core.UnitTests;
 using NSubstitute;
 using KPCLib;
+using PassXYZLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
 using PassXYZ.Vault.Views;
@@ -62,6 +63,12 @@ namespace PassXYZ.Vault.Tests.ViewModels
         public async void SaveNewItem()
         {
             // Arrange
+            var user = new User();
+            user.Username = "test1";
+            user.Password = "12345";
+            bool result = await dataStore.ConnectAsync(user);
+            Assert.True(result);
+            dataStore.SetCurrentGroup();
             await shell.GoToAsync("//About/Maui/");
             var items = await dataStore.GetItemsAsync(true);
             int Count1 = items.Count();
@@ -73,7 +80,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
             items = await dataStore.GetItemsAsync(true);
             int Count2 = items.Count();
             // Assert
-            Assert.Equal(Count1+1, Count2);
+            Assert.Equal(Count1 + 1, Count2);
         }
 
         [Fact]
