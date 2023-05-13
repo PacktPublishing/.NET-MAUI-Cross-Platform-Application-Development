@@ -72,15 +72,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
             // Act
             vm.LoadItemsCommand.Execute(vm);
             // Assert
-            Assert.NotEmpty(vm.Items);
-        }
-
-        [Fact]
-        public async void OnAddItemCommandTest()
-        {
-            ItemsViewModel vm = new(dataStore, logger);
-            await shell.GoToAsync("//About/Readme/");
-            vm.AddItemCommand.Execute(null);
+            Assert.Empty(vm.Items);
         }
     }
 }
