@@ -6,6 +6,7 @@ using KPCLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.ViewModels;
 using Microsoft.Maui.Controls;
+using System;
 
 namespace PassXYZ.Vault.Tests.ViewModels
 {
@@ -16,7 +17,7 @@ namespace PassXYZ.Vault.Tests.ViewModels
         readonly IDataStore<Item> dataStore;
         UserService userService;
 
-        public LoginViewModelTests() 
+        public LoginViewModelTests()
         {
             TestShell shell = new TestShell();
             var abougPage = new ShellItem { Route = "AboutPage" };
@@ -37,11 +38,12 @@ namespace PassXYZ.Vault.Tests.ViewModels
         }
 
         [Fact]
-        public void LoginCommandTest() 
+        public void LoginCommandTest()
         {
             var loginservice = new LoginService(userService);
             LoginViewModel vm = new(loginservice, loginViewModelLogger);
-            //vm.Password = "passowrd";
+            vm.Username = "test1";
+            vm.Password = "12345";
             //vm.LoginCommand.Execute(null);
         }
     }
