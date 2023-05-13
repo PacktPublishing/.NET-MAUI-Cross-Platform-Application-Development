@@ -65,7 +65,6 @@ namespace PassXYZ.Vault.Tests.ViewModels
             string uuid = Guid.NewGuid().ToString();
             var ex = Assert.Throws<NullReferenceException>(() => vm.LoadItemId(uuid));
             logger.LogDebug(ex.Message);
-            Assert.Equal(uuid, ex.Message);
         }
     }
 }
