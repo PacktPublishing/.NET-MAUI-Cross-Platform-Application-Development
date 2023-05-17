@@ -1,6 +1,6 @@
 # .NET MAUI Cross-Platform Application Development
 
-**Chapter02** - .NET MAUI MVVM Template
+**fingerprint** - feature branch of fingerprint support, created from tag `NET7_CH06_V1`
 
 ## How to build
 
@@ -23,3 +23,6 @@ We cannot build and run .NET MAUI app using Visual Studio for Mac yet. To build 
 #### Build a Mac Catalyst app with .NET CLI
 
 `dotnet build -t:Run -f net7.0-maccatalyst`
+
+Reference:
+- [mauibiometrics](https://github.com/cedricgabrang/mauibiometrics)
