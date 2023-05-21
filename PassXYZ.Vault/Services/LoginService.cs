@@ -19,15 +19,12 @@ public class LoginService : PxUser
         set => Preferences.Set(PrivacyNotice, value);
     }
 
-    private bool _isFingerprintEnabled = false;
-    public bool IsFingerprintEnabled => _isFingerprintEnabled;
-
     public LoginService(IUserService<User> userService)
     {
         _userService = userService;
     }
 
-    public async Task<bool> LoginAsync() 
+    public async Task<bool> LoginAsync()
     {
         return await _userService.LoginAsync(this);
     }
@@ -45,10 +42,6 @@ public class LoginService : PxUser
         if (string.IsNullOrWhiteSpace(Username)) { return string.Empty; }
 
         string data = await SecureStorage.GetAsync(Username);
-        if (string.IsNullOrEmpty(data))
-        {
-            _isFingerprintEnabled = true;
-        }
         return data;
     }
 
