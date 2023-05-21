@@ -33,7 +33,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="16" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
                     <!-- Row 1 (Username) -->
                     <Image Grid.Row="0" Grid.Column="0" IsVisible="False" HorizontalOptions="Start">
@@ -74,6 +74,17 @@
                                    Text="{Binding Password}"
                                    HorizontalOptions="Fill" 
                                    Grid.Row="1" Grid.Column="1" />
+                    <ImageButton x:Name="fpButton" Grid.Row="1" Grid.Column="2" 
+                                    VerticalOptions="End" IsVisible="{Binding IsFingerprintEnabled}"
+                                    Command="{Binding FingerprintLoginCommand}" 
+                                    BackgroundColor="White" BorderColor="White"
+                                    HeightRequest="32"  WidthRequest="32" BorderWidth="0">
+                        <ImageButton.Source>
+                            <FontImageSource FontFamily="FontAwesomeSolid"
+			                            Glyph="{x:Static styles:FontAwesomeSolid.Fingerprint}"
+			                            Color="{DynamicResource Primary}" />
+                        </ImageButton.Source>
+                    </ImageButton>
                     <!-- Row 3 (ActivityIndicator ) -->
                     <ActivityIndicator IsRunning="{Binding IsBusy}" Grid.Row="2" Grid.Column="1" IsVisible="{Binding IsBusy}" />
                     <!-- Row 4 (Login Button) -->

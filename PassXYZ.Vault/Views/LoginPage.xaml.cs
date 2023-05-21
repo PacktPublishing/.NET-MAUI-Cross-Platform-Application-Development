@@ -19,7 +19,6 @@ namespace PassXYZ.Vault.Views
             {
                 switchUsersButton.IsVisible = true;
             }
-
         }
 
         private async void OnSwitchUsersClicked(object sender, EventArgs e)

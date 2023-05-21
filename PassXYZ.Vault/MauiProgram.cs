@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using Plugin.Fingerprint.Abstractions;
+using Plugin.Fingerprint;
 using KPCLib;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
@@ -40,6 +42,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<AboutPage>();
         builder.Services.AddTransient<ItemsViewModel>();
         builder.Services.AddTransient<ItemsPage>();
+
+        builder.Services.AddSingleton(typeof(IFingerprint), CrossFingerprint.Current);
 
         return builder.Build();
 	}
