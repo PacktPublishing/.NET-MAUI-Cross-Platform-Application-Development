@@ -51,7 +51,13 @@ public static class TEST_DB
     {
             new EmbeddedDatabase(Path.Combine(PxDataFile.DataFilePath, "pass_d_E8f4pEk.xyz"), "12345", "PassXYZ.Vault.data.pass_d_E8f4pEk.xyz"),
             new EmbeddedDatabase(Path.Combine(PxDataFile.DataFilePath, "pass_e_JyHzpRxcopt.xyz"), "123123", "PassXYZ.Vault.data.pass_e_JyHzpRxcopt.xyz"),
-            new EmbeddedDatabase(Path.Combine(PxDataFile.KeyFilePath, "pass_k_JyHzpRxcopt.k4xyz"), "", "PassXYZ.Vault.data.pass_k_JyHzpRxcopt.k4xyz")
+            new EmbeddedDatabase(Path.Combine(PxDataFile.KeyFilePath, "pass_k_JyHzpRxcopt.k4xyz"), "", "PassXYZ.Vault.data.pass_k_JyHzpRxcopt.k4xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.DataFilePath, "pass_e_2TjEf1Dy9V2jiEgbS.xyz"), "123123", "PassXYZ.Vault.data.pass_e_2TjEf1Dy9V2jiEgbS.xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.KeyFilePath, "pass_k_2TjEf1Dy9V2jiEgbS.k4xyz"), "", "PassXYZ.Vault.data.pass_k_2TjEf1Dy9V2jiEgbS.k4xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.DataFilePath, "pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz"), "123123", "PassXYZ.Vault.data.pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.KeyFilePath, "pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz"), "", "PassXYZ.Vault.data.pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.DataFilePath, "pass_e_WCXaKYYvXygN3nVYW3u.xyz"), "123123", "PassXYZ.Vault.data.pass_e_WCXaKYYvXygN3nVYW3u.xyz"),
+            new EmbeddedDatabase(Path.Combine(PxDataFile.KeyFilePath, "pass_k_WCXaKYYvXygN3nVYW3u.k4xyz"), "", "PassXYZ.Vault.data.pass_k_WCXaKYYvXygN3nVYW3u.k4xyz"),
     };
 }
 
