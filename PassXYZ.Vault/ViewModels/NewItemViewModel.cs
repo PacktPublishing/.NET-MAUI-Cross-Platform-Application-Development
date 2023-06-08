@@ -11,15 +11,14 @@ namespace PassXYZ.Vault.ViewModels
     [QueryProperty(nameof(Type), nameof(Type))]
     public partial class NewItemViewModel : ObservableObject
     {
-        readonly IDataStore<Item>? dataStore;
-        ILogger<NewItemViewModel> logger;
+        readonly IDataStore<Item>? _dataStore;
+        ILogger<NewItemViewModel> _logger;
         private ItemSubType _type = ItemSubType.Group;
 
         public NewItemViewModel(IDataStore<Item> dataStore, ILogger<NewItemViewModel> logger)
         {
-            if (dataStore == null) { throw new ArgumentNullException(nameof(dataStore)); }
-            this.dataStore = dataStore;
-            this.logger = logger;
+            this._dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
+            this._logger = logger;
         }
 
         private void SetPlaceholder(ItemSubType type)
@@ -65,14 +64,14 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand(CanExecute = nameof(ValidateSave))]
         private async void Save()
         {
-            if(dataStore == null) { throw new ArgumentNullException("dataStore cannot be null"); }
-            Item? newItem = dataStore.CreateNewItem(_type);
+            if(_dataStore == null) { throw new ArgumentNullException("dataStore cannot be null"); }
+            Item? newItem = _dataStore.CreateNewItem(_type);
 
             if (newItem != null)
             {
                 newItem.Name = Name;
                 newItem.Notes = Description;
-                await dataStore.AddItemAsync(newItem);
+                await _dataStore.AddItemAsync(newItem);
             }
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
@@ -82,7 +81,7 @@ namespace PassXYZ.Vault.ViewModels
         {
             var canExecute = !String.IsNullOrWhiteSpace(Name)
                 && !String.IsNullOrWhiteSpace(Description);
-            logger.LogDebug("ValidateSave: {canExecute}", canExecute);
+            _logger.LogDebug("ValidateSave: {canExecute}", canExecute);
             return canExecute;
         }
     }
