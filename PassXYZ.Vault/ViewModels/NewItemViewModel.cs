@@ -8,14 +8,13 @@ namespace PassXYZ.Vault.ViewModels
 {
     public partial class NewItemViewModel : ObservableObject
     {
-        readonly IDataStore<Item>? dataStore;
-        ILogger<NewItemViewModel> logger;
+        readonly IDataStore<Item>? _dataStore;
+        readonly ILogger<NewItemViewModel> _logger;
 
         public NewItemViewModel(IDataStore<Item> dataStore, ILogger<NewItemViewModel> logger)
         {
-            if (dataStore == null) { throw new ArgumentNullException(nameof(dataStore)); }
-            this.dataStore = dataStore;
-            this.logger = logger;
+            this._dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
+            this._logger = logger;
         }
 
         [ObservableProperty]
@@ -36,7 +35,9 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand(CanExecute = nameof(ValidateSave))]
         private async void Save()
         {
-            logger.LogDebug("Save: Name: {name}", Name);
+            if (_dataStore == null) { throw new NullReferenceException("_dataStore is null"); }
+
+            _logger.LogDebug("Save: Name: {name}", Name);
             Item newItem = new()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -44,7 +45,7 @@ namespace PassXYZ.Vault.ViewModels
                 Description = Description
             };
 
-            _ = await dataStore.AddItemAsync(newItem);
+            _ = await _dataStore.AddItemAsync(newItem);
             Name = string.Empty;
             Description = string.Empty;
 
@@ -56,7 +57,7 @@ namespace PassXYZ.Vault.ViewModels
         {
             var canExecute = !String.IsNullOrWhiteSpace(Name)
                 && !String.IsNullOrWhiteSpace(Description);
-            logger.LogDebug("ValidateSave: {canExecute}", canExecute);
+            _logger.LogDebug("ValidateSave: {canExecute}", canExecute);
             return canExecute;
         }
     }
