@@ -27,6 +27,8 @@ public partial class KeyValueView : ViewCell
                 var control = bindable as KeyValueView;
                 var changingFrom = oldValue as string;
                 var changingTo = newValue as string;
+                if(control == null) { throw new NullReferenceException(nameof(control)); }
+                if(changingTo == null) { throw new NullReferenceException(nameof(changingTo)); }
                 control.Key = changingTo;
             });
 
@@ -47,6 +49,8 @@ public partial class KeyValueView : ViewCell
                 var control = bindable as KeyValueView;
                 var changingFrom = oldValue as string;
                 var changingTo = newValue as string;
+                if (control == null) { throw new NullReferenceException(nameof(control)); }
+                if (changingTo == null) { throw new NullReferenceException(nameof(changingTo)); }
                 control.Value = changingTo;
             });
 
@@ -67,6 +71,8 @@ public partial class KeyValueView : ViewCell
                 var control = bindable as KeyValueView;
                 var changingFrom = oldValue as ImageSource;
                 var changingTo = newValue as ImageSource;
+                if (control == null) { throw new NullReferenceException(nameof(control)); }
+                if (changingTo == null) { throw new NullReferenceException(nameof(changingTo)); }
                 control.Source = changingTo;
             });
     public ImageSource Source 
