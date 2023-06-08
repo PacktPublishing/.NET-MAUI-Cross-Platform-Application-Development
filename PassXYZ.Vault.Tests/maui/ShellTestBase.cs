@@ -15,6 +15,8 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 {
     public class ShellTestBase : BaseTestFixture
     {
+#pragma warning disable CS8604 // Possible null reference argument.
+#pragma warning disable CS8603 // Possible null reference argument.
         public ShellTestBase()
         {
             //AppInfo.SetCurrent(new MockAppInfo());
@@ -92,24 +94,24 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         [QueryProperty("ComplexObject", "ComplexObject")]
         public class ShellTestPage : ContentPage
         {
-            public string CancelNavigationOnBackButtonPressed { get; set; }
+            public string? CancelNavigationOnBackButtonPressed { get; set; }
             public ShellTestPage()
             {
             }
 
-            public string SomeQueryParameter
+            public string? SomeQueryParameter
             {
                 get;
                 set;
             }
 
-            public double DoubleQueryParameter
+            public double? DoubleQueryParameter
             {
                 get;
                 set;
             }
 
-            public object ComplexObject
+            public object? ComplexObject
             {
                 get;
                 set;
@@ -133,11 +135,11 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         }
 
         protected ShellItem CreateShellItem(
-            TemplatedPage page = null,
+            TemplatedPage? page = null,
             bool asImplicit = false,
-            string shellContentRoute = null,
-            string shellSectionRoute = null,
-            string shellItemRoute = null,
+            string? shellContentRoute = null,
+            string? shellSectionRoute = null,
+            string? shellItemRoute = null,
             bool templated = false)
         {
             return CreateShellItem<ShellItem>(
@@ -150,14 +152,14 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         }
 
         protected T CreateShellItem<T>(
-            TemplatedPage page = null,
+            TemplatedPage? page = null,
             bool asImplicit = false,
-            string shellContentRoute = null,
-            string shellSectionRoute = null,
-            string shellItemRoute = null,
+            string? shellContentRoute = null,
+            string? shellSectionRoute = null,
+            string? shellItemRoute = null,
             bool templated = false) where T : ShellItem
         {
-            T item = null;
+            T? item = null;
             var section = CreateShellSection(page, asImplicit, shellContentRoute, shellSectionRoute, templated: templated);
 
             if (!String.IsNullOrWhiteSpace(shellItemRoute))
@@ -178,10 +180,10 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         }
 
         protected ShellSection CreateShellSection(
-            TemplatedPage page = null,
+            TemplatedPage? page = null,
             bool asImplicit = false,
-            string shellContentRoute = null,
-            string shellSectionRoute = null,
+            string? shellContentRoute = null,
+            string? shellSectionRoute = null,
             bool templated = false)
         {
             return CreateShellSection<ShellSection>(
@@ -193,15 +195,15 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         }
 
         protected T CreateShellSection<T>(
-            TemplatedPage page = null,
+            TemplatedPage? page = null,
             bool asImplicit = false,
-            string shellContentRoute = null,
-            string shellSectionRoute = null,
+            string? shellContentRoute = null,
+            string? shellSectionRoute = null,
             bool templated = false) where T : ShellSection
         {
             var content = CreateShellContent(page, asImplicit, shellContentRoute, templated: templated);
 
-            T section = null;
+            T? section = null;
 
             if (!String.IsNullOrWhiteSpace(shellSectionRoute))
             {
@@ -220,9 +222,9 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
             return section;
         }
 
-        protected ShellContent CreateShellContent(TemplatedPage page = null, bool asImplicit = false, string shellContentRoute = null, bool templated = false)
+        protected ShellContent CreateShellContent(TemplatedPage? page = null, bool asImplicit = false, string? shellContentRoute = null, bool templated = false)
         {
-            ShellContent content = null;
+            ShellContent? content = null;
 
             if (!String.IsNullOrWhiteSpace(shellContentRoute))
             {
@@ -306,8 +308,8 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
             public int NavigatedCount;
             public int NavigatingCount;
             public int OnBackButtonPressedCount;
-            public ShellNavigatedEventArgs LastShellNavigatedEventArgs;
-            public ShellNavigatingEventArgs LastShellNavigatingEventArgs;
+            public ShellNavigatedEventArgs? LastShellNavigatedEventArgs;
+            public ShellNavigatingEventArgs? LastShellNavigatingEventArgs;
 
             public IShellController Controller => this;
 
@@ -359,7 +361,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
             public class ConcretePageFactory : RouteFactory
             {
-                ContentPage _contentPage;
+                readonly ContentPage _contentPage;
 
                 public ConcretePageFactory(ContentPage contentPage)
                 {
@@ -371,7 +373,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
                 public override Element GetOrCreate() => _contentPage;
             }
 
-            public Action<ShellNavigatedEventArgs> OnNavigatedHandler { get; set; }
+            public Action<ShellNavigatedEventArgs>? OnNavigatedHandler { get; set; }
             protected override void OnNavigated(ShellNavigatedEventArgs args)
             {
                 LastShellNavigatedEventArgs = args;
@@ -405,6 +407,8 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
             public void TestNavigatedArgs(ShellNavigationSource source, string from, string to)
             {
+                if(LastShellNavigatedEventArgs==null) { throw new NullReferenceException("LastShellNavigatedEventArgs is null"); }
+
                 Assert.Equal(source, this.LastShellNavigatedEventArgs.Source);
 
                 if (from == null)
@@ -418,6 +422,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
             public void TestNavigatingArgs(ShellNavigationSource source, string from, string to)
             {
+                if (LastShellNavigatingEventArgs == null) { throw new NullReferenceException("LastShellNavigatingEventArgs is null"); }
                 Assert.Equal(source, this.LastShellNavigatingEventArgs.Source);
 
                 if (from == null)
@@ -428,7 +433,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
                 Assert.Equal(to, this.LastShellNavigatingEventArgs.Target.Location.ToString());
             }
 
-            public Func<bool> OnBackButtonPressedFunc;
+            public Func<bool>? OnBackButtonPressedFunc;
             protected override bool OnBackButtonPressed()
             {
                 var result = OnBackButtonPressedFunc?.Invoke() ?? false;
@@ -450,7 +455,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
                     OnBackButtonPressedCount = 0;
             }
 
-            public void TestCount(int count, string message = null)
+            public void TestCount(int count, string? message = null)
             {
                 Assert.True(count == OnNavigatedCount, $"OnNavigatedCount: {message}");
                 Assert.True(count == NavigatingCount, $"NavigatingCount: {message}");
@@ -471,17 +476,17 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
         public class TestShellViewModel : INotifyPropertyChanged
         {
-            private string _text;
+            private string? _text;
 
-            public event PropertyChangedEventHandler PropertyChanged;
+            public event PropertyChangedEventHandler? PropertyChanged;
 
-            public TestShellViewModel SubViewModel { get; set; }
+            public TestShellViewModel? SubViewModel { get; set; }
 
-            public TestShellViewModel SubViewModel2 { get; set; }
+            public TestShellViewModel? SubViewModel2 { get; set; }
 
             public string Text
             {
-                get => _text;
+                get => _text ?? throw new NullReferenceException("Text cannot be null");
                 set
                 {
                     _text = value;
@@ -506,8 +511,8 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
 
         public class PageWithDependencyAndMultipleConstructors : ContentPage
         {
-            public Dependency TestDependency { get; set; }
-            public UnregisteredDependency OtherTestDependency { get; set; }
+            public Dependency? TestDependency { get; set; }
+            public UnregisteredDependency? OtherTestDependency { get; set; }
 
             public PageWithDependencyAndMultipleConstructors(Dependency dependency)
             {
@@ -547,5 +552,7 @@ namespace Microsoft.Maui.Controls.Core.UnitTests
         {
             public int Test { get; set; }
         }
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8603 // Possible null reference argument.
     }
 }

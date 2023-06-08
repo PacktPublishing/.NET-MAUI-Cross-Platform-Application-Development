@@ -65,7 +65,7 @@ public class DataStore : IDataStore<Item>
 {
     private readonly PasswordDb _db = default!;
     private PwGroup? _currentGroup = null;
-    private bool _isBusy = false;
+
     public DataStore()
     {
         _db = PasswordDb.Instance;
@@ -77,7 +77,7 @@ public class DataStore : IDataStore<Item>
     /// Set the current group.
     /// If the group is null, set to root group.
     /// </summary>
-    /// <param name="group">an instance of <c>PwGroup</c></param>
+    /// <param name="item">an instance of <c>PwGroup</c></param>
     /// <returns>Returns the current group name</returns>
     public string SetCurrentGroup(Item? item = default)
     {

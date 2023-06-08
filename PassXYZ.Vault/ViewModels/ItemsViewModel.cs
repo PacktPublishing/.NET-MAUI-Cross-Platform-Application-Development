@@ -169,20 +169,20 @@ namespace PassXYZ.Vault.ViewModels
         {
             get
             {
-                return selectedItem == null ? string.Empty : selectedItem.Id;
+                return SelectedItem == null ? string.Empty : SelectedItem.Id;
             }
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    selectedItem = null;
+                    SelectedItem = null;
                 }
                 else
                 {
                     var item = dataStore.GetItem(value);
                     if (item != null)
                     {
-                        selectedItem = item;
+                        SelectedItem = item;
                     }
                     else
                     {
@@ -205,7 +205,7 @@ namespace PassXYZ.Vault.ViewModels
             }
             else
             {
-                Title = dataStore.SetCurrentGroup(selectedItem);
+                Title = dataStore.SetCurrentGroup(SelectedItem);
             }
             // load items
             IsBusy = true;
