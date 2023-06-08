@@ -20,6 +20,6 @@
     async Task<bool> OnSave() 
     {
         Debug.WriteLine("ConfirmDialog.OnSave");
-        return true;
+        return await Task.FromResult(true);
     }
 }

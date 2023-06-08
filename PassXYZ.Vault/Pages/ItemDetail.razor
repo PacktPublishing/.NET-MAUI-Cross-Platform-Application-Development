@@ -67,8 +67,13 @@
         }
     }
 </div>
+@{
+#pragma warning disable
+}
 <div class="container"><article>@((MarkupString)notes)</article></div>
-
+@{
+#pragma warning restore
+}
 <!-- Editing Modal -->
 <CascadingValue Value="@_dialogEditId" Name="Id">
     <EditorDialog @bind-Key="listGroupField.Key" @bind-Value="listGroupField.EditValue"

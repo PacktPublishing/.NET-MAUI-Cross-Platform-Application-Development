@@ -17,6 +17,6 @@
     {
         Debug.WriteLine($"ConfirmDialog: DialogId={Id} confirm clicked");
         OnConfirmClick?.Invoke();
-        return true;
+        return await Task.FromResult(true);
     }
 }

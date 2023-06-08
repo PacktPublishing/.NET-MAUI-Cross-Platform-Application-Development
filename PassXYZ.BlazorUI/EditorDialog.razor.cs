@@ -78,7 +78,7 @@ public partial class EditorDialog
     {
         OnSave?.Invoke(Key, Value);
         Debug.WriteLine($"EditorDialog: OnSaveClicked(key={Key}, value={Value})");
-        return true;
+        return await Task.FromResult(true);
     }
 
     void OnCloseClicked() 
