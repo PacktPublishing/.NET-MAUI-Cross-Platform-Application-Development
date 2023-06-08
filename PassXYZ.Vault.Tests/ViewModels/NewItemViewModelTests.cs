@@ -91,9 +91,11 @@ namespace PassXYZ.Vault.Tests.ViewModels
         [Fact]
         public void CreateNewItemViewModelFailureTest()
         {
-            IDataStore<Item> dataStore = null;
+            IDataStore<Item>? dataStore = null;
             NewItemViewModel viewModel1;
+#pragma warning disable CS8604 // Possible null reference argument.
             var ex = Assert.Throws<ArgumentNullException>(() => viewModel1 = new NewItemViewModel(dataStore, logger));
+#pragma warning restore CS8604 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'dataStore')", ex.Message);
         }
     }

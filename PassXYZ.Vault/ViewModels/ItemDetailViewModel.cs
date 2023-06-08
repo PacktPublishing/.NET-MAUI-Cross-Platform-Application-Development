@@ -32,7 +32,12 @@ namespace PassXYZ.Vault.ViewModels
         private string? itemId;
         public string ItemId
         {
-            get => itemId;
+            get
+            {
+                if(itemId == null) { throw new NullReferenceException(nameof(itemId)); }
+                return itemId;
+            }
+
             set
             {
                 itemId = value;
@@ -40,7 +45,7 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
-        public async Task LoadItemId(string itemId)
+        public async void LoadItemId(string itemId)
         {
             if (itemId == null) { throw new ArgumentNullException(nameof(itemId)); }
             var item = await dataStore.GetItemAsync(itemId);
