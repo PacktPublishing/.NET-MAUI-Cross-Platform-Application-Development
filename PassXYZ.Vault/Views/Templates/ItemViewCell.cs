@@ -26,7 +26,7 @@ namespace PassXYZ.Vault.Views.Templates
             }
         }
 
-        private void OnDeleteAction(object? sender, System.EventArgs e)
+        private async void OnDeleteAction(object? sender, System.EventArgs e)
         {
             if (sender is MenuItem menuItem)
             {
@@ -34,7 +34,7 @@ namespace PassXYZ.Vault.Views.Templates
                     ParentPage.BindingContext is ItemsViewModel vm)
                 {
                     Debug.WriteLine($"ItemViewCell: delete action on {item.Name}");
-                    vm.Delete(item);
+                    await vm.Delete(item);
                 }
             }
         }

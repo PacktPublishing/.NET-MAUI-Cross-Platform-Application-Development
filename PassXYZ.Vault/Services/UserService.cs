@@ -25,6 +25,7 @@ public class UserService : IUserService<User>
         return user;
     }
 
+#pragma warning disable CS1998 // TODO: Remove after implementation
     public async Task UpdateUserAsync(User user)
     {
         throw new NotImplementedException();
@@ -52,6 +53,7 @@ public class UserService : IUserService<User>
 
         return await dataStore.ConnectAsync(user);
     }
+#pragma warning restore CS1998 // TODO: Remove after implementation
 
     public void Logout() 
     {

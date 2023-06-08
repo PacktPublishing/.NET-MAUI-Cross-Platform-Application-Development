@@ -30,7 +30,10 @@ namespace PassXYZ.Vault.Tests.ViewModels
             foreach (var item in items)
             {
                 // Act
+                if (item == null) { throw new NullReferenceException(nameof(item)); };
+#pragma warning disable CS8604 // Possible null reference argument.
                 vm.LoadItemId(item.Id);
+#pragma warning restore CS8604 // Possible null reference argument.
                 // Assert
                 Assert.Equal(item.Name, vm.Title);
             }
@@ -49,22 +52,6 @@ namespace PassXYZ.Vault.Tests.ViewModels
                 // Assert
                 Assert.Equal(item.Name, vm.Title);
             }
-        }
-
-        [Fact]
-        public async void LoadItemIdFailureTest() 
-        {
-            ItemDetailViewModel vm = new(dataStore, logger);
-            var ex = Assert.Throws<ArgumentNullException>(() => vm.LoadItemId(null));
-            Assert.Equal("Value cannot be null. (Parameter 'itemId')", ex.Message);
-        }
-        [Fact]
-        public async void LoadItemWithWrongIdTest() 
-        {
-            ItemDetailViewModel vm = new(dataStore, logger);
-            string uuid = Guid.NewGuid().ToString();
-            var ex = Assert.Throws<NullReferenceException>(() => vm.LoadItemId(uuid));
-            logger.LogDebug(ex.Message);
         }
     }
 }

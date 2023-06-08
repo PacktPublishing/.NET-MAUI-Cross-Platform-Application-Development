@@ -45,20 +45,20 @@ public partial class App : Application
         InBackground = true;
 
         // Lock screen after timeout
-        Device.StartTimer(TimeSpan.FromSeconds(PxUser.AppTimeout), () =>
+        if(Current != null) 
         {
-            if (InBackground)
-            {
+            var timer = Current.Dispatcher.CreateTimer();
+            timer.Interval = TimeSpan.FromSeconds(PxUser.AppTimeout);
+            timer.Tick += (s, e) => {
+                if (InBackground)
+                {
 
-                // TODO: dataStore.Logout();
-                _isLogout = true;
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        });
+                    // TODO: dataStore.Logout();
+                    _isLogout = true;
+                }
+            };
+            timer.Start();
+        }
     }
 
     protected override void OnResume()
@@ -86,6 +86,7 @@ public partial class App : Application
                 using (var stream = assembly.GetManifestResourceStream(iconFile.ResourcePath))
                 using (var fileStream = new FileStream(iconFile.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
                 {
+                    if(stream == null) { throw new NullReferenceException("stream is null"); }
                     stream.CopyTo(fileStream);
                 }
             }
@@ -96,6 +97,7 @@ public partial class App : Application
             using (var stream = assembly.GetManifestResourceStream(EmbeddedIcons.iconZipFile.ResourcePath))
             using (var fileStream = new FileStream(EmbeddedIcons.iconZipFile.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
             {
+                if (stream == null) { throw new NullReferenceException("stream is null"); }
                 stream.CopyTo(fileStream);
             }
             ZipFile.ExtractToDirectory(EmbeddedIcons.iconZipFile.Path, PxDataFile.IconFilePath);
@@ -113,6 +115,7 @@ public partial class App : Application
                 using (var stream = assembly.GetManifestResourceStream(eDb.ResourcePath))
                 using (var fileStream = new FileStream(eDb.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
                 {
+                    if (stream == null) { throw new NullReferenceException("stream is null"); }
                     stream.CopyTo(fileStream);
                 }
             }
