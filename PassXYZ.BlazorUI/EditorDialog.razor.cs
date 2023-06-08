@@ -7,9 +7,10 @@ namespace PassXYZ.BlazorUI;
 
 public partial class EditorDialog
 {
+#pragma warning disable BL0007
     bool _isKeyEditingEnable = false;
     [Parameter]
-    public bool IsKeyEditingEnable 
+    public bool IsKeyEditingEnable
     {
         get => _isKeyEditingEnable;
         set 
@@ -60,6 +61,7 @@ public partial class EditorDialog
             }
         }
     }
+#pragma warning restore BL0007
     [Parameter]
     public EventCallback<string>? ValueChanged { get; set; }
     [Parameter]
@@ -84,7 +86,7 @@ public partial class EditorDialog
     {
         OnSave?.Invoke(Key, Value);
         Debug.WriteLine($"EditorDialog: OnSaveClicked(key={Key}, value={Value})");
-        return true;
+        return await Task.FromResult(true);
     }
 
     void OnCloseClicked() 

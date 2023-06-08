@@ -31,11 +31,13 @@ namespace PassXYZ.Vault.Tests
 
             // Act
             var newItem = datastore.CreateNewItem(itemSubType);
+            if(newItem == null) { throw new NullReferenceException("newItem is null"); }
             newItem.Name = $"{itemSubType.ToString()}01";
             await datastore.AddItemAsync(newItem);
             var item = datastore.GetItem(newItem.Id);
 
             // Assert
+            if (item == null) { throw new NullReferenceException("item is null"); }
             Assert.Equal(newItem.Id, item.Id);
             serilogFixture.Logger.Debug("Add_Item done");
         }
@@ -49,6 +51,7 @@ namespace PassXYZ.Vault.Tests
         {
             // Arrange
             var newItem = datastore.CreateNewItem(itemSubType);
+            if (newItem == null) { throw new NullReferenceException("newItem is null"); }
             newItem.Name = $"{itemSubType.ToString()}01";
             await datastore.AddItemAsync(newItem);
 
@@ -69,6 +72,7 @@ namespace PassXYZ.Vault.Tests
         public void Create_Item(ItemSubType itemSubType) 
         {
             var item = datastore.CreateNewItem(itemSubType);
+            if (item == null) { throw new NullReferenceException("item is null"); }
             item.Name = itemSubType.ToString();
             Debug.WriteLine($"Create_Item: {item.Name}");
             serilogFixture.Logger.Debug("Create_Item: {Name}", item.Name);

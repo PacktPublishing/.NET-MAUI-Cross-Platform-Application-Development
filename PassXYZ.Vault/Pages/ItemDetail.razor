@@ -36,10 +36,18 @@
         }
     </Row>
     <Footer>
+        @{
+#pragma warning disable
+        }
         @((MarkupString)notes)
+        @{
+#pragma warning restore
+        }
     </Footer>
 </ListView>
-
+@{
+#pragma warning restore
+}
 <!-- Editing Modal -->
 <EditFormDialog Id="@_dialogEditId" ModelData="@currentField" IsKeyEditingEnable=@_isNewField
                 OnSaveAsync="UpdateFieldAsync" KeyPlaceHolder="Field name" ValuePlaceHolder="Field content">

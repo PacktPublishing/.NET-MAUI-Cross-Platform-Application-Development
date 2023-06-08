@@ -35,6 +35,7 @@ public partial class EditFormDialog<TItem>
     [Parameter]
     public string? ValuePlaceHolder { get; set; }
 
+#pragma warning disable BL0007
     bool _isKeyEditingEnable = false;
     [Parameter]
     public bool IsKeyEditingEnable
@@ -50,6 +51,7 @@ public partial class EditFormDialog<TItem>
             }
         }
     }
+#pragma warning restore BL0007
     [Parameter]
     public EventCallback<bool>? IsKeyEditingEnableChanged { get; set; }
 

@@ -130,7 +130,7 @@ public class MockDataStore : IDataStore<Item>
     /// Set the current group.
     /// If the group is null, set to root group.
     /// </summary>
-    /// <param name="group">an instance of <c>PwGroup</c></param>
+    /// <param name="item">an instance of <c>PwGroup</c></param>
     /// <returns>Returns the current group name</returns>
     public string SetCurrentGroup(Item? item = default)
     {

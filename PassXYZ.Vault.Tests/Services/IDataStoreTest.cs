@@ -191,7 +191,7 @@ namespace PassXYZ.Vault.Tests.Services
             bool result = await dataStore.ConnectAsync(_user);
             Assert.True(result);
             dataStore.SetCurrentGroup();
-
+#pragma warning disable CS8625 // Possible null reference argument.
             var ex = Assert.Throws<ArgumentNullException>(() => dataStore.GetItem(null));
 #pragma warning restore CS8625 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);

@@ -1,4 +1,5 @@
-﻿@using System.Diagnostics
+﻿@namespace PassXYZ.BlazorUI
+@using System.Diagnostics
 
 <ModalDialog Title=@($"Deleting {Title}") OnSaveAsync=@OnSave
     SaveButtonText="Confirm" CloseButtonText="Cancel">
@@ -17,6 +18,6 @@
     {
         Debug.WriteLine($"ConfirmDialog: DialogId={Id} confirm clicked");
         OnConfirmClick?.Invoke();
-        return true;
+        return await Task.FromResult(true);
     }
 }
