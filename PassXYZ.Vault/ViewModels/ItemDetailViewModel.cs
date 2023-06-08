@@ -36,18 +36,23 @@ public partial class ItemDetailViewModel : BaseViewModel
     [ObservableProperty]
     private bool isBusy;
 
-    private string? itemId;
-    public string ItemId
-    {
-        get => itemId;
-        set
+        private string? itemId;
+        public string ItemId
         {
-            itemId = value;
-            LoadItemId(value);
-        }
-    }
+            get
+            {
+                if(itemId == null) { throw new NullReferenceException(nameof(itemId)); }
+                return itemId;
+            }
 
-    public override async void OnItemSelecteion(object sender) 
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
+
+    public override void OnItemSelecteion(object sender) 
     {
         logger.LogDebug("OnItemSelecteion is invoked.");
     }

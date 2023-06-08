@@ -47,7 +47,9 @@ namespace PassXYZ.Vault.Tests.Services
         {
             IDataStore<Item> dataStore = new MockDataStore();
             bool result = false;
+#pragma warning disable CS8625 // Possible null reference argument.
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.AddItemAsync(null));
+#pragma warning restore CS8625 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'item')", ex.Message);
         }
 
@@ -72,7 +74,9 @@ namespace PassXYZ.Vault.Tests.Services
         {
             IDataStore<Item> dataStore = new MockDataStore();
             bool result = false;
+#pragma warning disable CS8625 // Possible null reference argument.
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.UpdateItemAsync(null));
+#pragma warning restore CS8625 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'item')", ex.Message);
         }
 
@@ -109,7 +113,9 @@ namespace PassXYZ.Vault.Tests.Services
         {
             IDataStore<Item> dataStore = new MockDataStore();
             bool result = false;
+#pragma warning disable CS8625 // Possible null reference argument.
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(async () => result = await dataStore.DeleteItemAsync(null));
+#pragma warning restore CS8625 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);
         }
 
@@ -146,7 +152,9 @@ namespace PassXYZ.Vault.Tests.Services
         public void GetNullItemAsyncTest()
         {
             IDataStore<Item> dataStore = new MockDataStore();
+#pragma warning disable CS8625 // Possible null reference argument.
             var ex = Assert.Throws<ArgumentNullException>(() => dataStore.GetItem(null));
+#pragma warning restore CS8625 // Possible null reference argument.
             Assert.Equal("Value cannot be null. (Parameter 'id')", ex.Message);
         }
 
