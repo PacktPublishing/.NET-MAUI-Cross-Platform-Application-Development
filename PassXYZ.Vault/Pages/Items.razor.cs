@@ -28,7 +28,7 @@ public partial class Items
         items = new ObservableCollection<Item>();
     }
 
-    async Task LoadGroup(Item group)
+    async Task LoadGroup(Item? group)
     {
         Title = DataStore.SetCurrentGroup(group);
         items.Clear();

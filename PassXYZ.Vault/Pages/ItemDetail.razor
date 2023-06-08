@@ -58,8 +58,13 @@
         </div>
     }
 </div>
+@{
+#pragma warning disable
+}
 <div>@((MarkupString)notes)</div>
-
+@{
+#pragma warning restore
+}
 <!-- Editing Modal -->
 <div class="modal fade" id="editModel" tabindex="-1" aria-labelledby="editModelLabel" aria-hidden="true">
     <div class="modal-dialog">
