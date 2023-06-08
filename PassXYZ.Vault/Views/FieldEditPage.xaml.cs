@@ -17,8 +17,8 @@ namespace PassXYZ.Vault.Views
     {
         private Action<string, string, bool> _updateAction;
         private readonly bool _isNewField = true;
-        private Color _checkboxColor;
-        private Item _dataEntry = null;
+        private Color? _checkboxColor = null;
+        private Item? _dataEntry = null;
 
         public FieldEditPage(Action<string, string, bool> updateAction, string key = "", string value = "")
         {
