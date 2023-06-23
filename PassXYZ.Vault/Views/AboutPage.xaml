@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
         <Label FontFamily="FontAwesomeSolid" Text="&#xf00f;" FontSize="128" 
                VerticalOptions="Center"
+               HorizontalOptions="Center"
                Grid.Row="0" Margin="10" TextColor="{StaticResource Primary}"/>
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
