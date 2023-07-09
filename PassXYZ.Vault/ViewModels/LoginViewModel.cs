@@ -18,11 +18,10 @@ namespace PassXYZ.Vault.ViewModels
         private readonly IFingerprint _fingerprint;
 
         public LoginViewModel(LoginService user, ILogger<LoginViewModel> logger, IFingerprint fingerprint)
-        { 
+        {
             _currentUser = user;
             _logger = logger;
             _fingerprint = fingerprint;
-            CheckFingerPrintStatus();
         }
 
         [RelayCommand(CanExecute = nameof(ValidateLogin))]
@@ -41,6 +40,7 @@ namespace PassXYZ.Vault.ViewModels
 
                 _currentUser.Username = Username;
                 _currentUser.Password = Password;
+                _logger.LogDebug("data path: {path}", _currentUser.Path);
                 bool status = await _currentUser.LoginAsync();
 
                 if (status)
@@ -96,7 +96,7 @@ namespace PassXYZ.Vault.ViewModels
             {
                 // Username cannot be null when FingerprintLogin is invokved
                 Password = await _currentUser.GetSecurityAsync();
-                if (!string.IsNullOrWhiteSpace(Password)) 
+                if (!string.IsNullOrWhiteSpace(Password))
                 {
                     Login();
                 }
@@ -113,12 +113,16 @@ namespace PassXYZ.Vault.ViewModels
 
         private bool ValidateFingerprintLogin()
         {
-            return !String.IsNullOrWhiteSpace(Username) && IsFingerprintEnabled;
+            CheckFingerPrintStatus();
+            return !String.IsNullOrWhiteSpace(Username);
         }
 
-        private async void CheckFingerPrintStatus()
+        public async void CheckFingerPrintStatus()
         {
-            IsFingerprintEnabled = await _fingerprint.IsAvailableAsync();
+            _currentUser.Username = Username;
+            var password = await _currentUser.GetSecurityAsync();
+            var isAvailable = await _fingerprint.IsAvailableAsync();
+            IsFingerprintEnabled = isAvailable && !string.IsNullOrWhiteSpace(password);
         }
 
         [ObservableProperty]
@@ -127,14 +131,51 @@ namespace PassXYZ.Vault.ViewModels
         [ObservableProperty]
         private bool isBusy = false;
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        [NotifyCanExecuteChangedFor(nameof(FingerprintLoginCommand))]
         private string? username = default;
+        public string? Username
+        {
+            get => username;
+            set
+            {
+                if (SetProperty(ref username, value))
+                {
+                    _currentUser.Username = value;
+                    LoginCommand.NotifyCanExecuteChanged();
+                    FingerprintLoginCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
         private string? password = default;
+        public string? Password
+        {
+            get => password;
+            set
+            {
+                if (SetProperty(ref password, value))
+                {
+                    _currentUser.Password = value;
+                    LoginCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        private bool CheckDeviceLock()
+        {
+            User user = new()
+            {
+                Username = this.Username,
+            };
+
+            if (user.IsUserExist)
+            {
+                // This is important, since we need to reset device lock status based on existing file.
+                _currentUser.IsDeviceLockEnabled = user.IsDeviceLockEnabled;
+                return !_currentUser.IsKeyFileExist && _currentUser.IsDeviceLockEnabled;
+            }
+
+            return false;
+        }
 
         public List<string> GetUsersList()
         {

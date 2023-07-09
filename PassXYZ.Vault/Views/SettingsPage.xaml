@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:styles="clr-namespace:PassXYZ.Vault.Resources.Styles"
+             xmlns:res="clr-namespace:PassXYZ.Vault.Properties"
+             xmlns:viewmodels="clr-namespace:PassXYZ.Vault.ViewModels"
+             x:Class="PassXYZ.Vault.Views.SettingsPage"
+             Title="SettingsPage">
+
+    <TableView Intent="Settings" HasUnevenRows="True" RowHeight="72" Margin="20,0,10,0">
+        <TableRoot x:Name="tableRoot">
+            <TableSection x:Name="standardSection">
+                <!-- Timer -->
+                <ImageCell x:Name="timerCell" Tapped="OnTimerTappedAsync"
+                              Text="{x:Static res:Resources.settings_timer_title}"
+                              Detail="{x:Static res:Resources.settings_timer_remark}">
+                    <ImageCell.ImageSource>
+                        <FontImageSource FontFamily="FontAwesomeSolid"
+			                                Glyph="{x:Static styles:FontAwesomeSolid.Clock}"
+                                            Color="{DynamicResource Primary}"
+			                                Size="32" />
+                    </ImageCell.ImageSource>
+                </ImageCell>
+
+                <!-- Fingerprint setup -->
+                <SwitchCell x:Name="FingerPrintSwitcher"
+                            Text="{x:Static res:Resources.settings_fingerprint_remark}" 
+                            OnChanged="OnSwitcherToggledAsync"/>
+
+            </TableSection>
+        </TableRoot>
+    </TableView>
+</ContentPage>

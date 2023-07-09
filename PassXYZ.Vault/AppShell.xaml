@@ -1,6 +1,7 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:PassXYZ.Vault.Views"
+       xmlns:res="clr-namespace:PassXYZ.Vault.Properties"
        xmlns:style="clr-namespace:PassXYZ.Vault.Resources.Styles"
        xmlns:app="clr-namespace:PassXYZ.Vault"
        Title="PassXYZ.Vault"
@@ -13,37 +14,28 @@
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
 
-    <FlyoutItem Title="About" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+    <FlyoutItem Title="{x:Static res:Resources.menu_id_help}"
+        Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
         Glyph={x:Static style:FontAwesomeSolid.Question}}">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}">
         </ShellContent>
     </FlyoutItem>
-    <FlyoutItem x:Name="RootItem" Title="Browse" Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+    <FlyoutItem x:Name="RootItem" Title="{x:Static res:Resources.Appname}" 
+        Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
         Glyph={x:Static style:FontAwesomeSolid.Home}}">
         <ShellContent Route="RootPage" ContentTemplate="{DataTemplate local:ItemsPage}">
         </ShellContent>
     </FlyoutItem>
-
+    <FlyoutItem Title="{x:Static res:Resources.menu_id_settings}" 
+        Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
+        Glyph={x:Static style:FontAwesomeSolid.Cog}}">
+        <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}">
+        </ShellContent>
+    </FlyoutItem>
+    
     <MenuItem Text="Logout" Clicked="OnMenuItemClicked" 
               IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=Black, 
         Glyph={x:Static style:FontAwesomeSolid.SignOutAlt}}">
     </MenuItem>
-
-    <!-- Optional Templates 
-            // These may be provided inline as below or as separate classes.
-            <Shell.ItemTemplate>
-                <DataTemplate>
-                    <Grid
-                        RowDefinitions="68" HeightRequest="68">
-                        <Image Source="{Binding FlyoutIcon}"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               />
-                    </Grid>
-                </DataTemplate>
-
-            </Shell.ItemTemplate>
-            -->
-
 
 </Shell>

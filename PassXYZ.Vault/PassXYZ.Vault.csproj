@@ -37,7 +37,8 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-	</PropertyGroup>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -65,8 +66,15 @@
     <None Remove="data\ic_passxyz_sync.png" />
     <None Remove="data\ic_passxyz_synced.png" />
     <None Remove="data\pass_d_E8f4pEk.xyz" />
+    <None Remove="data\pass_e_2TjEf1Dy9V2jiEgbS.xyz" />
+    <None Remove="data\pass_e_EFZGmRz.xyz" />
     <None Remove="data\pass_e_JyHzpRxcopt.xyz" />
+    <None Remove="data\pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz" />
+    <None Remove="data\pass_e_WCXaKYYvXygN3nVYW3u.xyz" />
+    <None Remove="data\pass_k_2TjEf1Dy9V2jiEgbS.k4xyz" />
     <None Remove="data\pass_k_JyHzpRxcopt.k4xyz" />
+    <None Remove="data\pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz" />
+    <None Remove="data\pass_k_WCXaKYYvXygN3nVYW3u.k4xyz" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,13 +85,16 @@
     <EmbeddedResource Include="data\ic_passxyz_sync.png" />
     <EmbeddedResource Include="data\ic_passxyz_synced.png" />
     <EmbeddedResource Include="data\pass_d_E8f4pEk.xyz" />
+    <EmbeddedResource Include="data\pass_e_2TjEf1Dy9V2jiEgbS.xyz" />
+    <EmbeddedResource Include="data\pass_e_EFZGmRz.xyz" />
     <EmbeddedResource Include="data\pass_e_JyHzpRxcopt.xyz" />
+    <EmbeddedResource Include="data\pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz" />
+    <EmbeddedResource Include="data\pass_e_WCXaKYYvXygN3nVYW3u.xyz" />
+    <EmbeddedResource Include="data\pass_k_2TjEf1Dy9V2jiEgbS.k4xyz" />
     <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
+    <EmbeddedResource Include="data\pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz" />
+    <EmbeddedResource Include="data\pass_k_WCXaKYYvXygN3nVYW3u.k4xyz" />
   </ItemGroup>
-
-  <ItemGroup>
-	  <PackageReference Include="PassXYZLib" Version="2.0.2" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">
@@ -104,7 +115,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     <PackageReference Include="Plugin.Fingerprint" Version="3.0.0-beta.1" />
-	</ItemGroup>
+    <PackageReference Include="PassXYZLib" Version="2.0.3" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">
