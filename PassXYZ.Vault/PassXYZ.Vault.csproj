@@ -58,10 +58,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PassXYZLib" Version="2.0.2" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -79,7 +75,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
+    <PackageReference Include="PassXYZLib" Version="2.1.2" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">
