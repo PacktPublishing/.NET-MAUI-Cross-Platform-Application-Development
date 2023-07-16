@@ -38,6 +38,7 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -82,10 +83,6 @@
     <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
   </ItemGroup>
 
-  <ItemGroup>
-	  <PackageReference Include="PassXYZLib" Version="2.0.2" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <Compile Update="Properties\Resources.Designer.cs">
 	    <DesignTime>True</DesignTime>
@@ -104,7 +101,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
+    <PackageReference Include="PassXYZLib" Version="2.0.3" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">

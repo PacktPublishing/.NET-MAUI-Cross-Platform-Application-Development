@@ -148,7 +148,7 @@ public partial class ItemDetailViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async void AddField(object obj)
+    private async Task AddField(object obj)
     {
         if (_item == null) { throw new NullReferenceException("_item is null"); }
 
@@ -163,7 +163,7 @@ public partial class ItemDetailViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async void AddBinary(object obj)
+    private async Task AddBinary(object obj)
     {
         List<string> inputTypeList = new List<string>()
             {
