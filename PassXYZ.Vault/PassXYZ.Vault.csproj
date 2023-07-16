@@ -38,6 +38,7 @@
 		<GenerateTestArtifacts>True</GenerateTestArtifacts>
 		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
@@ -122,10 +123,6 @@
     <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
   </ItemGroup>
 
-  <ItemGroup>
-	  <PackageReference Include="PassXYZLib" Version="2.0.2" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\PassXYZ.BlazorUI\PassXYZ.BlazorUI.csproj" />
 	</ItemGroup>
@@ -148,7 +145,8 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
+    <PackageReference Include="PassXYZLib" Version="2.0.3" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">
