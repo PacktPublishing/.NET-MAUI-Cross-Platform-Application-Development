@@ -37,7 +37,7 @@ namespace PassXYZ.Vault.ViewModels
         private bool isBusy;
 
         [RelayCommand]
-        private async void OnAddItem(object obj)
+        private async Task AddItem(object obj)
         {
             string[] templates = {
                 Properties.Resources.item_subtype_group,
