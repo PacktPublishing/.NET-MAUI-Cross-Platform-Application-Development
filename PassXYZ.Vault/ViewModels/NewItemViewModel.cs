@@ -26,14 +26,14 @@ namespace PassXYZ.Vault.ViewModels
         private string? description;
 
         [RelayCommand]
-        private async void Cancel()
+        private async Task Cancel()
         {
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand(CanExecute = nameof(ValidateSave))]
-        private async void Save()
+        private async Task Save()
         {
             if (_dataStore == null) { throw new NullReferenceException("_dataStore is null"); }
 
