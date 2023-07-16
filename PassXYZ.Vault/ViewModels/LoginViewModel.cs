@@ -21,7 +21,7 @@ namespace PassXYZ.Vault.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(ValidateLogin))]
-        private async void Login(object obj)
+        private async Task Login(object obj)
         {
             try
             {
