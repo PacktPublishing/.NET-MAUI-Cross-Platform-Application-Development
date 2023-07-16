@@ -98,7 +98,7 @@ namespace PassXYZ.Vault.ViewModels
                 Password = await _currentUser.GetSecurityAsync();
                 if (!string.IsNullOrWhiteSpace(Password))
                 {
-                    Login();
+                    await Login();
                 }
                 else
                 {
