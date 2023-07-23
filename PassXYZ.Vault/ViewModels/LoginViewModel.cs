@@ -73,16 +73,78 @@ namespace PassXYZ.Vault.ViewModels
             return canExecute;
         }
 
+        [RelayCommand(CanExecute = nameof(ValidateSignUp))]
+        private async Task SignUp()
+        {
+            try
+            {
+                IsBusy = true;
+
+                if (string.IsNullOrWhiteSpace(Password2) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Username))
+                {
+                    await Shell.Current.DisplayAlert("", Properties.Resources.settings_empty_password, Properties.Resources.alert_id_ok);
+                    IsBusy = false;
+                    return;
+                }
+
+                _currentUser.Username = Username;
+                _currentUser.Password = Password;
+
+                if (_currentUser.IsUserExist)
+                {
+                    await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, Properties.Resources.SignUpErrorMessage1, Properties.Resources.alert_id_ok);
+                    IsBusy = false;
+                    return;
+                }
+
+                await _currentUser.SignUpAsync();
+                IsBusy = false;
+                _ = await Shell.Current.Navigation.PopModalAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, ex.Message, Properties.Resources.alert_id_ok);
+            }
+            Debug.WriteLine($"LoginViewModel: OnSignUpClicked {_currentUser.Username}, DeviceLock: {_currentUser.IsDeviceLockEnabled}");
+        }
+
+        private bool ValidateSignUp()
+        {
+            var canExecute = !String.IsNullOrWhiteSpace(Username)
+                && !String.IsNullOrWhiteSpace(Password)
+                && !String.IsNullOrWhiteSpace(Password2);
+            return canExecute;
+        }
+
         [ObservableProperty]
         private bool isBusy = false;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private string? username = default;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private string? password = default;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private string? password2 = default;
+
+        public bool IsDeviceLockEnabled
+        {
+            get
+            {
+                return _currentUser.IsDeviceLockEnabled;
+            }
+
+            set
+            {
+                _currentUser.IsDeviceLockEnabled = value;
+            }
+        }
 
         public List<string> GetUsersList()
         {
