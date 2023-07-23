@@ -79,6 +79,9 @@
   </ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\SignUpPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Templates\KeyValueView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

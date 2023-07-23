@@ -10,7 +10,7 @@ namespace PassXYZ.Vault.Views;
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class SignUpPage : ContentPage
 {
-    LoginViewModel _viewModel;
+    private readonly LoginViewModel _viewModel;
 
     public SignUpPage(LoginViewModel viewModel)
     {
