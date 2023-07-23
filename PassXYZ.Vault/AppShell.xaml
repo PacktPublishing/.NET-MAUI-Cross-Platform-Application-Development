@@ -11,7 +11,14 @@
        FlyoutBackgroundColor="{StaticResource Secondary}">
 
     <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Title="Login" Route="LoginPage" 
+                      Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+                      Glyph={x:Static style:FontAwesomeSolid.UserAlt}}"
+                      ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Title="SignUp" Route="SignUpPage" 
+                      Icon="{FontImage FontFamily=FontAwesomeSolid, Color=Black,
+                      Glyph={x:Static style:FontAwesomeSolid.Users}}"
+                      ContentTemplate="{DataTemplate local:SignUpPage}" />
     </TabBar>
 
     <FlyoutItem Title="{x:Static res:Resources.menu_id_help}"
