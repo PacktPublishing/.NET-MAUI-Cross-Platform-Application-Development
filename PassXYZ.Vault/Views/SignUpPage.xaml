@@ -15,7 +15,7 @@
                 <Image.Source>
                     <FontImageSource FontFamily="FontAwesomeSolid"
 			            Glyph="{x:Static styles:FontAwesomeSolid.PassXYZ}"
-			            Color="{DynamicResource Blue100Accent}"
+			            Color="{DynamicResource Primary}"
                         Size="96" />
                 </Image.Source>
             </Image>
