@@ -29,6 +29,11 @@ public class LoginService : PxUser
         return await _userService.LoginAsync(this);
     }
 
+    public async Task SignUpAsync()
+    {
+        await _userService.AddUserAsync(this);
+    }
+
     public override void Logout()
     {
         _userService.Logout();
