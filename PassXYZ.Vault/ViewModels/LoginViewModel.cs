@@ -78,59 +78,55 @@ namespace PassXYZ.Vault.ViewModels
             return canExecute;
         }
 
-        [RelayCommand(CanExecute = nameof(ValidateFingerprintLogin))]
-        private async Task FingerprintLogin()
+        [RelayCommand(CanExecute = nameof(ValidateSignUp))]
+        private async Task SignUp()
         {
-            var cancel = new CancellationTokenSource();
-            var dialogConfig = new AuthenticationRequestConfiguration(Username,
-                Properties.Resources.fingerprint_login_message)
+            try
             {
-                CancelTitle = "Cancel fingerprint login",
-                FallbackTitle = "Use Password",
-                AllowAlternativeAuthentication = true,
-            };
+                IsBusy = true;
 
-            var result = await _fingerprint.AuthenticateAsync(dialogConfig, cancel.Token);
+                if (string.IsNullOrWhiteSpace(Password2) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Username))
+                {
+                    await Shell.Current.DisplayAlert("", Properties.Resources.settings_empty_password, Properties.Resources.alert_id_ok);
+                    IsBusy = false;
+                    return;
+                }
 
-            if (result.Authenticated)
-            {
-                // Username cannot be null when FingerprintLogin is invokved
-                Password = await _currentUser.GetSecurityAsync();
-                if (!string.IsNullOrWhiteSpace(Password))
+                _currentUser.Username = Username;
+                _currentUser.Password = Password;
+
+                if (_currentUser.IsUserExist)
                 {
-                    await Login();
+                    await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, Properties.Resources.SignUpErrorMessage1, Properties.Resources.alert_id_ok);
+                    IsBusy = false;
+                    return;
                 }
-                else
-                {
-                    _logger.LogWarning("GetSecurityAsync() error.");
-                }
+
+                await _currentUser.SignUpAsync();
+                IsBusy = false;
+                _ = await Shell.Current.Navigation.PopModalAsync();
             }
-            else
+            catch (Exception ex)
             {
-                _logger.LogWarning("Failed to login with fingerprint.");
+                await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, ex.Message, Properties.Resources.alert_id_ok);
             }
+            Debug.WriteLine($"LoginViewModel: OnSignUpClicked {_currentUser.Username}, DeviceLock: {_currentUser.IsDeviceLockEnabled}");
         }
 
-        private bool ValidateFingerprintLogin()
+        private bool ValidateSignUp()
         {
-            CheckFingerPrintStatus();
-            return !String.IsNullOrWhiteSpace(Username);
-        }
-
-        public async void CheckFingerPrintStatus()
-        {
-            _currentUser.Username = Username;
-            var password = await _currentUser.GetSecurityAsync();
-            var isAvailable = await _fingerprint.IsAvailableAsync();
-            IsFingerprintEnabled = isAvailable && !string.IsNullOrWhiteSpace(password);
+            var canExecute = !String.IsNullOrWhiteSpace(Username)
+                && !String.IsNullOrWhiteSpace(Password)
+                && !String.IsNullOrWhiteSpace(Password2);
+            return canExecute;
         }
 
         [ObservableProperty]
         private bool isFingerprintEnabled = false;
 
         [ObservableProperty]
-        private bool isBusy = false;
-
+        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private string? username = default;
         public string? Username
         {
@@ -146,6 +142,9 @@ namespace PassXYZ.Vault.ViewModels
             }
         }
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private string? password = default;
         public string? Password
         {
@@ -175,6 +174,23 @@ namespace PassXYZ.Vault.ViewModels
             }
 
             return false;
+        }
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private string? password2 = default;
+
+        public bool IsDeviceLockEnabled
+        {
+            get
+            {
+                return _currentUser.IsDeviceLockEnabled;
+            }
+
+            set
+            {
+                _currentUser.IsDeviceLockEnabled = value;
+            }
         }
 
         public List<string> GetUsersList()
