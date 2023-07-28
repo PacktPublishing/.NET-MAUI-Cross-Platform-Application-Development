@@ -98,8 +98,11 @@ namespace PassXYZ.Vault.ViewModels
                 }
 
                 await _currentUser.SignUpAsync();
+                await Shell.Current.DisplayAlert(Properties.Resources.SignUpPageTitle, Properties.Resources.SiguUpMessage, Properties.Resources.alert_id_ok);
+                Username = "";
+                Password = "";
+                Password2 = "";
                 IsBusy = false;
-                _ = await Shell.Current.Navigation.PopModalAsync();
             }
             catch (Exception ex)
             {
