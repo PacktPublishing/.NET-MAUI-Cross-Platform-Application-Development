@@ -121,12 +121,59 @@ namespace PassXYZ.Vault.ViewModels
             return canExecute;
         }
 
+        [RelayCommand(CanExecute = nameof(ValidateFingerprintLogin))]
+        private async Task FingerprintLogin()
+        {
+            var cancel = new CancellationTokenSource();
+            var dialogConfig = new AuthenticationRequestConfiguration(Username,
+                Properties.Resources.fingerprint_login_message)
+            {
+                CancelTitle = "Cancel fingerprint login",
+                FallbackTitle = "Use Password",
+                AllowAlternativeAuthentication = true,
+            };
+
+            var result = await _fingerprint.AuthenticateAsync(dialogConfig, cancel.Token);
+
+            if (result.Authenticated)
+            {
+                // Username cannot be null when FingerprintLogin is invokved
+                Password = await _currentUser.GetSecurityAsync();
+                if (!string.IsNullOrWhiteSpace(Password))
+                {
+                    await Login();
+                }
+                else
+                {
+                    _logger.LogWarning("GetSecurityAsync() error.");
+                }
+            }
+            else
+            {
+                _logger.LogWarning("Failed to login with fingerprint.");
+            }
+        }
+
+        private bool ValidateFingerprintLogin()
+        {
+            CheckFingerPrintStatus();
+            return !String.IsNullOrWhiteSpace(Username);
+        }
+
+        public async void CheckFingerPrintStatus()
+        {
+            _currentUser.Username = Username;
+            var password = await _currentUser.GetSecurityAsync();
+            var isAvailable = await _fingerprint.IsAvailableAsync();
+            IsFingerprintEnabled = isAvailable && !string.IsNullOrWhiteSpace(password);
+        }
+
         [ObservableProperty]
         private bool isFingerprintEnabled = false;
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private bool isBusy = false;
+
         private string? username = default;
         public string? Username
         {
@@ -137,14 +184,12 @@ namespace PassXYZ.Vault.ViewModels
                 {
                     _currentUser.Username = value;
                     LoginCommand.NotifyCanExecuteChanged();
+                    SignUpCommand.NotifyCanExecuteChanged();
                     FingerprintLoginCommand.NotifyCanExecuteChanged();
                 }
             }
         }
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private string? password = default;
         public string? Password
         {
@@ -155,6 +200,7 @@ namespace PassXYZ.Vault.ViewModels
                 {
                     _currentUser.Password = value;
                     LoginCommand.NotifyCanExecuteChanged();
+                    SignUpCommand.NotifyCanExecuteChanged();
                 }
             }
         }
