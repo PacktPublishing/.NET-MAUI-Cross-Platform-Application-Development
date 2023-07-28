@@ -198,6 +198,36 @@ public class DataStore : IDataStore<Item>
         });
     }
 
+    public async Task SignUpAsync(User user)
+    {
+        if (user == null) { Debug.Assert(false); throw new ArgumentNullException(nameof(user)); }
+
+        var logger = new KPCLibLogger();
+        await Task.Run(() => {
+            _db.New(user);
+
+            // Create a PassXYZ Usage note entry
+            PwEntry pe = new(true, true);
+            pe.Strings.Set(PxDefs.TitleField, new ProtectedString(false, Properties.Resources.entry_id_passxyz_usage));
+            pe.Strings.Set(PxDefs.NotesField, new ProtectedString(false, Properties.Resources.about_passxyz_usage));
+            pe.SetType(ItemSubType.Notes);
+            _db.RootGroup.AddEntry(pe, true);
+
+            try
+            {
+                logger.StartLogging("Saving database ...", true);
+                _db.DescriptionChanged = DateTime.UtcNow;
+                _db.Save(logger);
+                logger.EndLogging();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Failed to save database." + e.Message);
+            }
+        });
+
+    }
+
     /// <summary>
     /// This is a factory method to create a new item.
     /// </summary>
