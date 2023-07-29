@@ -55,8 +55,9 @@ public class UserService : IUserService<User>
     }
 #pragma warning restore CS1998 // TODO: Remove after implementation
 
-    public void Logout() 
+    public void Logout()
     {
+        dataStore.Close();
         logger.LogDebug("Logout");
     }
 
