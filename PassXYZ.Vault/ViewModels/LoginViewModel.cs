@@ -116,6 +116,12 @@ namespace PassXYZ.Vault.ViewModels
             var canExecute = !String.IsNullOrWhiteSpace(Username)
                 && !String.IsNullOrWhiteSpace(Password)
                 && !String.IsNullOrWhiteSpace(Password2);
+            
+            if (canExecute)
+            {
+                return Password!.Equals(Password2);
+            }
+
             return canExecute;
         }
 
