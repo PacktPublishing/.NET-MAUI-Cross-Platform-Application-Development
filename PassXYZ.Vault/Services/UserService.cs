@@ -25,17 +25,12 @@ public class UserService : IUserService<User>
         return user;
     }
 
-#pragma warning disable CS1998 // TODO: Remove after implementation
-    public async Task UpdateUserAsync(User user)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task DeleteUserAsync(User user)
     {
-        throw new NotImplementedException();
+        await Task.Run(() => {
+            logger.LogDebug($"Remove Path={user.Path}");
+        });
     }
-#pragma warning restore CS1998 // TODO: Remove after implementation
 
     public List<string> GetUsersList()
     {
