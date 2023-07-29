@@ -153,5 +153,10 @@ namespace PassXYZ.Vault.ViewModels
         {
             return User.GetUsersList();
         }
+
+        public void Logout() 
+        {
+            _currentUser.Logout();
+        }
     }
 }

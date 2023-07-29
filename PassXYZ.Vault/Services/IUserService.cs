@@ -15,5 +15,4 @@ public interface IUserService<T>
     List<string> GetUsersList();
     Task<bool> LoginAsync(T user);
     void Logout();
-
 }

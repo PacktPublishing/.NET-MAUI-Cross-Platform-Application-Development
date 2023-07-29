@@ -228,6 +228,15 @@ public class DataStore : IDataStore<Item>
 
     }
 
+    public void Close()
+    {
+        if (_db.IsOpen) 
+        {
+            Debug.WriteLine($"Closing database {_db.Name}.");
+            _db.Close(); 
+        }
+    }
+
     /// <summary>
     /// This is a factory method to create a new item.
     /// </summary>
