@@ -1,8 +1,4 @@
-﻿using KeePassLib;
-using KPCLib;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using PassXYZLib;
 
 namespace PassXYZ.Vault.Services
 {
