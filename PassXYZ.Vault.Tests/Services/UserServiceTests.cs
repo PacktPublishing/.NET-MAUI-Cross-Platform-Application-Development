@@ -35,41 +35,47 @@ namespace PassXYZ.Vault.Tests.Services
         }
 
         [Fact]
-        public void AddUserTest() 
+        public async Task RemoveUserTestAsync() 
         {
             UserService userService = new UserService(dataStore, logger);
             User user = new User();
             user.Username = "new user 1";
 
-            _ = userService.AddUserAsync(user);
+            await userService.AddUserAsync(user);
+            Assert.True(user.IsUserExist);
+            await userService.DeleteUserAsync(user);
+            Assert.False(user.IsUserExist);
         }
 
         [Fact]
-        public void RemoveUserTest() 
+        public async Task LoginAsyncTest() 
         {
             UserService userService = new UserService(dataStore, logger);
             User user = new User();
             user.Username = "new user 1";
+            user.Password = "12345";
 
-            _ = userService.AddUserAsync(user);
-            _ = userService.DeleteUserAsync(user);
+            await userService.AddUserAsync(user);
+            Assert.True(user.IsUserExist);
+            await userService.LoginAsync(user);
+            await userService.DeleteUserAsync(user);
+            Assert.False(user.IsUserExist);
         }
 
         [Fact]
-        public void LoginAsyncTest() 
+        public async Task LogoutTest() 
         {
             UserService userService = new UserService(dataStore, logger);
             User user = new User();
             user.Username = "new user 1";
+            user.Password = "12345";
 
-            _ = userService.LoginAsync(user);
-        }
-
-        [Fact]
-        public void LogoutTest() 
-        {
-            UserService userService = new UserService(dataStore, logger);
+            await userService.AddUserAsync(user);
+            Assert.True(user.IsUserExist);
+            await userService.LoginAsync(user);
             userService.Logout();
+            await userService.DeleteUserAsync(user);
+            Assert.False(user.IsUserExist);
         }
     }
 }

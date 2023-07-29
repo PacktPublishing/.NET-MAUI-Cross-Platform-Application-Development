@@ -29,6 +29,7 @@ public class UserService : IUserService<User>
     {
         await Task.Run(() => {
             logger.LogDebug($"Remove Path={user.Path}");
+            user.Delete();
         });
     }
 
