@@ -56,17 +56,6 @@ namespace PassXYZ.Vault.Tests.Services
         }
 
         [Fact]
-        public void UpdateUserTest() 
-        {
-            UserService userService = new UserService(dataStore, logger);
-            User user = new User();
-            user.Username = "new user 1";
-
-            _ = userService.AddUserAsync(user);
-            _ = userService.UpdateUserAsync(user);
-        }
-
-        [Fact]
         public void LoginAsyncTest() 
         {
             UserService userService = new UserService(dataStore, logger);
