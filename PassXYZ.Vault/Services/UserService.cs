@@ -58,8 +58,9 @@ public class UserService : IUserService<User>
         return await dataStore.ConnectAsync(user);
     }
 
-    public void Logout() 
+    public void Logout()
     {
+        dataStore.Close();
         logger.LogDebug("Logout");
     }
 

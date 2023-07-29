@@ -12,6 +12,7 @@ namespace PassXYZ.Vault.Services
         string SetCurrentGroup(T? group = default);
         Task<bool> ConnectAsync(User user);
         Task SignUpAsync(User user);
+        void Close();
         T? CreateNewItem(ItemSubType type);
     }
 }
