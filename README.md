@@ -1,25 +1,52 @@
-# .NET MAUI Cross-Platform Application Development
+# .NET MAUI Cross-Platform Application Development - Second Edition
 
-**Chapter02** - .NET MAUI MVVM Template
+.NET MAUI Cross-Platform Application Development, Second Edition, published by Packt
 
-## How to build
+<a href="https://www.packtpub.com/product/.net-maui-cross-platform-application-development/9781800569225"><img src="https://static.packt-cdn.com/products/9781800569225/cover/smaller" alt=".NET MAUI Cross-Platform Application Development" height="256px" align="right"></a>
 
-- Windows, Android and iOS can be built using Visual Studio 2022 on Windows
+This is the code repository for .NET MAUI Cross-Platform Application Development, Second Edition, published by Packt.
 
-- iOS and macOS can be built on a Mac using command line
+**Leverage a first-class cross-platform UI framework to build native apps on multiple platforms    **
 
-### Build and run on Mac
+## What is this book about?
 
-We cannot build and run .NET MAUI app using Visual Studio for Mac yet. To build and run iOS and macOS app on Mac, we need to use command line.
+This book is an entry-level .NET MAUI book for mobile developers interested in cross-platform application development with working experience of the .NET Core framework, as well as fresh or junior engineers who’ve just begun their career in mobile app development. Native application developers (desktop) or Xamarin developers who want to migrate to .NET MAUI will also benefit from this book. Basic knowledge of modern object-oriented programming language, such as C#, Java or Kotlin, is assumed.    
 
-#### Build an iOS app with .NET CLI
+This book covers the following exciting features:
 
-`dotnet build -t:Run -f net7.0-ios`
+* Discover the latest features of .NET 8 that can be used in mobile and desktop app development
+* Find out how to build cross-platform apps with .NET MAUI and Blazor
+* Integrate third-party libraries and add your own device-specific features
+* Discover .NET class unit test using xUnit.net
+* Deploy apps in different app stores on mobile as well as desktop
 
-#### Launch the iOS app on a specific simulator
+## Instructions and Navigations
 
-`dotnet build -t:Run -f net7.0-ios -p:_DeviceName=:v2:udid=E25BBE37-69BA-4720-B6FD-D54C97791E79`
+All of the project files are organized into folders in the main branch. For example, Chapter03.
 
-#### Build a Mac Catalyst app with .NET CLI
+The code will look like the following:
 
-`dotnet build -t:Run -f net7.0-maccatalyst`
+```
+private async Task<bool> UpdateItemAsync(string key, string value)
+{
+    if (listGroupItem == null) return false;
+    if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+        return false;
+    listGroupItem.Name = key;
+    listGroupItem.Notes = value;
+
+    if (_isNewItem) {...}
+    else {...}
+
+    StateHasChanged();
+    return true;
+}
+```
+
+The source code can be cloned from `main` branch or downloaded from release area.
+
+There are also branches for each chapters, such as `2nd/chapter01` or `2nd/chapter02` etc.
+
+## Get to Know the Author
+
+**Roger Ye** is a Senior Software Engineering Manager, leading a software development team at EPAM Systems. His team assists clients in developing modern web-based applications that can be deployed in on-premises data centers or the cloud. Before joining EPAM, he served as a Senior Software Engineering Manager at McAfee, where he led a team focused on mobile security application development for Android, iOS, and Windows platforms.
