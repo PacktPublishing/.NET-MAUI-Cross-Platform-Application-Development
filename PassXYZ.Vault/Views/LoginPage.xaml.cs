@@ -38,6 +38,8 @@ namespace PassXYZ.Vault.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _viewModel.Logout();
+            passwordEntry.Text = "";
             _viewModel.CheckFingerPrintStatus();
         }
     }
