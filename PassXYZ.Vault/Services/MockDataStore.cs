@@ -241,11 +241,13 @@ public class MockDataStore : IDataStore<Item>
 
     public async Task<bool> ConnectAsync(User user) 
     {
+        Debug.WriteLine("Connecting to mock database");
         return await Task.FromResult(true);
     }
 
     public async Task SignUpAsync(User user)
     {
+        Debug.WriteLine("SignUp mock database");
         await Task.FromResult(true);
     }
 

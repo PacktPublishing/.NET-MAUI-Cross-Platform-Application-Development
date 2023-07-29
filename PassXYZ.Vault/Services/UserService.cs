@@ -35,6 +35,7 @@ public class UserService : IUserService<User>
     {
         throw new NotImplementedException();
     }
+#pragma warning restore CS1998 // TODO: Remove after implementation
 
     public List<string> GetUsersList()
     {
@@ -43,17 +44,19 @@ public class UserService : IUserService<User>
 
     public async Task AddUserAsync(User user)
     {
-        throw new NotImplementedException();
+        if (user == null) { throw new ArgumentNullException(nameof(user), "User cannot be null"); }
+        _user = user;
+
+        await dataStore.SignUpAsync(user);
     }
 
     public async Task<bool> LoginAsync(User user)
     {
-        if (user == null) { throw new ArgumentNullException("user"); }
+        if (user == null) { throw new ArgumentNullException(nameof(user), "User cannot be null"); }
         _user = user;
 
-        return true;
+        return await dataStore.ConnectAsync(user);
     }
-#pragma warning restore CS1998 // TODO: Remove after implementation
 
     public void Logout()
     {
