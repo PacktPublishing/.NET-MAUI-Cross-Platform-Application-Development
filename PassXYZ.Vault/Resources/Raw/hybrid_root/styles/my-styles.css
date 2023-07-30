@@ -1,0 +1,26 @@
+﻿body {
+    background-color: beige;
+    font-family: Arial;
+    padding: 1em;
+}
+
+h1 {
+    font-weight: 600;
+    padding-left: .5em;
+}
+
+h2 {
+    font-size: 1.1em;
+    font-weight: 500;
+    padding-left: .5em;
+}
+
+div{
+    margin-top: .5em;
+}
+
+.navBar {
+    padding: .5em;
+    margin: .5em;
+    border: 1px solid darkgray;
+}

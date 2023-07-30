@@ -7,6 +7,7 @@
              xmlns:template="clr-namespace:PassXYZ.Vault.Views.Templates"
              xmlns:local="clr-namespace:PassXYZ.Vault.ViewModels"
              xmlns:model="clr-namespace:KPCLib;assembly=KPCLib"
+             xmlns:vw="clr-namespace:PassXYZ.Vault.Views"
              x:Name="itemDetailPage"
              x:DataType="local:ItemDetailViewModel"
              Title="{Binding Title}">
@@ -29,9 +30,19 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    
-    <StackLayout>
-        <ListView x:Name="FieldsListView" 
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="fieldsListView" 
+                  Grid.Row="0"
+                  Grid.Column="0"                      
                   ItemsSource="{Binding Fields}"
                   VerticalOptions="FillAndExpand"
                   HasUnevenRows="False"
@@ -40,22 +51,33 @@
                   IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                   CachingStrategy="RetainElement">
 
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:Field">
-                    <template:FieldViewCell Key="{Binding Key}" 
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Field">
+                        <template:FieldViewCell Key="{Binding Key}" 
                                             Value="{Binding Value}" Source="{Binding ImgSource}" 
                                             ParentPage="{x:Reference itemDetailPage}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.Footer>
-                <StackLayout Padding="5" Orientation="Horizontal">
-                    <Label Text="{Binding Description}" 
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout Padding="5" Orientation="Horizontal">
+                        <Label Text="{Binding Description}" 
                            FontSize="Small" 
                            TextType ="Html"
+                           LineBreakMode="WordWrap"
                            Style="{DynamicResource ListItemDetailTextStyle}" />
-                </StackLayout>
-            </ListView.Footer>
-        </ListView>
-    </StackLayout>
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+
+            <vw:MarkdownView x:Name="markdownview" 
+                  Grid.Row="1"
+                  Grid.Column="0"                      
+                  VerticalOptions="FillAndExpand">
+                <vw:MarkdownView.Source>
+                    <HtmlWebViewSource x:Name="htmlSource"/>
+                </vw:MarkdownView.Source>
+            </vw:MarkdownView>
+        </Grid>
+    </ContentPage.Content>
 
 </ContentPage>

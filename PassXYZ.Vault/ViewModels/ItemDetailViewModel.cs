@@ -7,8 +7,10 @@ using CommunityToolkit.Mvvm.Input;
 using KPCLib;
 using KeePassLib;
 using PassXYZLib;
+using PassXYZ.Vault.Properties;
 using PassXYZ.Vault.Services;
 using PassXYZ.Vault.Views;
+using HybridWebView;
 
 namespace PassXYZ.Vault.ViewModels;
 
@@ -39,21 +41,39 @@ public partial class ItemDetailViewModel : BaseViewModel
     [ObservableProperty]
     private bool isBusy;
 
-        private string? itemId;
-        public string ItemId
+    private string? itemId;
+    public string ItemId
+    {
+        get
         {
-            get
-            {
-                if(itemId == null) { throw new NullReferenceException(nameof(itemId)); }
-                return itemId;
-            }
-
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
+            if(itemId == null) { throw new NullReferenceException(nameof(itemId)); }
+            return itemId;
         }
+
+        set
+        {
+            itemId = value;
+            LoadItemId(value);
+        }
+    }
+
+    public bool IsNotes
+    { 
+        get 
+        { 
+            if(_item == null) { return false; }
+            return _item.IsNotes();
+        }
+    }
+
+    public string MarkdownText 
+    {
+        get
+        {
+            if (_item == null) { return ""; }
+            return _item.Notes;
+        }
+    }
 
     public override async void OnSelection(object sender) 
     {
