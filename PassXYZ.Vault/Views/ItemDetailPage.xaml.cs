@@ -1,4 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Web;
+using HybridWebView;
 using KPCLib;
 using PassXYZ.Vault.ViewModels;
 
@@ -12,6 +15,9 @@ public partial class ItemDetailPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _viewModel = viewModel;
+#if DEBUG
+        markdownview.EnableWebDevTools = true;
+#endif
     }
 
     protected override void OnAppearing()
@@ -19,18 +25,21 @@ public partial class ItemDetailPage : ContentPage
         base.OnAppearing();
         fieldsListView.IsVisible = !_viewModel.IsNotes;
         markdownview.IsVisible = _viewModel.IsNotes;
-        if (_viewModel.IsNotes)
+        if(_viewModel.IsNotes) 
         {
-            htmlSource.Html = _viewModel.Description;
+            markdownview.Reload();
         }
     }
 
     protected override void OnDisappearing() 
     { 
         base.OnDisappearing();
-        if (_viewModel.IsNotes) 
-        {
-            htmlSource.Html = "<p>Loading ...</p>";
-        }
+    }
+
+    private async void OnHybridWebViewRawMessageReceived(object sender, HybridWebView.HybridWebViewRawMessageReceivedEventArgs e)
+    {
+        string markDownTxt = HttpUtility.JavaScriptStringEncode(_viewModel.MarkdownText);
+        Debug.WriteLine($"markDownTxt len={markDownTxt.Length}");
+        await markdownview.InvokeJsMethodAsync("MarkdownToHtml", markDownTxt);
     }
 }

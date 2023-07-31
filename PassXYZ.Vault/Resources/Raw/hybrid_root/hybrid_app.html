@@ -5,17 +5,23 @@
     <meta charset="utf-8" />
     <title>Testing</title>
     <script src="_hwv/HybridWebView.js"></script>
+    <script src="js/jquery-3.7.0.min.js"></script>
     <script src="js/marked.min.js"></script>
     <script src="js/extra_code.js"></script>
     <link href="styles/my-styles.css" rel="stylesheet" />
-    <script>
-        function ToHtml(txt) {
-            document.getElementById('content').innerHTML = marked.parse(txt);
-        }
-    </script>
 </head>
 <body>
     <div id="content"></div>
-    <p>Loading Markdown ...</p>
+    <script>
+        function MarkdownToHtml(txt) {
+            console.log('Display markdown text ...' + txt.length);
+            document.getElementById('content').innerHTML = marked.parse(txt);
+        }
+
+        $(document).ready(function () {
+            console.log("Calling jQuery");
+            HybridWebView.SendRawMessageToDotNet("message from jQuery");
+        });
+    </script>
 </body>
 </html>

@@ -71,12 +71,9 @@
 
             <vw:MarkdownView x:Name="markdownview" 
                   Grid.Row="1"
-                  Grid.Column="0"                      
-                  VerticalOptions="FillAndExpand">
-                <vw:MarkdownView.Source>
-                    <HtmlWebViewSource x:Name="htmlSource"/>
-                </vw:MarkdownView.Source>
-            </vw:MarkdownView>
+                  Grid.Column="0"
+                  RawMessageReceived="OnHybridWebViewRawMessageReceived"
+                  VerticalOptions="FillAndExpand"/>
         </Grid>
     </ContentPage.Content>
 
