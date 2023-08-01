@@ -36,10 +36,8 @@ public partial class ItemDetailPage : ContentPage
         base.OnDisappearing();
     }
 
-    private async void OnHybridWebViewRawMessageReceived(object sender, HybridWebView.HybridWebViewRawMessageReceivedEventArgs e)
+    private void OnHybridWebViewRawMessageReceived(object sender, HybridWebView.HybridWebViewRawMessageReceivedEventArgs e)
     {
-        string markDownTxt = HttpUtility.JavaScriptStringEncode(_viewModel.MarkdownText);
-        Debug.WriteLine($"markDownTxt len={markDownTxt.Length}");
-        await markdownview.InvokeJsMethodAsync("MarkdownToHtml", markDownTxt);
+        markdownview.DisplayMarkdown(_viewModel.MarkdownText);
     }
 }
