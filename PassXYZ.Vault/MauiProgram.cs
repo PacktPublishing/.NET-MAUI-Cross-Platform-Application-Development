@@ -39,6 +39,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<SettingsPage>();
         builder.Services.AddSingleton<ItemDetailViewModel>();
         builder.Services.AddSingleton<ItemDetailPage>();
+        builder.Services.AddSingleton<NotesPage>();
         builder.Services.AddSingleton<NewItemViewModel>();
         builder.Services.AddSingleton<NewItemPage>();
         builder.Services.AddSingleton<AboutViewModel>();

@@ -98,7 +98,14 @@ namespace PassXYZ.Vault.ViewModels
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+                if (item.IsNotes()) 
+                {
+                    await Shell.Current.GoToAsync($"{nameof(NotesPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+                }
+                else 
+                {
+                    await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+                }
             }
         }
 

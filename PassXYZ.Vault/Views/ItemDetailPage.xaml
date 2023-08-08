@@ -31,25 +31,16 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <ListView x:Name="fieldsListView" 
-                  Grid.Row="0"
-                  Grid.Column="0"                      
-                  ItemsSource="{Binding Fields}"
-                  VerticalOptions="FillAndExpand"
-                  HasUnevenRows="False"
-                  RowHeight="84"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  CachingStrategy="RetainElement">
+    <ScrollView>
+        <StackLayout>
+            <ListView x:Name="FieldsListView" 
+                      ItemsSource="{Binding Fields}"
+                      VerticalOptions="Fill"
+                      HasUnevenRows="False"
+                      RowHeight="84"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      CachingStrategy="RetainElement">
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Field">
@@ -58,23 +49,13 @@
                                             ParentPage="{x:Reference itemDetailPage}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <StackLayout Padding="5" Orientation="Horizontal">
-                        <Label Text="{Binding Description}" 
-                           FontSize="Small" 
-                           TextType ="Html"
-                           LineBreakMode="WordWrap"
-                           Style="{DynamicResource ListItemDetailTextStyle}" />
-                    </StackLayout>
-                </ListView.Footer>
             </ListView>
-
-            <vw:MarkdownView x:Name="markdownview" 
-                  Grid.Row="1"
-                  Grid.Column="0"
-                  RawMessageReceived="OnHybridWebViewRawMessageReceived"
-                  VerticalOptions="FillAndExpand"/>
-        </Grid>
-    </ContentPage.Content>
+            <Label Text="{Binding Description}"  
+                   VerticalOptions="End"
+                   FontSize="Small" 
+                   TextType ="Html"
+                   Style="{DynamicResource ListItemDetailTextStyle}" />
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

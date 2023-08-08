@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vw="clr-namespace:PassXYZ.Vault.Views"
+             x:Class="PassXYZ.Vault.Views.NotesPage"
+             Title="NotesPage">
+    <vw:MarkdownView x:Name="markdownview" 
+                  RawMessageReceived="OnHybridWebViewRawMessageReceived"
+                  VerticalOptions="FillAndExpand"/>
+</ContentPage>
