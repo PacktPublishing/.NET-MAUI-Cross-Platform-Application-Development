@@ -7,6 +7,8 @@ namespace PassXYZ.Vault.Views.Templates
 {
     public class FieldViewCell : KeyValueView
     {
+        private bool isShowActionSet = false;
+
         public FieldViewCell() 
         {
             SetContextAction(GetEditMenu(), OnEditAction);
@@ -17,10 +19,15 @@ namespace PassXYZ.Vault.Views.Templates
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
             if (BindingContext is Field field)
             {
-                if (field.IsProtected)
+                if (field.IsProtected && !isShowActionSet)
+                {
                     SetContextAction(GetShowMenu(), OnShowAction);
+                    isShowActionSet = true;
+                    Debug.WriteLine($"{field.Key} is protected.");
+                }
             }
         }
 
