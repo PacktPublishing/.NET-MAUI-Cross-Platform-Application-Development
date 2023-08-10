@@ -173,12 +173,15 @@ namespace PassXYZ.Vault.ViewModels
         {
             _currentUser.Username = Username;
             var password = await _currentUser.GetSecurityAsync();
-            var isAvailable = await _fingerprint.IsAvailableAsync();
-            IsFingerprintEnabled = isAvailable && !string.IsNullOrWhiteSpace(password);
+            IsFingerprintIsAvailable = await _fingerprint.IsAvailableAsync();
+            IsFingerprintEnabled = IsFingerprintIsAvailable && !string.IsNullOrWhiteSpace(password);
         }
 
         [ObservableProperty]
         private bool isFingerprintEnabled = false;
+
+        [ObservableProperty]
+        private bool isFingerprintIsAvailable = false;
 
         [ObservableProperty]
         private bool isBusy = false;
@@ -256,6 +259,27 @@ namespace PassXYZ.Vault.ViewModels
         public void Logout() 
         {
             _currentUser.Logout();
+        }
+
+        public async Task<bool> AuthenticateAsync(string reason, string? cancel = null, string? fallback = null, string? tooFast = null)
+        {
+            CancellationTokenSource cancelToken;
+
+            cancelToken = new CancellationTokenSource();
+
+            var dialogConfig = new AuthenticationRequestConfiguration("Verify your fingerprint", reason)
+            { // all optional
+                CancelTitle = cancel,
+                FallbackTitle = fallback,
+                AllowAlternativeAuthentication = false
+            };
+
+            // optional
+            dialogConfig.HelpTexts.MovedTooFast = tooFast;
+
+            var result = await _fingerprint.AuthenticateAsync(dialogConfig, cancelToken.Token);
+
+            return result.Authenticated;
         }
     }
 }

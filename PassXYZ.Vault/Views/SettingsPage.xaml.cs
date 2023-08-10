@@ -14,7 +14,6 @@ public partial class SettingsPage : ContentPage
     private LoginService _currentUser;
     ILogger<LoginViewModel> _logger;
     private readonly LoginViewModel _viewModel;
-    FingerprintAvailability _availability = FingerprintAvailability.NoFingerprint;
 
     public SettingsPage(LoginViewModel viewModel, LoginService user, ILogger<LoginViewModel> logger)
     {
@@ -25,41 +24,35 @@ public partial class SettingsPage : ContentPage
         Title = Properties.Resources.menu_id_settings;
     }
 
-    protected override async void OnAppearing()
+    private void SetFingerPrintSwitcher()
     {
-        base.OnAppearing();
-
-        _availability = await CrossFingerprint.Current.GetAvailabilityAsync();
-
-        timerCell.Text = Properties.Resources.settings_timer_title + " " + PxUser.AppTimeout.ToString() + " " + Properties.Resources.settings_timer_unit_seconds;
-
-        // Refresh username and device lock status
-        _ = _viewModel.Username;
-        if (_availability == FingerprintAvailability.Available)
+        FingerPrintSwitcher.IsEnabled = _viewModel.IsFingerprintIsAvailable;
+        FingerPrintSwitcher.On = _viewModel.IsFingerprintEnabled;
+        if (_viewModel.IsFingerprintIsAvailable)
         {
-            FingerPrintSwitcher.IsEnabled = true;
-            FingerPrintSwitcher.On = true;
-
-            try
-            {
-                string data = await _currentUser.GetSecurityAsync();
-                FingerPrintSwitcher.On = data != null;
-            }
-            catch (Exception ex)
-            {
-                // Possible that device doesn't support secure storage on device.
-                FingerPrintSwitcher.IsEnabled = false;
-                FingerPrintSwitcher.On = false;
-                FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_disabled;
-                _logger.LogError($"{ex}");
-            }
+            FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_remark;
         }
         else
         {
-            FingerPrintSwitcher.IsEnabled = false;
-            //FingerPrintSwitcher.IsVisible = false;
             FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_disabled;
         }
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        timerCell.Text = Properties.Resources.settings_timer_title + " " + PxUser.AppTimeout.ToString() + " " + Properties.Resources.settings_timer_unit_seconds;
+
+        try
+        {
+            _viewModel.CheckFingerPrintStatus();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"{ex}");
+        }
+        SetFingerPrintSwitcher();
     }
 
     private async void OnTimerTappedAsync(object sender, System.EventArgs e)
@@ -89,34 +82,15 @@ public partial class SettingsPage : ContentPage
         timerCell.Text = Properties.Resources.settings_timer_title + " " + PxUser.AppTimeout.ToString() + " " + Properties.Resources.settings_timer_unit_seconds;
     }
 
-    private async Task AuthenticateAsync(string reason, string? cancel = null, string? fallback = null, string? tooFast = null)
+
+    private async void SetResultAsync(bool result)
     {
-            CancellationTokenSource cancelToken;
-
-        cancelToken = new CancellationTokenSource();
-
-        var dialogConfig = new AuthenticationRequestConfiguration("Verify your fingerprint", reason)
-        { // all optional
-            CancelTitle = cancel,
-            FallbackTitle = fallback,
-            AllowAlternativeAuthentication = false
-        };
-
-        // optional
-        dialogConfig.HelpTexts.MovedTooFast = tooFast;
-
-        var result = await CrossFingerprint.Current.AuthenticateAsync(dialogConfig, cancelToken.Token);
-
-        SetResultAsync(result);
-    }
-
-    private async void SetResultAsync(FingerprintAuthenticationResult result)
-    {
-        if (result.Authenticated)
+        if (result)
         {
             try
             {
                 await _currentUser.SetSecurityAsync(_currentUser.Password);
+                _viewModel.IsFingerprintEnabled = true;
             }
             catch (Exception ex)
             {
@@ -126,13 +100,14 @@ public partial class SettingsPage : ContentPage
         }
         else
         {
-            FingerPrintSwitcher.Text = $"{result.Status}: {result.ErrorMessage}";
+            FingerPrintSwitcher.Text = "Turn on fingerprint error.";
         }
+        SetFingerPrintSwitcher();
     }
 
     private async void OnSwitcherToggledAsync(object sender, ToggledEventArgs e)
     {
-        if (_availability == FingerprintAvailability.NoFingerprint) { return; }
+        if (!_viewModel.IsFingerprintIsAvailable) { return; }
 
         if (e.Value)
         {
@@ -141,7 +116,8 @@ public partial class SettingsPage : ContentPage
                 string data = await _currentUser.GetSecurityAsync();
                 if (data == null)
                 {
-                    await AuthenticateAsync(Properties.Resources.fingerprint_login_message);
+                    var status = await _viewModel.AuthenticateAsync(Properties.Resources.fingerprint_login_message);
+                    SetResultAsync(status);
                 }
             }
             catch (Exception ex)
