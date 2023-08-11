@@ -40,7 +40,7 @@ namespace PassXYZ.Vault.Views
             base.OnAppearing();
             _viewModel.Logout();
             passwordEntry.Text = "";
-            _viewModel.CheckFingerPrintStatus();
+            _viewModel.CheckFingerprintStatus();
         }
     }
 }

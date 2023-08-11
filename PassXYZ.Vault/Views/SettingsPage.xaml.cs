@@ -26,9 +26,9 @@ public partial class SettingsPage : ContentPage
 
     private void SetFingerPrintSwitcher()
     {
-        FingerPrintSwitcher.IsEnabled = _viewModel.IsFingerprintIsAvailable;
+        FingerPrintSwitcher.IsEnabled = _viewModel.IsFingerprintAvailable;
         FingerPrintSwitcher.On = _viewModel.IsFingerprintEnabled;
-        if (_viewModel.IsFingerprintIsAvailable)
+        if (_viewModel.IsFingerprintAvailable)
         {
             FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_remark;
         }
@@ -46,7 +46,7 @@ public partial class SettingsPage : ContentPage
 
         try
         {
-            _viewModel.CheckFingerPrintStatus();
+            _viewModel.CheckFingerprintStatus();
         }
         catch (Exception ex)
         {
@@ -107,7 +107,7 @@ public partial class SettingsPage : ContentPage
 
     private async void OnSwitcherToggledAsync(object sender, ToggledEventArgs e)
     {
-        if (!_viewModel.IsFingerprintIsAvailable) { return; }
+        if (!_viewModel.IsFingerprintAvailable) { return; }
 
         if (e.Value)
         {

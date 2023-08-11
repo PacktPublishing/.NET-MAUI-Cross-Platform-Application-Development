@@ -165,23 +165,23 @@ namespace PassXYZ.Vault.ViewModels
 
         private bool ValidateFingerprintLogin()
         {
-            CheckFingerPrintStatus();
+            CheckFingerprintStatus();
             return !String.IsNullOrWhiteSpace(Username);
         }
 
-        public async void CheckFingerPrintStatus()
+        public async void CheckFingerprintStatus()
         {
             _currentUser.Username = Username;
             var password = await _currentUser.GetSecurityAsync();
-            IsFingerprintIsAvailable = await _fingerprint.IsAvailableAsync();
-            IsFingerprintEnabled = IsFingerprintIsAvailable && !string.IsNullOrWhiteSpace(password);
+            IsFingerprintAvailable = await _fingerprint.IsAvailableAsync();
+            IsFingerprintEnabled = IsFingerprintAvailable && !string.IsNullOrWhiteSpace(password);
         }
 
         [ObservableProperty]
         private bool isFingerprintEnabled = false;
 
         [ObservableProperty]
-        private bool isFingerprintIsAvailable = false;
+        private bool isFingerprintAvailable = false;
 
         [ObservableProperty]
         private bool isBusy = false;
