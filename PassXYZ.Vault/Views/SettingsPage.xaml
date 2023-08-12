@@ -23,7 +23,7 @@
                 </ImageCell>
 
                 <!-- Fingerprint setup -->
-                <SwitchCell x:Name="FingerPrintSwitcher"
+                <SwitchCell x:Name="FingerprintSwitcher"
                             Text="{x:Static res:Resources.settings_fingerprint_remark}" 
                             OnChanged="OnSwitcherToggledAsync"/>
 

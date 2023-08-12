@@ -11,8 +11,8 @@ namespace PassXYZ.Vault.Views;
 
 public partial class SettingsPage : ContentPage
 {
-    private LoginService _currentUser;
-    ILogger<LoginViewModel> _logger;
+    private readonly LoginService _currentUser;
+    private readonly ILogger<LoginViewModel> _logger;
     private readonly LoginViewModel _viewModel;
 
     public SettingsPage(LoginViewModel viewModel, LoginService user, ILogger<LoginViewModel> logger)
@@ -24,17 +24,17 @@ public partial class SettingsPage : ContentPage
         Title = Properties.Resources.menu_id_settings;
     }
 
-    private void SetFingerPrintSwitcher()
+    private void SetFingerprintSwitcher()
     {
-        FingerPrintSwitcher.IsEnabled = _viewModel.IsFingerprintAvailable;
-        FingerPrintSwitcher.On = _viewModel.IsFingerprintEnabled;
+        FingerprintSwitcher.IsEnabled = _viewModel.IsFingerprintAvailable;
+        FingerprintSwitcher.On = _viewModel.IsFingerprintEnabled;
         if (_viewModel.IsFingerprintAvailable)
         {
-            FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_remark;
+            FingerprintSwitcher.Text = Properties.Resources.settings_fingerprint_remark;
         }
         else
         {
-            FingerPrintSwitcher.Text = Properties.Resources.settings_fingerprint_disabled;
+            FingerprintSwitcher.Text = Properties.Resources.settings_fingerprint_disabled;
         }
     }
 
@@ -52,7 +52,7 @@ public partial class SettingsPage : ContentPage
         {
             _logger.LogError($"{ex}");
         }
-        SetFingerPrintSwitcher();
+        SetFingerprintSwitcher();
     }
 
     private async void OnTimerTappedAsync(object sender, System.EventArgs e)
@@ -100,9 +100,9 @@ public partial class SettingsPage : ContentPage
         }
         else
         {
-            FingerPrintSwitcher.Text = "Turn on fingerprint error.";
+            FingerprintSwitcher.Text = "Turn on fingerprint error.";
         }
-        SetFingerPrintSwitcher();
+        SetFingerprintSwitcher();
     }
 
     private async void OnSwitcherToggledAsync(object sender, ToggledEventArgs e)
