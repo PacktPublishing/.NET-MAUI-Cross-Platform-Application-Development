@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vw="clr-namespace:PassXYZ.Vault.Views"
              x:Class="PassXYZ.Vault.Views.NotesPage"
-             Title="NotesPage">
+             Title="{Binding Title}">
     <vw:MarkdownView x:Name="markdownview" 
                   RawMessageReceived="OnHybridWebViewRawMessageReceived"
                   VerticalOptions="FillAndExpand"/>
