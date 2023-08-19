@@ -1,0 +1,21 @@
+.btn-light {
+    text-align: start;
+    vertical-align: middle;
+}
+
+.dropdown {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.dropdown-toggle {
+    background-color: transparent;
+    color: #000;
+    border: 0px transparent;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+}
+
+    .dropdown-toggle::after {
+        display: none !important;
+    }
