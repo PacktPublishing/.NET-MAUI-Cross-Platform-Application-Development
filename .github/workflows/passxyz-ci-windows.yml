@@ -2,13 +2,13 @@ name: PassXYZ.Vault CI Build (Windows)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ chapter12 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ chapter12 ]
   workflow_dispatch:
 
 permissions:
