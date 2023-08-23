@@ -2,13 +2,13 @@ name: PassXYZ.Vault CI Build (MacOS)
 
 on:
   push:
-    branches: [ master ]
+    branches: [ chapter12 ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ chapter12 ]
   workflow_dispatch:
 
 permissions:
@@ -18,32 +18,27 @@ env:
   DOTNET_NOLOGO: true                     # Disable the .NET logo
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
   DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
-  DOTNETVERSION: 6.0.400
+  DOTNETVERSION: 6.0.x
   PROJECT_NAME: PassXYZ.Vault
   
 jobs:
 # MAUI iOS Build
   build-ios:
-    runs-on: macos-12
+    runs-on: macos-latest
     name: iOS Build
     steps:
-
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Install .NET MAUI
-        shell: pwsh
-        run: |
-          & dotnet nuget locals all --clear
-          & dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-          & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{env.DOTNETVERSION}}
+      - name: Install MAUI workload
+        run: dotnet workload install maui
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
-
       - name: Build MAUI iOS
         run: dotnet build ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
-
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -52,26 +47,21 @@ jobs:
 
 # MAUI MacCatalyst Build
   build-mac:
-    runs-on: macos-12
+    runs-on: macos-latest
     name: MacCatalyst Build
     steps:
-    
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Install .NET MAUI
-        shell: pwsh
-        run: |
-          & dotnet nuget locals all --clear
-          & dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-          & dotnet workload install android ios maccatalyst tvos macos maui wasm-tools maui-maccatalyst --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{env.DOTNETVERSION}}
+      - name: Install MAUI workload
+        run: dotnet workload install maui
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
-
       - name: Build MAUI MacCatalyst
         run: dotnet publish ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-maccatalyst --no-restore -p:BuildIpa=True
-
       - name: Upload MacCatalyst Artifact
         uses: actions/upload-artifact@v3
         with:
