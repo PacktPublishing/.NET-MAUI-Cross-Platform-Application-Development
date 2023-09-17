@@ -39,7 +39,7 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
       - name: Build MAUI iOS
-        run: dotnet build ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f ${{env.DOTNETSDK}}-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+        run: dotnet build ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f ${{env.DOTNETSDK}}-ios /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v3
         with:
