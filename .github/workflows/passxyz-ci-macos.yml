@@ -18,7 +18,8 @@ env:
   DOTNET_NOLOGO: true                     # Disable the .NET logo
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
   DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
-  DOTNETVERSION: 6.0.x
+  DOTNETVERSION: 7.0.x
+  DOTNETSDK: 7.0
   PROJECT_NAME: PassXYZ.Vault
   
 jobs:
@@ -38,12 +39,12 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
       - name: Build MAUI iOS
-        run: dotnet build ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+        run: dotnet build ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f ${{env.DOTNETSDK}}-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v3
         with:
           name: passxyz-ios-ci-build
-          path: ${{env.PROJECT_NAME}}/bin/Release/net6.0-ios/iossimulator-x64/**/*.app
+          path: ${{env.PROJECT_NAME}}/bin/Release/${{env.DOTNETSDK}}-ios/iossimulator-x64/**/*.app
 
 # MAUI MacCatalyst Build
   build-mac:
@@ -61,9 +62,9 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj
       - name: Build MAUI MacCatalyst
-        run: dotnet publish ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f net6.0-maccatalyst --no-restore -p:BuildIpa=True
+        run: dotnet publish ${{env.PROJECT_NAME}}/${{env.PROJECT_NAME}}.csproj -c Release -f ${{env.DOTNETSDK}}-maccatalyst --no-restore -p:BuildIpa=True
       - name: Upload MacCatalyst Artifact
         uses: actions/upload-artifact@v3
         with:
           name: passxyz-macos-ci-build
-          path: ${{env.PROJECT_NAME}}/bin/Release/net6.0-maccatalyst/maccatalyst-x64/publish/*.pkg
+          path: ${{env.PROJECT_NAME}}/bin/Release/${{env.DOTNETSDK}}-maccatalyst/maccatalyst-x64/publish/*.pkg
