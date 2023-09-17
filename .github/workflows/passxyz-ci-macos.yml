@@ -19,7 +19,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
   DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
   DOTNETVERSION: 7.0.x
-  DOTNETSDK: '7.0'
+  DOTNETSDK: 'net7.0'
   PROJECT_NAME: PassXYZ.Vault
   
 jobs:
