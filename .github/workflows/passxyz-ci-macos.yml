@@ -25,7 +25,7 @@ env:
 jobs:
 # MAUI iOS Build
   build-ios:
-    runs-on: macos-latest
+    runs-on: macos-13
     name: iOS Build
     steps:
       - name: Checkout
@@ -48,7 +48,7 @@ jobs:
 
 # MAUI MacCatalyst Build
   build-mac:
-    runs-on: macos-latest
+    runs-on: macos-13
     name: MacCatalyst Build
     steps:
       - name: Checkout
