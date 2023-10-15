@@ -1,10 +1,10 @@
-using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
+using System;
 
-namespace PassXYZ.Vault;
-
-class Program : MauiApplication
+namespace PassXYZ.Vault
+{
+    internal class Program : MauiApplication
 {
 	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
@@ -13,4 +13,5 @@ class Program : MauiApplication
 		var app = new Program();
 		app.Run(args);
 	}
+    }
 }
