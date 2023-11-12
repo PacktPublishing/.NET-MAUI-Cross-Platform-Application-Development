@@ -16,7 +16,7 @@ namespace PassXYZ.Vault.ViewModels
         [RelayCommand]
         private async Task OpenWeb()
         {
-            await Browser.OpenAsync("Properties.Resources.about_url");
+            await Browser.OpenAsync(Properties.Resources.about_url);
         }
 
         public string GetStoreName()
