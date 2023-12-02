@@ -74,8 +74,15 @@
     <None Remove="data\ic_passxyz_sync.png" />
     <None Remove="data\ic_passxyz_synced.png" />
     <None Remove="data\pass_d_E8f4pEk.xyz" />
+    <None Remove="data\pass_e_2TjEf1Dy9V2jiEgbS.xyz" />
+    <None Remove="data\pass_e_EFZGmRz.xyz" />
     <None Remove="data\pass_e_JyHzpRxcopt.xyz" />
+    <None Remove="data\pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz" />
+    <None Remove="data\pass_e_WCXaKYYvXygN3nVYW3u.xyz" />
+    <None Remove="data\pass_k_2TjEf1Dy9V2jiEgbS.k4xyz" />
     <None Remove="data\pass_k_JyHzpRxcopt.k4xyz" />
+    <None Remove="data\pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz" />
+    <None Remove="data\pass_k_WCXaKYYvXygN3nVYW3u.k4xyz" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,8 +93,15 @@
     <EmbeddedResource Include="data\ic_passxyz_sync.png" />
     <EmbeddedResource Include="data\ic_passxyz_synced.png" />
     <EmbeddedResource Include="data\pass_d_E8f4pEk.xyz" />
+    <EmbeddedResource Include="data\pass_e_2TjEf1Dy9V2jiEgbS.xyz" />
+    <EmbeddedResource Include="data\pass_e_EFZGmRz.xyz" />
     <EmbeddedResource Include="data\pass_e_JyHzpRxcopt.xyz" />
+    <EmbeddedResource Include="data\pass_e_VpdPx4ZcUZs8Fpzpmuu.xyz" />
+    <EmbeddedResource Include="data\pass_e_WCXaKYYvXygN3nVYW3u.xyz" />
+    <EmbeddedResource Include="data\pass_k_2TjEf1Dy9V2jiEgbS.k4xyz" />
     <EmbeddedResource Include="data\pass_k_JyHzpRxcopt.k4xyz" />
+    <EmbeddedResource Include="data\pass_k_VpdPx4ZcUZs8Fpzpmuu.k4xyz" />
+    <EmbeddedResource Include="data\pass_k_WCXaKYYvXygN3nVYW3u.k4xyz" />
   </ItemGroup>
 
 	<ItemGroup>
