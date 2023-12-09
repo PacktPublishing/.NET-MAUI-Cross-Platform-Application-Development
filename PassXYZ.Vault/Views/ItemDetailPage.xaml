@@ -17,7 +17,7 @@
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="FontAwesomeSolid"
 			        Glyph="{x:Static styles:FontAwesomeSolid.Plus}"
-			        Color="{DynamicResource SecondaryColor}"
+			        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
 			        Size="16" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
@@ -25,22 +25,19 @@
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="FontAwesomeSolid"
 			        Glyph="{x:Static styles:FontAwesomeSolid.Paperclip}"
-			        Color="{DynamicResource SecondaryColor}"
+			        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
 			        Size="16" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
-        <StackLayout>
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+        <ScrollView>
             <ListView x:Name="FieldsListView" 
                       ItemsSource="{Binding Fields}"
-                      VerticalOptions="Fill"
+                      VerticalOptions="FillAndExpand"
                       HasUnevenRows="False"
-                      RowHeight="84"
-                      IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                      CachingStrategy="RetainElement">
+                      RowHeight="84">
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Field">
@@ -49,13 +46,18 @@
                                             ParentPage="{x:Reference itemDetailPage}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.Header>
+                    <StackLayout BackgroundColor="LightGray">
+                        <Label Margin="10,0,0,0"
+                           Text="{Binding Description}"
+                           FontSize="Small"
+                           TextType ="Html"
+                           Style="{DynamicResource ListItemDetailTextStyle}" />
+                    </StackLayout>
+                </ListView.Header>
             </ListView>
-            <Label Text="{Binding Description}"  
-                   VerticalOptions="End"
-                   FontSize="Small" 
-                   TextType ="Html"
-                   Style="{DynamicResource ListItemDetailTextStyle}" />
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+    </RefreshView>
 
 </ContentPage>

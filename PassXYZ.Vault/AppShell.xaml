@@ -6,9 +6,10 @@
        xmlns:app="clr-namespace:PassXYZ.Vault"
        Title="PassXYZ.Vault"
        x:Class="PassXYZ.Vault.AppShell" 
-       FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+       FlyoutIcon="{FontImage FontFamily=FontAwesomeSolid, 
+        Color={StaticResource Primary}, 
         Glyph={x:Static style:FontAwesomeSolid.Bars}}"
-       FlyoutBackgroundColor="{StaticResource Secondary}">
+       FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Primary}}">
 
     <TabBar>
         <ShellContent Title="Login" Route="LoginPage" 

@@ -10,7 +10,7 @@
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="FontAwesomeRegular"
 			        Glyph="{x:Static styles:FontAwesomeRegular.WindowClose}"
-			        Color="{DynamicResource SecondaryColor}"
+			        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
 			        Size="16" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
@@ -18,7 +18,7 @@
             <ToolbarItem.IconImageSource>
                 <FontImageSource FontFamily="FontAwesomeRegular"
 			        Glyph="{x:Static styles:FontAwesomeRegular.Save}"
-			        Color="{DynamicResource SecondaryColor}"
+			        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"
 			        Size="16" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
