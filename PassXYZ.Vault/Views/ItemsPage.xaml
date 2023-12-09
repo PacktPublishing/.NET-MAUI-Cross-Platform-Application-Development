@@ -12,21 +12,23 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" 
-                     IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color=White, 
+                     IconImageSource="{FontImage FontFamily=FontAwesomeSolid, Color={StaticResource Primary}, 
                      Glyph={x:Static style:FontAwesomeSolid.PlusCircle}}"/>
     </ContentPage.ToolbarItems>
 
     <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <ListView x:Name="itemsListView"
-                  ItemsSource="{Binding Items}"
-                  VerticalOptions="FillAndExpand"
-                  HasUnevenRows="False"
-                  RowHeight="84">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="model:Item">
-                    <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView>
+            <ListView x:Name="itemsListView"
+                      ItemsSource="{Binding Items}"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="False"
+                      RowHeight="84">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Item">
+                        <template:KeyValueView Key="{Binding Name}" Value="{Binding Description}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
     </RefreshView>
 </ContentPage>

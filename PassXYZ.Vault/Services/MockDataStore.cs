@@ -12,15 +12,11 @@ namespace PassXYZ.Vault.Services
 
         public MockDataStore()
         {
-            items = new List<Item>()
+            items = new List<Item>();
+            for (int i = 1; i <= 50; i++)
             {
-                new Item { Id = Guid.NewGuid().ToString(), Name = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Name = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Name = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Name = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Name = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Name = "Sixth item", Description="This is an item description." }
-            };
+                items.Add(new Item { Id = Guid.NewGuid().ToString(), Name = $"Item {i}", Description = $"This is the description for item {i}." });
+            }
         }
 
         public async Task<bool> AddItemAsync(Item item)
